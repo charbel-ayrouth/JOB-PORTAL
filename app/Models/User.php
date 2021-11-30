@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'path',
+        'Locations_id',
     ];
 
     /**
@@ -41,4 +44,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function JobProvider(){
+        return $this->hasOne(JobProvider::class);
+    }
+    public function JobSeeker(){
+        return $this->hasOne(JobSeeker::class);
+    }
+    public function Location(){
+        return $this->hasOne(Locations::class);
+    }
 }

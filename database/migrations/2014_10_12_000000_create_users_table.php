@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role_id');
+            $table->foreignId('Locations_id')->constrained('Locations')->onDelete('Cascade');
+            $table->string('path');
             $table->rememberToken();
             $table->timestamps();
         });

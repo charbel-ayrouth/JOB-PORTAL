@@ -17,11 +17,12 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role)
     {
         $roles = [
-            'admin' => 1,
-            'jobSeeker' => 2,
-            'jobProvider' => 3,
+            'admin' => [1],
+            'jobSeeker' => [2],
+            'jobProvider' => [3],
         ];
-        if (!in_array(auth()->user()->role_id, $roles)) {
+        $roleIds = $roles[$role] ?? [];
+        if (!in_array(auth()->user()->role_id, $roleIds)) {
             abort(403);
         }
         return $next($request);

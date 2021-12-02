@@ -16,7 +16,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-#forgot-pw .from,
+#forgot-pw .from,#sign-up .from,
 .form{
     position: relative;
     width: 100%;
@@ -28,11 +28,11 @@ body{
     box-shadow: 0 15px 25px rgba(0, 0, 0, .7);
 }
 
-#forgot-pw .form{
+#forgot-pw .form,
+#sign-up .form{
     position: relative;
     width: 100%;
     max-width: 380px;
-    height: 40%;
     padding: 80px 40px 40px;
     margin: auto;
     background: rgba(0, 0, 0, .7);
@@ -71,7 +71,7 @@ body{
     position: relative;
 }
 
-.form .input-group input{
+.form .input-group input,.form .input-group select{
     background-color: transparent;
     width: 100%;
     padding: 10px 0;
@@ -85,7 +85,8 @@ body{
 }
 
 
-.form .input-group input:valid{
+.form .input-group input:valid,
+.form .input-group select:valid{
     background: transparent;
 }
 
@@ -99,11 +100,19 @@ body{
     transition: .3s ease-out;
 }
 
+.form .input-group select:focus +label,
+.form .input-group select:valid +label,
 .form .input-group input:focus +label,
 .form .input-group input:valid +label{
     transform: translateY(-23px);
     color: orange;
     font-size: .8rem;
+}   
+.input-a-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .submit-btn{
     display: block;
@@ -118,12 +127,31 @@ body{
     border-radius: 5px;
     cursor: pointer;
 }
-
+.sign-up-btn{
+    margin-left: auto;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background: orange;
+    color: black;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom:10px;
+    text-align: right;
+}
+.form .input-group select option{
+    color: black;
+}
 .forgot-pw{
     color: inherit;
 }
 
-#forgot-pw{
+#forgot-pw,#sign-up{
     position: absolute;
     display: flex;
     justify-content: center;
@@ -132,16 +160,17 @@ body{
     left: 0;
     right: 0;
     height: 0;
-    z-index: 1;
+    z-index:-1;
     background: rgb(200, 200, 200);
     background-size: cover;
     opacity: 0;
     transition: 0.6s ease-in-out;
 }
 
-#forgot-pw:target{
+#forgot-pw:target,#sign-up:target{
     height: 100%;
     opacity: 1;
+    z-index: 1;
 }
 
 .close{

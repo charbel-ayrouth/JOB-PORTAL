@@ -31,7 +31,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = User::find(auth()->id())->get()->first();
+            $user = User::find(auth()->id());
             dd($user);
             if ($user->email_verified_at != null) {
                 dd($user);
@@ -110,9 +110,20 @@ class AuthController extends Controller
             $user->email_verified_at = Carbon::now();
             $user->save();
             if($user->role_id == 2){
-                return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Verified Please Login!'));
+                if(Auth::loginUsingId($user->id)){
+                    return redirect()->route('JobSeekerApp');
+                }else{
+                    return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
+                }
             }else if($user->role_id == 3){
-                return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Verified Please Login!'));
+                if(Auth::loginUsingId($user->id)){
+                    // return redirect()->route('');
+                    //should return to jobsrecruiterapp
+                    dd('mabrouk');
+                }else{
+                    return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
+                }
+                // return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Verified Please Login!'));
             }
         } else {
             return redirect()->back()->with(session()->flash('alert-danger', 'Invalid Verification Code!'));

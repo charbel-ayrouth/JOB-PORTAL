@@ -34,13 +34,4 @@ Route::get('/', function () {
 })->name('home');
 Route::get('/JobseekerAPP', function () {
     return view('Jobseeker.JobseekerApp');
-});
-
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/register', function () {
-    $countries = country::all();
-    return view('Auth.signUpScreen')->with('countries', $countries);
-});
-Route::get('/verify', [AuthController::class, 'VerifyUser'])->name('verify.user');
-// Auth::routes();
-Route::post('/Sign-In', [AuthController::class, 'Login']);
+})->name('JobSeekerApp');

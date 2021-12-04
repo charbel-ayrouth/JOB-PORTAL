@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Locations;
 
 class DashboardController extends Controller
 {
@@ -14,7 +16,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return \view('admin.index');
+        $job_providers = User::where('role_id', 3)->get();
+        $job_seekers = User::where('role_id', 2)->get();
+        return \view('admin.index', [
+            'job_providers' => $job_providers,
+            'job_seekers' => $job_seekers,
+        ]);
     }
 
     /**
@@ -46,7 +53,13 @@ class DashboardController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $location_id = User::select('location_id')->where('id', $id)->first();
+        $location = Locations::find($location_id)->first();
+        return view('admin.show', [
+            'user' => $user,
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -57,7 +70,13 @@ class DashboardController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        $location_id = User::select('location_id')->where('id', $id)->first();
+        $location = Locations::find($location_id)->first();
+        return view('admin.edit', [
+            'user' => $user,
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -80,6 +99,7 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id', $id)->delete();
+        return route('users.index');
     }
 }

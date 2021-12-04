@@ -19,7 +19,10 @@ use App\Http\Controllers\Auth\RegisterController;
 */
 
 // Route::resource('admin', [DashboardController::class]);
-Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('users.index');
+Route::get('/admin/dashboard/{id}', [DashboardController::class, 'show'])->name('users.show');
+Route::get('/admin/dashboard/{id}/edit', [DashboardController::class, 'edit'])->name('users.edit');
+Route::delete('/admin/dashboard/{id}', [DashboardController::class, 'destroy'])->name('users.delete');
 
 Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
 

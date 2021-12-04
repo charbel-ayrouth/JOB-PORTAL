@@ -18,11 +18,12 @@ class AuthController extends Controller
     public function indexSeeker()
     {
         $countries = country::all();
-        return view('Auth.LoginScreen')->with('countries', $countries)->with('roleId',2);
+        return view('Auth.LoginScreen')->with('countries', $countries)->with('roleId', 2);
     }
-    public function indexRecruiter(){
+    public function indexRecruiter()
+    {
         $countries = country::all();
-        return view('Auth.LoginScreen')->with('countries', $countries)->with('roleId',3);
+        return view('Auth.LoginScreen')->with('countries', $countries)->with('roleId', 3);
     }
     public function Login(Request $request)
     {
@@ -49,10 +50,10 @@ class AuthController extends Controller
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));
-            } }else {
-                return redirect()->back()->with(session()->flash('alert-danger', 'Invalid Credentials! Please Try Again!'));
             }
-        
+        } else {
+            return redirect()->back()->with(session()->flash('alert-danger', 'Invalid Credentials! Please Try Again!'));
+        }
     }
     public function register(Request $request)
     {
@@ -109,18 +110,18 @@ class AuthController extends Controller
         if ($user != null) {
             $user->email_verified_at = Carbon::now();
             $user->save();
-            if($user->role_id == 2){
-                if(Auth::loginUsingId($user->id)){
+            if ($user->role_id == 2) {
+                if (Auth::loginUsingId($user->id)) {
                     return redirect()->route('JobSeekerApp');
-                }else{
+                } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }
-            }else if($user->role_id == 3){
-                if(Auth::loginUsingId($user->id)){
+            } else if ($user->role_id == 3) {
+                if (Auth::loginUsingId($user->id)) {
                     // return redirect()->route('');
                     //should return to jobsrecruiterapp
                     dd('mabrouk');
-                }else{
+                } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }
                 // return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Verified Please Login!'));

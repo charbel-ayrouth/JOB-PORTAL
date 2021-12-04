@@ -18,6 +18,10 @@
             @endif
         @endforeach
     </div>
+
+    @foreach ($errors->all() as $err)
+        <p class="errors">{{ $err }}</p>
+    @endforeach
     <div class="login-wrapper">
         <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form"
             method="POST">
@@ -34,8 +38,7 @@
             @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="text" name="email" id="email"
-                    value="{{ old('email') }}">
+                <input autocomplete="new-password" type="text" name="email" id="email" value="{{ old('email') }}">
                 <label for="email">Email</label>
             </div>
 
@@ -48,8 +51,8 @@
             @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="password" name="password" id="password">
-                <label for="password">Password</label>
+                <input autocomplete="new-password" type="password" name="passwordLogin" id="passwordLogin">
+                <label for="passwordLogin">Password</label>
             </div>
             <div class="input-a-wrapper">
                 <button type="submit" form="form-login" class="submit-btn">LOGIN</button>
@@ -71,7 +74,7 @@
         </div>
         <div id="sign-up">
 
-            <form action="{{ route('register') }}" class="form" autocomplete="off" method="POST">
+            <form action="{{ route('register') }}" class="form" id="form-signup" autocomplete="off" method="POST">
                 @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>SignUp</h2>
@@ -113,13 +116,13 @@
                 @enderror
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="passwordUser" id="passwordUser" required>
-                    <label for="passwordUser">Password*</label>
+                    <input autocomplete="new-password" type="password" name="password" id="password" required>
+                    <label for="password">Password*</label>
                 </div>
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="confirm-password" id="confirm-password"
+                    <input type="password" name="password_confirmation " id="password_confirmation"
                         required>
-                    <label for="confirm-password">Confirm Password*</label>
+                    <label for="password_confirmation">Confirm Password*</label>
                 </div>
 
                 @error('countrySelected')
@@ -165,11 +168,28 @@
                         </span>
                     </div>
                 @enderror
+                @error('gender')
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
+                @enderror
 
-                <div class="input-group">
-                    <input autocomplete="new-password" type="text" name="phoneNumber" id="phoneNumber" required
-                        value="{{ old('phoneNumber') }}">
-                    <label for="phoneNumber">Phone Number*</label>
+                <div class="country-city-wrapper">
+                    <div class="input-group">
+                        <select name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="ratherNotToSay">Rather Not To Say</option>
+                        </select>
+                        <label for="gender">Gender*</label>
+                    </div>
+                    <div class="input-group">
+                        <input autocomplete="new-password" type="text" name="phoneNumber" id="phoneNumber" required
+                            value="{{ old('phoneNumber') }}">
+                        <label for="phoneNumber">Phone Number*</label>
+                    </div>
                 </div>
 
 
@@ -201,8 +221,9 @@
                         <label for="address">Address</label>
                     </div>
                 </div>
-                <button type="submit" class="submit-btn">Create</button>
+                <button type="submit" form="form-signup" class="submit-btn">Create</button>
             </form>
+
         </div>
     </div>
     <script type="text/javascript">

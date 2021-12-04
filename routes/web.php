@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Models\country;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/Sign-In',[AuthController::class,'index']);
+Route::get('/Sign-In',[AuthController::class,'index'])->name('LoginPage');
 Route::get('/',function(){
-    return view('Auth.WelcomeScreen');
+    return view('LandingPage.LandingScreen');
 });
+Route::post('/register',[AuthController::class,'register'])->name('register');
+Route::get('/register',function(){
+    $countries = country::all();
+    return view('Auth.signUpScreen')->with('countries',$countries);
+});
+Route::get('/verify',[AuthController::class,'VerifyUser'])->name('verify.user');
+// Auth::routes();
+Route::post('/Sign-In',[AuthController::class,'Login']);

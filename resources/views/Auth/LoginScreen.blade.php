@@ -10,83 +10,195 @@
 </head>
 
 <body>
+    <div class="flash-message">
+        @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+            @if (Session::has('alert-' . $msg))
+                <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
+                </p>
+            @endif
+        @endforeach
+    </div>
     <div class="login-wrapper">
-        <form action="" autocomplete="false" class="form">
+        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form" method="POST">
+            @csrf
             <img src="/img/avatar.jpg" alt="">
             <h2>Login</h2>
+
+            @error('email')
+            <div class="errorContainer">
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            </div>
+            @enderror
+
             <div class="input-group">
-                <input autocomplete="new-password" type="text" name="loginUser" id="loginUser" required>
+                <input autocomplete="new-password" type="text" name="email" id="loginUser" value="{{ old('loginUser') }}">
                 <label for="loginUser">Email</label>
             </div>
+
+            @error('password')
+            <div class="errorContainer">
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            </div>
+                @enderror
+
             <div class="input-group">
-                <input autocomplete="new-password" type="password" name="passwordUser" id="passwordUser" required>
+                <input autocomplete="new-password" type="password" name="password" id="passwordUser" value="{{ old('passwordUser') }}">
                 <label for="passwordUser">Password</label>
             </div>
             <div class="input-a-wrapper">
-                <input type="button" value="Login" class="submit-btn">
+                <button type="submit" form="form-login" class="submit-btn">LOGIN</button>
                 <a href="#sign-up" class="sign-up-btn">Create Account</a>
             </div>
             <a href="#forgot-pw" class="forgot-pw">Forgot Password?</a>
         </form>
         <div id="forgot-pw">
-            <form autocomplete="off" action="" class="form">
+            <form autocomplete="off" action="" class="form" id="form-signup" method="POST">
+                @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>Reset Password</h2>
                 <div class="input-group">
-                    <input autocomplete="new-password" type="email" name="email" id="email" required>
+                    <input autocomplete="new-password" type="email" name="email" id="email">
                     <label for="email">Email</label>
                 </div>
                 <input type="button" value="Reset" class="submit-btn">
             </form>
         </div>
         <div id="sign-up">
-            <form action="" autocomplete="off" class="form">
+
+            <form action="{{ route('register') }}" class="form" autocomplete="off" method="POST">
+                @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>SignUp</h2>
+
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="input-group">
-                    <input autocomplete="new-password" type="text" name="Name" id="Name" required>
-                    <label for="loginUser">Name</label>
+                    <input autocomplete="new-password" type="text" name="name" id="Name" value="{{ old('name') }}" }}
+                        required>
+                    <label for="loginUser">Name*</label>
                 </div>
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="input-group">
-                    <input autocomplete="new-password" type="email" name="Email" id="Email" required>
-                    <label for="passwordUser">Email</label>
+                    <input autocomplete="new-password" type="email" name="email" id="Email" value="{{ old('email') }}"
+                        required>
+                    <label for="Email">Email*</label>
                 </div>
+
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="input-group">
                     <input autocomplete="new-password" type="password" name="passwordUser" id="passwordUser" required>
-                    <label for="passwordUser">Password</label>
+                    <label for="passwordUser">Password*</label>
                 </div>
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="confrim-password" id="confrim-password" required>
-                    <label for="passwordUser">Confirm Password</label>
+                    <input autocomplete="new-password" type="password" name="confirm-password" id="confirm-password"
+                        required>
+                    <label for="confirm-password">Confirm Password*</label>
                 </div>
+
+                @error('countrySelected')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                @error('city')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div class="country-city-wrapper">
+                    <div class="input-group">
+                        <select onselect="update()" name="countrySelected" id="countrySelected">
+                            @foreach ($countries as $cou)
+                                @if (old('countrySelected') == $cou->nicename)
+                                    <option value="{{ $cou->nicename }}" selected>{{ $cou->nicename }}</option>
+                                @else
+                                    <option value="{{ $cou->nicename }}">{{ $cou->nicename }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                        <label for="countrySelected">Country*</label>
+                    </div>
+                    <div class="input-group">
+                        <input autocomplete="new-password" type="text" name="city" id="city" required
+                            value="{{ old('city') }}">
+                        <label for="city">City*</label>
+                    </div>
+                </div>
+
+                @error('phoneNumber')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="input-group">
-                    <select name="countrySelected" id="countrySelected">
-                        @foreach ($countries as $cou)
-                            <option value="{{ $cou->nicename }}">{{ $cou->nicename }}</option>
-                        @endforeach
-                    </select>
-                    <label for="countrySelected">Select Country</label>
+                    <input autocomplete="new-password" type="text" name="phoneNumber" id="phoneNumber" required
+                        value="{{ old('phoneNumber') }}">
+                    <label for="phoneNumber">Phone Number*</label>
                 </div>
-                <div class="input-group">
-                    <input autocomplete="new-password" type="number" name="phoneNumber" id="phoneNumber" required>
-                    <label for="phoneNumber">Phone Number</label>
+
+
+                @error('zipcode')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                @error('address')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <div class="country-city-wrapper">
+                    <div class="input-group">
+                        <input autocomplete="new-password" type="text" name="zipcode" id="zipcode" maxlength="5"
+                            value="{{ old('zipcode') }}">
+                        <label for="zipcode">ZipCode</label>
+                    </div>
+                    <div class="input-group">
+                        <input autocomplete="new-password" type="text" name="address" id="address"
+                            value="{{ old('address') }}">
+                        <label for="address">Address</label>
+                    </div>
                 </div>
-                <input type="button" value="Create" class="submit-btn">
+                <button type="submit" class="submit-btn">Create</button>
             </form>
         </div>
     </div>
     <script type="text/javascript">
-        function update() {
-            var select = document.getElementById('countrySelected');
-            var option = select.options[select.selectedIndex];
-            $countries.forEach(element => {
-                if (element - > nicename == option) {
-                    var option2 = document.getElementById('phoneNumber');
-
-                }
-            });
-        }
-        document.getElementById('phoneNumber').addEventListener("input", update);
+        // function update() {
+        //     var select = document.getElementById('countrySelected');
+        //     var option = select.options[select.value];
+        //     $countries.forEach(element => {
+        //         if (element - > nicename == option) {
+        //             var option2 = document.getElementById('phoneNumber').value;
+        //             document.getElementById('phoneNumber').value = element - > phoneCode + option2;
+        //         }
+        //     });
+        // }
+        // document.getElementById('phoneNumber').addEventListener("input", update);
     </script>
 </body>
 

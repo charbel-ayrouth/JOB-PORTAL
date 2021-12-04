@@ -9,12 +9,57 @@ body{
     background-size: cover;
     font-family: sans-serif;
 }
+.invalid-feedback{
+    height: 30px;
+    padding: 10px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.errorContainer{
+    margin: 0px 0px 20px 0px ;
+}
+span{
+    height: 30px;
+    padding: 10px 10px;
+    color:red;
+}
+.flash-message{
+    width: 90%;
+    align-self: center;
+}
+.alert-success{
+    position: absolute;
+    margin: 40px 50%;
+    transform: translateX(-50%);
+    padding:10px 20px;
+    background-color:lightgreen;
+    width:fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.alert-danger{
+    position: absolute;
+    margin: 40px 50%;
+    transform: translateX(-50%);
+    padding:10px 20px;
+    background-color:red;
+    width:fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 .login-wrapper{
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 #forgot-pw .from,#sign-up .from,
 .form{
@@ -70,8 +115,7 @@ body{
 .form .input-group{
     position: relative;
 }
-
-.form .input-group input,.form .input-group select{
+.form .input-group input{
     background-color: transparent;
     width: 100%;
     padding: 10px 0;
@@ -84,6 +128,37 @@ body{
     color: inherit;
 }
 
+.country-city-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.country-city-wrapper select{
+    background-color: transparent;
+    width: 60%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: inherit;
+}
+
+.country-city-wrapper .input-group #zipcode{
+    background-color: transparent;
+    width: 40%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: inherit;
+}
 
 .form .input-group input:valid,
 .form .input-group select:valid{

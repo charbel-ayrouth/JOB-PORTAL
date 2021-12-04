@@ -18,7 +18,7 @@ class CreateLocationsTable extends Migration
             $table->string('Country');
             $table->string('city');
             $table->integer('zipCode')->nullable();
-            $table->text('Address');
+            $table->text('Address')->nullable();
             $table->timestamps();
         });
     }

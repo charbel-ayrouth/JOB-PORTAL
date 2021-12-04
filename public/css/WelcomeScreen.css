@@ -6,6 +6,7 @@
 }
 
 .right-side {
+    position: absolute;
     height: 100vh;
     width: 50%;
     background-size: cover;
@@ -15,9 +16,11 @@
     background-repeat: no-repeat;
     position: relative;
     text-align: center;
+    overflow: hidden;
 }
 
 .left-side {
+    position: absolute;
     height: 100vh;
     width: 50%;
     background-size: cover;
@@ -27,7 +30,13 @@
     background-repeat: no-repeat;
     position: relative;
     text-align: center;
+    overflow: hidden;
 }
+
+.right-side:hover{
+    width: 75%;
+}
+
 
 .left-side a , .right-side button{
     margin: 0;

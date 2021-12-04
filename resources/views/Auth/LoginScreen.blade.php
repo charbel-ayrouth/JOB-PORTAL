@@ -19,35 +19,37 @@
         @endforeach
     </div>
     <div class="login-wrapper">
-        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form" method="POST">
+        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form"
+            method="POST">
             @csrf
             <img src="/img/avatar.jpg" alt="">
             <h2>Login</h2>
 
             @error('email')
-            <div class="errorContainer">
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            </div>
+                <div class="errorContainer">
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
             @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="text" name="email" id="loginUser" value="{{ old('loginUser') }}">
-                <label for="loginUser">Email</label>
+                <input autocomplete="new-password" type="text" name="email" id="email"
+                    value="{{ old('email') }}">
+                <label for="email">Email</label>
             </div>
 
             @error('password')
-            <div class="errorContainer">
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            </div>
-                @enderror
+                <div class="errorContainer">
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
+            @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="password" name="password" id="passwordUser" value="{{ old('passwordUser') }}">
-                <label for="passwordUser">Password</label>
+                <input autocomplete="new-password" type="password" name="password" id="password">
+                <label for="password">Password</label>
             </div>
             <div class="input-a-wrapper">
                 <button type="submit" form="form-login" class="submit-btn">LOGIN</button>
@@ -73,11 +75,13 @@
                 @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>SignUp</h2>
-
+                <input type="text" name="roleId" hidden value="{{ $roleId }}">
                 @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
@@ -87,21 +91,25 @@
                 </div>
 
                 @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="email" name="email" id="Email" value="{{ old('email') }}"
-                        required>
+                    <input autocomplete="new-password" type="email" name="email" id="Email"
+                        value="{{ old('email') }}" required>
                     <label for="Email">Email*</label>
                 </div>
 
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
@@ -115,15 +123,19 @@
                 </div>
 
                 @error('countrySelected')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 @error('city')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="country-city-wrapper">
@@ -147,9 +159,11 @@
                 </div>
 
                 @error('phoneNumber')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
@@ -160,15 +174,19 @@
 
 
                 @error('zipcode')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 @error('address')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="country-city-wrapper">

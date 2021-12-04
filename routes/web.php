@@ -26,7 +26,6 @@ Route::get('/logout',[AuthController::class,'Logout']);
 Route::get('/',function(){
     return view('LandingPage.LandingScreen');
 })->name('home');
-Route::get('/register',function(){
-    $countries = country::all();
-    return view('Auth.signUpScreen')->with('countries',$countries);
+Route::get('/JobseekerAPP', function () {
+    return view('Jobseeker.JobseekerApp');
 });

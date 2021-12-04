@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('role_id');
             $table->foreignId('location_id')->constrained('locations')->onDelete('Cascade');
-            $table->string('path');
+            $table->integer('phoneNumber');
+            $table->string('path')->nullable();
+            $table->string('verificationToken');
             $table->rememberToken();
             $table->timestamps();
         });

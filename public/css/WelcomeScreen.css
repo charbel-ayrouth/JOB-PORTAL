@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.right-side {
+    position: absolute;
+    height: 100vh;
+    width: 50%;
+    background-size: cover;
+    float: right;
+    background-image: url('/img/FindAJobWallpaper.jpg');
+    background-position: right;
+    background-repeat: no-repeat;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.left-side {
+    position: absolute;
+    height: 100vh;
+    width: 50%;
+    background-size: cover;
+    float: left;
+    background-image: url('/img/RecruiterWallpaper.jpg');
+    background-position: left;
+    background-repeat: no-repeat;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+.right-side:hover{
+    width: 75%;
+}
+
+
+.left-side a , .right-side button{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    padding: 10px 20px;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color .1s ease-in-out;
+    transition: color 1s ease-in-out;
+}
+
+.left-side a:hover, .right-side button:hover{
+    background-color: black;
+    color: white;
+}
+.right-side .h1-wrapper{
+    margin-top: 30vh;
+}
+.right-side .h1-wrapper h1{
+    color: goldenrod;
+}
+.right-side .h1-wrapper #second-header{
+    color: white;
+    margin-left: 50%;
+}
+.left-side .h1-wrapper{
+    margin-top: 30vh;
+}
+.left-side .h1-wrapper h1{
+    color: goldenrod;
+    margin-left: 10%;
+}
+.left-side .h1-wrapper #second-header{
+    color: black;
+    margin-left: -50%;
+}

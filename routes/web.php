@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('Auth.LoginScreen');
 });
+
+
+Route::get('/JobseekerAPP', function () {
+    return view('Jobseeker.JobseekerApp');
+});

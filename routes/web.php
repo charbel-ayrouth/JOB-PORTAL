@@ -28,4 +28,4 @@ Route::get('/',function(){
 })->name('home');
 Route::get('/JobseekerAPP', function () {
     return view('Jobseeker.JobseekerApp');
-});
+})->name('JobSeekerApp');

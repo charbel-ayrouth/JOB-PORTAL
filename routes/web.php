@@ -20,7 +20,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
 Route::get('/', function () {
+Route::get('/Sign-In/Recruiter',[AuthController::class,'indexRecruiter'])->name('LoginPageRecruiter');
+Route::get('/Sign-In/Seeker',[AuthController::class,'indexSeeker'])->name('LoginPageSeeker');
+Route::post('/Sign-In',[AuthController::class,'Login'])->name('LoginPage');
+Route::post('/register',[AuthController::class,'register'])->name('register');
+Route::get('/verify',[AuthController::class,'VerifyUser'])->name('verify.user');
+Route::get('/logout',[AuthController::class,'Logout']);
+Route::get('/',function(){
     return view('LandingPage.LandingScreen');
+})->name('home');
+Route::get('/JobseekerAPP', function () {
+    return view('Jobseeker.JobseekerApp');
 });
 
 // Route::resource('/admin/dashboard', [DashboardController::class]);

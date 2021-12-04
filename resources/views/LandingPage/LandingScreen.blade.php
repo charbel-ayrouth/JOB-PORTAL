@@ -11,11 +11,11 @@
     <div class="container">
       <div class="split left">
         <h1>Job Recruiter</h1>
-        <a href="#" class="btn">Recruit Now</a>
+        <a href="{{ route('LoginPageRecruiter') }}" class="btn">Recruit Now</a>
       </div>
       <div class="split right">
         <h1>Job Seeker</h1>
-        <a href="/Sign-In" class="btn">Find A Job</a>
+        <a href="{{ route('LoginPageSeeker') }}" class="btn">Find A Job</a>
       </div>
     </div>
 

@@ -38,7 +38,7 @@ public function createApplication(Request $request){
         $extention = $file->getClientOriginalExtension();
         $filename = time().'.'.$extention;
         $file->move('uploads/profilepic/', $filename);
-        $js->cv = $filename;
+        $js->path = $filename;
     }
 
     $location=new Locations;

@@ -22,8 +22,13 @@
         @foreach ($errors->all() as $err)
             <p class="errors">{{ $err }}</p>
         @endforeach
-
     </div>
+
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
     <div class="login-wrapper">
         <form action="/Sign-In" id="form-login" autocomplete="false" class="form" method="POST">
             @csrf
@@ -62,7 +67,8 @@
             <a href="#forgot-pw" class="forgot-pw">Forgot Password?</a>
         </form>
         <div id="forgot-pw">
-            <form autocomplete="off" action="" class="form" id="form-signup" method="POST">
+            <form autocomplete="off" action="{{ route('password.email') }}" class="form" id="form-reset"
+                method="POST">
                 @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>Reset Password</h2>
@@ -70,7 +76,7 @@
                     <input autocomplete="new-password" type="email" name="email" id="email">
                     <label for="email">Email</label>
                 </div>
-                <input type="button" value="Reset" class="submit-btn">
+                <button type="submit" form="form-reset" class="submit-btn">Reset</button>
             </form>
         </div>
         <div id="sign-up">

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,10 @@ Route::get('/admin/dashboard/{id}', [DashboardController::class, 'show'])->name(
 Route::put('/admin/dashboard/{id}/edit', [DashboardController::class, 'edit'])->name('users.edit');
 Route::delete('/admin/dashboard/{id}', [DashboardController::class, 'destroy'])->name('users.delete');
 
+Route::get('/reset-password/{token}', [ResetPasswordController::class,'index'])->middleware('guest')->name('password.reset');
+Route::post('/forgot-password',[ResetPasswordController::class,'requestReset'])->middleware('guest')->name('password.email');
+Route::post('/reset-password',[ResetPasswordController::class,'handleReset'])->middleware('guest')->name('password.update');
+
 Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
 Route::post('/Sign-In', [AuthController::class, 'Login']);
 
@@ -71,4 +76,5 @@ Route::get('/', function () {
 Route::get('/JobseekerAPP', function () {
     return view('Jobseeker.JobseekerApp');
 })->name('JobSeekerApp');
+
 

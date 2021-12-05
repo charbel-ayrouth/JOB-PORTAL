@@ -42,6 +42,11 @@ span{
     font-family: sans-serif;
     margin-top: 10px;
 }
+.alert{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .alert-success{
     margin: 40px 50%;
     transform: translateX(-50%);

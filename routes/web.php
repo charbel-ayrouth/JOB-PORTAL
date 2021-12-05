@@ -34,3 +34,7 @@ Route::get('/register',function(){
 Route::get('/verify',[AuthController::class,'VerifyUser'])->name('verify.user');
 // Auth::routes();
 Route::post('/Sign-In',[AuthController::class,'Login']);
+
+Route::get('/JobproviderAPP', function () {
+    return view('JobProvider.JobProviderApp');
+});

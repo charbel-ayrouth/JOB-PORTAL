@@ -18,36 +18,41 @@
             @endif
         @endforeach
     </div>
+
+    @foreach ($errors->all() as $err)
+        <p class="errors">{{ $err }}</p>
+    @endforeach
     <div class="login-wrapper">
-        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form" method="POST">
+        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form"
+            method="POST">
             @csrf
             <img src="/img/avatar.jpg" alt="">
             <h2>Login</h2>
 
             @error('email')
-            <div class="errorContainer">
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            </div>
+                <div class="errorContainer">
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
             @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="text" name="email" id="loginUser" value="{{ old('loginUser') }}">
-                <label for="loginUser">Email</label>
+                <input autocomplete="new-password" type="text" name="email" id="email" value="{{ old('email') }}">
+                <label for="email">Email</label>
             </div>
 
             @error('password')
-            <div class="errorContainer">
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            </div>
-                @enderror
+                <div class="errorContainer">
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
+            @enderror
 
             <div class="input-group">
-                <input autocomplete="new-password" type="password" name="password" id="passwordUser" value="{{ old('passwordUser') }}">
-                <label for="passwordUser">Password</label>
+                <input autocomplete="new-password" type="password" name="passwordLogin" id="passwordLogin">
+                <label for="passwordLogin">Password</label>
             </div>
             <div class="input-a-wrapper">
                 <button type="submit" form="form-login" class="submit-btn">LOGIN</button>
@@ -69,15 +74,17 @@
         </div>
         <div id="sign-up">
 
-            <form action="{{ route('register') }}" class="form" autocomplete="off" method="POST">
+            <form action="{{ route('register') }}" class="form" id="form-signup" autocomplete="off" method="POST">
                 @csrf
                 <a href="#" class="close">&times;</a>
                 <h2>SignUp</h2>
-
+                <input type="text" name="roleId" hidden value="{{ $roleId }}">
                 @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
@@ -87,43 +94,51 @@
                 </div>
 
                 @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="email" name="email" id="Email" value="{{ old('email') }}"
-                        required>
+                    <input autocomplete="new-password" type="email" name="email" id="Email"
+                        value="{{ old('email') }}" required>
                     <label for="Email">Email*</label>
                 </div>
 
                 @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="passwordUser" id="passwordUser" required>
-                    <label for="passwordUser">Password*</label>
+                    <input autocomplete="new-password" type="password" name="password" id="password" required>
+                    <label for="password">Password*</label>
                 </div>
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="confirm-password" id="confirm-password"
+                    <input type="password" name="password_confirmation " id="password_confirmation"
                         required>
-                    <label for="confirm-password">Confirm Password*</label>
+                    <label for="password_confirmation">Confirm Password*</label>
                 </div>
 
                 @error('countrySelected')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 @error('city')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="country-city-wrapper">
@@ -147,28 +162,51 @@
                 </div>
 
                 @error('phoneNumber')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
+                @enderror
+                @error('gender')
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
-                <div class="input-group">
-                    <input autocomplete="new-password" type="text" name="phoneNumber" id="phoneNumber" required
-                        value="{{ old('phoneNumber') }}">
-                    <label for="phoneNumber">Phone Number*</label>
+                <div class="country-city-wrapper">
+                    <div class="input-group">
+                        <select name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="ratherNotToSay">Rather Not To Say</option>
+                        </select>
+                        <label for="gender">Gender*</label>
+                    </div>
+                    <div class="input-group">
+                        <input autocomplete="new-password" type="text" name="phoneNumber" id="phoneNumber" required
+                            value="{{ old('phoneNumber') }}">
+                        <label for="phoneNumber">Phone Number*</label>
+                    </div>
                 </div>
 
 
                 @error('zipcode')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 @error('address')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                    <div class="errorContainer">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
                 @enderror
 
                 <div class="country-city-wrapper">
@@ -183,8 +221,9 @@
                         <label for="address">Address</label>
                     </div>
                 </div>
-                <button type="submit" class="submit-btn">Create</button>
+                <button type="submit" form="form-signup" class="submit-btn">Create</button>
             </form>
+
         </div>
     </div>
     <script type="text/javascript">

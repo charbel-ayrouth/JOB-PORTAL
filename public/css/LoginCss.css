@@ -9,23 +9,30 @@ body{
     background-size: cover;
     font-family: sans-serif;
 }
+.flash-message{
+    position: absolute;
+    width: 90%;
+    align-self: center;
+    padding: 10px 10px;
+    margin-top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .invalid-feedback{
     height: 30px;
     padding: 10px 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.errorContainer{
-    margin: 0px 0px 20px 0px ;
-}
 span{
     height: 30px;
     padding: 10px 10px;
     color:red;
 }
-.flash-message{
-    width: 90%;
-    align-self: center;
+.errorContainer{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .errors{
     color:red;
@@ -33,9 +40,9 @@ span{
     margin-top: 40px;
     font-size: 16;
     font-family: sans-serif;
+    margin-top: 10px;
 }
 .alert-success{
-    position: absolute;
     margin: 40px 50%;
     transform: translateX(-50%);
     max-width: 100%;
@@ -49,7 +56,6 @@ span{
     text-align: center;
 }
 .alert-danger{
-    position: absolute;
     margin: 40px 50%;
     transform: translateX(-50%);
     padding:10px 20px;

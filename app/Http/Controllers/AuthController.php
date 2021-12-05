@@ -58,15 +58,15 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $user = new User();
-        // $request->validate([
-        //     'name' => 'required|unique:users,name|max:255',
-        //     'email'=> 'required|unique:users,email|Email',
-        //     'password' => 'required|confirmed|between:8,255',
-        //     'phoneNumber'=> 'required',
-        //     'countrySelected' => 'required|String',
-        //     'city' => 'required|String',
-        //     'gender' => 'required'
-        // ]);
+        $request->validate([
+            'name' => 'required|unique:users,name|max:255',
+            'email'=> 'required|unique:users,email|Email',
+            'password' => 'required|confirmed|between:8,255',
+            'phoneNumber'=> 'required',
+            'countrySelected' => 'required|String',
+            'city' => 'required|String',
+            'gender' => 'required'
+        ]);
         $location = new Locations();
         $location->create([
             'Country' => $request->countrySelected,
@@ -81,7 +81,7 @@ class AuthController extends Controller
         $location->save();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make($request->passwordUser);
+        $user->password = Hash::make($request->password);
         $user->phoneNumber = $request->phoneNumber;
         $user->role_id = $request->roleId;
         $user->location_id = $location->id;
@@ -90,20 +90,20 @@ class AuthController extends Controller
         $user->save();
         if ($user != null) {
             Mail::to($request->email)->send(new AuthMail(['name' => $user->name, 'verificationToken' => $user->VerificationToken]));
-        //     if($user->role_id == 2)
-        //     {
-        //        return view('Auth.LoginScreen')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'))->with('roleId',$user->role_id);
-        //     }else if($user->role_id == 3){
-        //         return view('Auth.LoginScreen')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'))->with('roleId',$user->role_id);
-        //     }
-        // } else {
-        //     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
-        //     if($user->role_id == 2)
-        //     {
-        //        return view('Auth.LoginScreen')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'))->with('roleId',$user->role_id);
-        //     }else if($user->role_id == 3){
-        //         return view('Auth.LoginScreen')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'))->with('roleId',$user->role_id); 
-        //     }
+            if($user->role_id == 2)
+            {
+               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
+            }else if($user->role_id == 3){
+                return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
+            }
+        } else {
+            return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
+            if($user->role_id == 2)
+            {
+               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
+            }else if($user->role_id == 3){
+                return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
+            }
         }
     }
     public function VerifyUser()

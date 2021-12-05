@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="flash-message">
+    <div class="errorContainer">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if (Session::has('alert-' . $msg))
                 <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }}
@@ -18,37 +18,38 @@
             @endif
         @endforeach
     </div>
+    <div class="errorContainer">
+        @foreach ($errors->all() as $err)
+            <p class="errors">{{ $err }}</p>
+        @endforeach
 
-    @foreach ($errors->all() as $err)
-        <p class="errors">{{ $err }}</p>
-    @endforeach
+    </div>
     <div class="login-wrapper">
-        <form action="{{ route('LoginPage') }}" id="form-login" autocomplete="false" class="form"
-            method="POST">
+        <form action="/Sign-In" id="form-login" autocomplete="false" class="form" method="POST">
             @csrf
             <img src="/img/avatar.jpg" alt="">
             <h2>Login</h2>
 
-            @error('email')
+            {{-- @error('email')
                 <div class="errorContainer">
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 </div>
-            @enderror
+            @enderror --}}
 
             <div class="input-group">
                 <input autocomplete="new-password" type="text" name="email" id="email" value="{{ old('email') }}">
                 <label for="email">Email</label>
             </div>
 
-            @error('password')
+            {{-- @error('password')
                 <div class="errorContainer">
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 </div>
-            @enderror
+            @enderror --}}
 
             <div class="input-group">
                 <input autocomplete="new-password" type="password" name="passwordLogin" id="passwordLogin">
@@ -73,73 +74,72 @@
             </form>
         </div>
         <div id="sign-up">
-
-            <form action="{{ route('register') }}" class="form" id="form-signup" autocomplete="off" method="POST">
+            <form action="/register" class="form" id="signup-form" autocomplete="off" method="POST">
                 @csrf
+                @method('POST')
                 <a href="#" class="close">&times;</a>
                 <h2>SignUp</h2>
                 <input type="text" name="roleId" hidden value="{{ $roleId }}">
-                @error('name')
+                {{-- @error('name')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="input-group">
                     <input autocomplete="new-password" type="text" name="name" id="Name" value="{{ old('name') }}" }}
                         required>
                     <label for="loginUser">Name*</label>
                 </div>
-
-                @error('email')
+                {{-- @error('email')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="email" name="email" id="Email"
-                        value="{{ old('email') }}" required>
+                    <input autocomplete="new-password" type="email" name="email" id="Email" value="{{ old('email') }}"
+                        required>
                     <label for="Email">Email*</label>
                 </div>
 
-                @error('password')
+                {{-- @error('password')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="input-group">
-                    <input autocomplete="new-password" type="password" name="password" id="password" required>
+                    <input type="password" name="password" id="password" required>
                     <label for="password">Password*</label>
                 </div>
+
                 <div class="input-group">
-                    <input type="password" name="password_confirmation " id="password_confirmation"
-                        required>
+                    <input type="password" name="password_confirmation" id="password_confirmation" required>
                     <label for="password_confirmation">Confirm Password*</label>
                 </div>
 
-                @error('countrySelected')
+                {{-- @error('countrySelected')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
-                @error('city')
+                {{-- @error('city')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="country-city-wrapper">
                     <div class="input-group">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-                @error('phoneNumber')
+                {{-- @error('phoneNumber')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -174,7 +174,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="country-city-wrapper">
                     <div class="input-group">
@@ -193,7 +193,7 @@
                 </div>
 
 
-                @error('zipcode')
+                {{-- @error('zipcode')
                     <div class="errorContainer">
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -207,7 +207,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     </div>
-                @enderror
+                @enderror --}}
 
                 <div class="country-city-wrapper">
                     <div class="input-group">
@@ -221,9 +221,8 @@
                         <label for="address">Address</label>
                     </div>
                 </div>
-                <button type="submit" form="form-signup" class="submit-btn">Create</button>
+                <button type="submit" form="signup-form" class="submit-btn">Create</button>
             </form>
-
         </div>
     </div>
     <script type="text/javascript">

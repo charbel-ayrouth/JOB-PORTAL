@@ -47,13 +47,15 @@ public function searchjob(Request $request)
         foreach ($j as $key => $value) {
             $JobLocation = Locations::where('id',$value->location_id)->get()->first();
             if($user_location->Country == $JobLocation->Country && $job_seeker->Field == $value->Field)
+            
             {
-                array_push($Jobs,$j);
+                array_push($Jobs,$j,$user);
             }    
         }
+
         return view('Jobseeker.Homepage')->with('Jobs',$Jobs);
     }
-
+//-----------------------------------Create application----------------------------------------
     public function createApplication(Request $request)
     {
         $request->validate([

@@ -53,17 +53,20 @@
 
     </div>
     <div class="midcontainer">
+        @foreach ($Jobs as $key=>$job)
+        <h2>{{$job[$key]->JobTitle}}</h2>
         <h2>frontend react native developper</h2>
         <p>full time job(on site)</p>
-        
+        @endforeach
     </div>
     <div class="rightcontainer">
         <h3>Andre Solution</h3>
         <p>Beirut-<a> andremawad.sarl.com</a></p>
         <p>email:andre@mawad.com</p>
     </div>
-    
+
 </div>
+
 
 {{--<table class="table table-bordered table-striped"  style="background-color:rgb(240, 240, 240)">
     <thead>

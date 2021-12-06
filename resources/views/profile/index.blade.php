@@ -50,6 +50,13 @@
                             Reprehenderit, eligendi dolorum sequi illum qui unde aspernatur non deserunt</p>
                         <ul
                             class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
+                            <li class="flex justify-around items-center py-3">
+                                <a href="{{ route('profile.edit') }}"
+                                    class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
+                                <a href=""
+                                    class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-green-dark no-underline">Change
+                                    Profile Picture</a>
+                            </li>
                             <li class="flex items-center py-3">
                                 <span>Status</span>
                                 <span class="ml-auto"><span

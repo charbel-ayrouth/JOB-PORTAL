@@ -32,7 +32,9 @@ Route::get('/', function () {
     return view('LandingPage.LandingScreen');
 })->name('home');
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');   
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/edit', [ProfileController::class, 'update']);
 
 Route::get('/JobseekerAPP', [JobSeekerController::class, 'index'])->name('JobSeekerApp');
 Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
@@ -41,9 +43,9 @@ Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
 /*Route::get('/JShomepage', function () {
     return view('Jobseeker.Homepage');
 })->name('homepage_js');*/
-Route::get('/JShomepage', [JobSeekerController::class, 'display'])-> name('homepage_js');
+Route::get('/JShomepage', [JobSeekerController::class, 'display'])->name('homepage_js');
 
-Route::get('/search', [JobSeekerController::class, 'searchjob']); 
+Route::get('/search', [JobSeekerController::class, 'searchjob']);
 Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
 Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
-Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');
+Route::get('/HomeJobProvider', [JobProviderController::class, 'home'])->name('JobProviderHome');

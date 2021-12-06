@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\country;
 use App\Models\JobSeeker;
 use App\Models\Locations;
 use Illuminate\Http\Request;
@@ -25,5 +26,37 @@ class ProfileController extends Controller
         } else {
             return 'view for job provider';
         }
+    }
+    public function edit()
+    {
+        $user = User::find(auth()->id());
+        $location_id = User::select('location_id')->where('id', $user->id)->first();
+        $location = Locations::find($location_id)->first();
+        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+        $countries = country::all();
+        return view('profile.edit', [
+            'user' => $user,
+            'location' => $location,
+            'jobSeeker' => $jobSeeker,
+            'countries' => $countries,
+        ]);
+    }
+    public function update(Request $request)
+    {
+        User::where('id', $request->id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phonenumber' => $request->phonenumber,
+            ]);
+        $location_id = User::select('location_id')->where('id', auth()->id())->first();
+        Locations::where('id', $location_id)
+            ->update([
+                'Country' => $request->countrySelected,
+                'city' => $request->city,
+                'zipCode' => $request->zipCode,
+                'Address' => $request->Address,
+            ]);
+        return redirect()->route('profile');
     }
 }

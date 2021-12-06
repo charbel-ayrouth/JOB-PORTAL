@@ -24,7 +24,15 @@ class ProfileController extends Controller
                 'jobSeeker' => $jobSeeker,
             ]);
         } else {
-            return 'view for job provider';
+            // return 'view for job provider';
+            $location_id = User::select('location_id')->where('id', $user->id)->first();
+            $location = Locations::find($location_id)->first();
+            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            return view('profile.index', [
+                'user' => $user,
+                'location' => $location,
+                'jobSeeker' => $jobSeeker,
+            ]);
         }
     }
     public function edit()

@@ -47,6 +47,20 @@ Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
 Route::get('/JShomepage', [JobSeekerController::class, 'display'])->name('homepage_js');
 
 Route::get('/search', [JobSeekerController::class, 'searchjob']);
-Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
-Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
-Route::get('/HomeJobProvider', [JobProviderController::class, 'home'])->name('JobProviderHome');
+
+
+Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
+    Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
+    Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
+    Route::get('/HomeJobProvider', [JobProviderController::class, 'home'])->name('JobProviderHome');
+});
+
+Route::group(['middleware' => 'CheckRole:JobSeeker'], function () {
+});
+
+Route::group(['middleware' => 'CheckRole:admin'], function () {
+});
+Route::group(['middleware' => 'auth'], function () {
+});
+Route::group(['middleware' => 'guest'], function () {
+});

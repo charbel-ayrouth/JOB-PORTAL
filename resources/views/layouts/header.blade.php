@@ -291,12 +291,17 @@
         </a>
         <nav class="nav">
             <ul class="nav__list nav__list--primary">
-                <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">About</a></li>
             </ul>
             <ul class="nav__list nav__list--secondary">
                 @auth
-                    <li class="nav__item"><a href="{{ route('profile') }}" class="nav__link">Profile</a></li>
+                    @if (auth()->user()->role_id == 2)
+                        <li class="nav__item"><a href="{{ route('homepage_js') }}" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="{{ route('profile') }}" class="nav__link">Profile</a></li>
+                    @elseif (auth()->user()->role_id == 3)
+                        <li class="nav__item"><a href="{{ route('JobProviderHome') }}"
+                                class="nav__link">Home</a>
+                        </li>
+                    @endif
                     <li class="nav__item"><a href="/logout" class="nav__link">Logout</a></li>
                 @endauth
                 @guest

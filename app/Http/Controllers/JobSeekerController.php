@@ -40,7 +40,7 @@ class JobSeekerController extends Controller
             'CoverLetter' => 'need to add it to the form',
             'user_id' => auth()->id(),
         ]);
-        User::where('id', \auth()->user())->update([
+        User::where('id', auth()->id())->update([
             'path' => $IMGname
         ]);
         dd('you app has been filled');

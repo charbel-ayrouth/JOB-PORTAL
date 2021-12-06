@@ -9,28 +9,48 @@ body{
     background-size: cover;
     font-family: sans-serif;
 }
+.flash-message{
+    position: absolute;
+    width: 90%;
+    align-self: center;
+    padding: 10px 10px;
+    margin-top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .invalid-feedback{
     height: 30px;
     padding: 10px 10px;
     margin-top: 10px;
     margin-bottom: 10px;
 }
-.errorContainer{
-    margin: 0px 0px 20px 0px ;
-}
 span{
     height: 30px;
     padding: 10px 10px;
     color:red;
 }
-.flash-message{
-    width: 90%;
-    align-self: center;
+.errorContainer{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.errors{
+    color:red;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 16;
+    font-family: sans-serif;
+    margin-top: 10px;
+}
+.alert{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .alert-success{
-    position: absolute;
     margin: 40px 50%;
     transform: translateX(-50%);
+    max-width: 100%;
     padding:10px 20px;
     background-color:lightgreen;
     width:fit-content;
@@ -41,7 +61,6 @@ span{
     text-align: center;
 }
 .alert-danger{
-    position: absolute;
     margin: 40px 50%;
     transform: translateX(-50%);
     padding:10px 20px;
@@ -137,6 +156,30 @@ span{
 .country-city-wrapper select{
     background-color: transparent;
     width: 60%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: inherit;
+}
+.gender{
+    background-color: transparent;
+    width: 40%;
+    padding: 10px 0;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    color: inherit;
+}
+.phoneNumber{
+    background-color: transparent;
+    width: 50%;
     padding: 10px 0;
     font-size: 1rem;
     letter-spacing: 1px;

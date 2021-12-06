@@ -1,11 +1,9 @@
 <?php
 
-use App\Models\country;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +15,9 @@ use App\Http\Controllers\Auth\RegisterController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//old
 // Route::resource('admin', [DashboardController::class]);
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('users.index');
+/*Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('users.index');
 Route::get('/admin/dashboard/{id}', [DashboardController::class, 'show'])->name('users.show');
 Route::get('/admin/dashboard/{id}/edit', [DashboardController::class, 'edit'])->name('users.edit');
 Route::delete('/admin/dashboard/{id}', [DashboardController::class, 'destroy'])->name('users.delete');
@@ -37,4 +35,46 @@ Route::get('/', function () {
 })->name('home');
 Route::get('/JobseekerAPP', function () {
     return view('Jobseeker.JobseekerApp');
+});
+Route::post('/register',[AuthController::class,'register'])->name('register');
+Route::get('/register',function(){
+    $countries = country::all();
+    return view('Auth.signUpScreen')->with('countries',$countries);
+});
+Route::get('/verify',[AuthController::class,'VerifyUser'])->name('verify.user');
+// Auth::routes();
+Route::post('/Sign-In',[AuthController::class,'Login']);
+
+Route::get('/JobproviderAPP', function () {
+    return view('JobProvider.JobProviderApp');
+});
+})->name('JobSeekerApp');*/
+
+
+//last update
+// Route::resource('admin', [DashboardController::class]);
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('users.index');
+Route::get('/admin/dashboard/{id}', [DashboardController::class, 'show'])->name('users.show');
+Route::put('/admin/dashboard/{id}/edit', [DashboardController::class, 'edit'])->name('users.edit');
+Route::delete('/admin/dashboard/{id}', [DashboardController::class, 'destroy'])->name('users.delete');
+
+Route::get('/reset-password/{token}', [ResetPasswordController::class,'index'])->middleware('guest')->name('password.reset');
+Route::post('/forgot-password',[ResetPasswordController::class,'requestReset'])->middleware('guest')->name('password.email');
+Route::post('/reset-password',[ResetPasswordController::class,'handleReset'])->middleware('guest')->name('password.update');
+
+Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
+Route::post('/Sign-In', [AuthController::class, 'Login']);
+
+Route::get('/Sign-In/Recruiter', [AuthController::class, 'indexRecruiter'])->name('LoginPageRecruiter');
+Route::get('/Sign-In/Seeker', [AuthController::class, 'indexSeeker'])->name('LoginPageSeeker');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/verify', [AuthController::class, 'VerifyUser'])->name('verify.user');
+Route::get('/logout', [AuthController::class, 'Logout']);
+Route::get('/', function () {
+    return view('LandingPage.LandingScreen');
+})->name('home');
+Route::get('/JobseekerAPP', function () {
+    return view('Jobseeker.JobseekerApp');
 })->name('JobSeekerApp');
+
+

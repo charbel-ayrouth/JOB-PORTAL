@@ -122,7 +122,7 @@
 
 <body>
 
-    <form action="{{ route('JobProviderApp') }}" style="border:1px solid #ccc" method="POST">
+    <form action="{{ route('JobProviderApp') }}" style="border:1px solid #ccc" enctype="multipart/form-data" method="POST">
         @csrf
         <div class="container">
             <center>
@@ -159,7 +159,7 @@
                         <b>Upload Your Profile Picture:</b>
                         <br><br>
                         <label class="input-file">Choose Picture
-                            <input type="file" name="path" /></label>
+                            <input type="file" name="path"/></label>
 
                     </td>
                 </tr>

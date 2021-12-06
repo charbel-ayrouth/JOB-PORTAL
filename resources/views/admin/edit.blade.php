@@ -14,7 +14,7 @@
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
             action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
             @csrf
-            @method('patch')
+            @method('put')
             <input type="hidden" name="id" value="{{ $user->id }}">
             <div class="mb-4">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="name">

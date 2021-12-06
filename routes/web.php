@@ -77,4 +77,8 @@ Route::get('/JobseekerAPP', function () {
     return view('Jobseeker.JobseekerApp');
 })->name('JobSeekerApp');
 
+Route::get('/JobproviderAPP', function () {
+    return view('JobProvider.JobProviderApp');
+})->name('JobproviderAPP');
+
 

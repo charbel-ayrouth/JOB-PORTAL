@@ -148,8 +148,7 @@ input[type="file"]
     <input type="text" maxlength="150" style="width:100%;" placeholder="Enter your Degree" name="degree" required> 
     
     <label for="field"><b>Field</b></label><br>
-    <input type="text" maxlength="150" style="width:100%;" placeholder="Enter your Field" name="field" required> 
-    
+    <input type="text" maxlength="150" style="width:100%;" placeholder="Enter your Field" name="field" required>
     <table border="0" cellpadding="5" cellspacing="0">
         <tr> 
             <td style="width: 50%">

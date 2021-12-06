@@ -123,7 +123,7 @@ class AuthController extends Controller
                 if (Auth::loginUsingId($user->id)) {
                     // return redirect()->route('');
                     //should return to jobsrecruiterapp
-                    dd('mabrouk');
+                    return redirect()->route('JobRecruiterApp');
                 } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }

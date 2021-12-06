@@ -35,6 +35,7 @@ Route::get('/', function () {
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::put('/profile/edit', [ProfileController::class, 'update']);
+Route::post('/profile/picture', [ProfileController::class, 'profile']);
 
 Route::get('/JobseekerAPP', [JobSeekerController::class, 'index'])->name('JobSeekerApp');
 Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);

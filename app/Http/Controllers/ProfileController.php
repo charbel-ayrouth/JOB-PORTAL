@@ -59,4 +59,11 @@ class ProfileController extends Controller
             ]);
         return redirect()->route('profile');
     }
+    public function profile(Request $request)
+    {
+        $user = User::find(auth()->id());
+        $filename = $user->name . 'IMG.' . $request->pp->extension();
+        $request->pp->move(public_path('storage/images'), $filename);
+        User::find(auth()->id())->update(['path' => $filename]);
+    }
 }

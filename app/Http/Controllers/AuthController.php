@@ -47,7 +47,6 @@ class AuthController extends Controller
 
                     //return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
-                    dd('3');
                     return redirect()->route('JobProviderHome');
                 }
             } else if ($user->email_verified_at != null) {

@@ -19,9 +19,7 @@ class JobSeekerController extends Controller
     //------------------------------------Home page Search----------------------------------------
     public function searchjob(Request $request)
     {
-        $request->job;
-
-        $j[] = Job::query()
+        $Jobs[] = Job::query()
             ->where('JobTitle', 'like', "%{$request->job}%")
             ->orWhere('Field', 'like', "%{$request->job}%")
             ->orWhere('Description', 'like', "%{$request->job}%")
@@ -35,10 +33,9 @@ class JobSeekerController extends Controller
             ->get();
 
         foreach ($l as $value) {
-            array_push($j, Job::where('location_id', $value->id())->get());
+            array_push($Jobs, Job::where('location_id', $value->id())->get());
         } 
-        dd($j); 
-        return view('Jobseeker.search', compact('j'));
+        return view('Jobseeker.search', compact('Jobs'));
     }
 
     public function display()

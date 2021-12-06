@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/LoginCss.css">
     <title></title>
 </head>
-
+@include('layouts.header')
 <body>
     <div class="errorContainer">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
@@ -245,5 +245,4 @@
         // document.getElementById('phoneNumber').addEventListener("input", update);
     </script>
 </body>
-
 </html>

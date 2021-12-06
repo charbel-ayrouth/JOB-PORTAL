@@ -8,6 +8,7 @@ body{
     background: url('/img/LoginWallpaper.jpg') no-repeat center;
     background-size: cover;
     font-family: sans-serif;
+    overflow: hidden;
 }
 .flash-message{
     position: absolute;

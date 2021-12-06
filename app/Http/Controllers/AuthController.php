@@ -40,7 +40,8 @@ class AuthController extends Controller
                 } else if ($user->role_id == 2) {
 
                     // return redirect()->route('');
-                    dd('hi2');
+                    return redirect()->route('homepage_js');
+
                 } else if ($user->role_id == 3) {
 
                     // return redirect()->route('');
@@ -58,9 +59,9 @@ class AuthController extends Controller
         $user = new User();
         $request->validate([
             'name' => 'required|unique:users,name|max:255',
-            'email' => 'required|unique:users,email|Email',
+            'email'=> 'required|unique:users,email|Email',
             'password' => 'required|confirmed|between:8,255',
-            'phoneNumber' => 'required',
+            'phoneNumber'=> 'required',
             'countrySelected' => 'required|String',
             'city' => 'required|String',
             'gender' => 'required'
@@ -88,16 +89,18 @@ class AuthController extends Controller
         $user->save();
         if ($user != null) {
             Mail::to($request->email)->send(new AuthMail(['name' => $user->name, 'verificationToken' => $user->VerificationToken]));
-            if ($user->role_id == 2) {
-                return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
-            } else if ($user->role_id == 3) {
+            if($user->role_id == 2)
+            {
+               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
+            }else if($user->role_id == 3){
                 return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
             }
         } else {
             return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
-            if ($user->role_id == 2) {
-                return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
-            } else if ($user->role_id == 3) {
+            if($user->role_id == 2)
+            {
+               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
+            }else if($user->role_id == 3){
                 return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
             }
         }
@@ -119,7 +122,8 @@ class AuthController extends Controller
                 if (Auth::loginUsingId($user->id)) {
                     // return redirect()->route('');
                     //should return to jobsrecruiterapp
-                    return redirect()->route('JobRecruiterApp');
+                    //dd('mabrouk');
+                    return redirect()->route('Jo');
                 } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }
@@ -131,7 +135,7 @@ class AuthController extends Controller
     }
     public function Logout()
     {
-        auth()->logout();
+        Auth::logout();
         return redirect()->route('home');
     }
 }

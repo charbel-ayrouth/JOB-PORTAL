@@ -41,12 +41,19 @@ public function searchjob(Request $request)
     public function display(){
 
         $j=Job::all();
-        $l=Locations::all();
-        $u=User::all();
+        $user = User::find(auth()->id());
+        $user_location = Locations::find($user->location_id);
+        $job_seeker = JobSeeker::where('user_id',auth()->id())->get()->first();
 
-        $job=DB::select('select name, JobTitle, Country, city, zipCode from jobs, locations, users, job_providers where 
-        users.id=job_providers.id and job_providers.id=jobs.Jobprovider_id and locations.id=jobs.location_id;');
-        return view('Jobseeker.Homepage', compact('job'));
+        $Jobs=[];
+        foreach ($j as $key => $value) {
+            $JobLocation = Locations::where('id',$value->location_id)->get()->first();
+            if($user_location->Country == $JobLocation->Country && $job_seeker->Field == $value->Field)
+            {
+                array_push($Jobs,$j);
+            }    
+        }
+        return view('Jobseeker.Homepage')->with('Jobs',$Jobs);
     }
 
     public function createApplication(Request $request)

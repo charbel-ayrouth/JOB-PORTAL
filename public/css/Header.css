@@ -1,12 +1,24 @@
-<head>
-    <style>
-        
+/* Challenge
+
+   Make the navigation layout work
+   on both mobile and large screens.
+
+   Mobile-first, so mobile styles first,
+   then add the large screen styles
+   inside the existing media query
+
+*/
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
+}
+
+img {
+    max-width: 100%;
 }
 
 
@@ -31,11 +43,11 @@ body {
 }
 
 .container {
-    width: 100%;
+    width: 80%;
+    max-width: 1100px;
     margin: 0 auto;
     /* added for nav-toggle positioning */
     position: relative;
-    background: #072A2D;
 }
 
 header {
@@ -183,13 +195,6 @@ header {
 @media (min-width: 800px) {
 
     
-.container {
-    width: 100%;
-    margin: 0 auto;
-    /* added for nav-toggle positioning */
-    position: relative;
-    background: #072A2D;
-}
     .nav-toggle {
         display: none;
     }
@@ -273,33 +278,3 @@ header {
     }
     
 }
-    </style>
-</head>
-<body>
-    <div class="container row">
-        <button class="nav-toggle" aria-label="open navigation">
-            <span class="hamburger"></span>
-        </button>
-        <a class="logo" href="#">
-            {{-- <img src="img/logo.svg" alt="conquering responsive layouts"> --}}
-        </a>
-        <nav class="nav">
-            <ul class="nav__list nav__list--primary">
-                <li class="nav__item"><a href="#" class="nav__link">Home</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">About</a></li>
-                <li class="nav__item"><a href="#" class="nav__link">Contact</a></li>
-            </ul>
-            <ul class="nav__list nav__list--secondary">
-                @auth
-                    
-                <li class="nav__item"><a href="/logout" class="nav__link">Logout</a></li>
-                @endauth
-                @guest
-                    <li class="nav__item"><a href="#" class="nav__link">Sign In</a></li>
-                    <li class="nav__item"><a href="#" class="nav__link nav__link--button">Sign up</a></li>
-                @endguest
-            </ul>
-        </nav>
-    </div>
-    <script src="/js/header.js"></script>
-</body>

@@ -15,8 +15,11 @@ class CreateJobSeekersTable extends Migration
     {
         Schema::create('job_seekers', function (Blueprint $table) {
             $table->id();
+            $table->string('degree');
+            $table->string('field');
+            $table->longText('experience');
+            $table->longText('skills');
             $table->string('CV');
-            $table->string('Field');
             $table->string('CoverLetter');
             $table->foreignId('user_id')->constrained('users')->onDelete('Cascade');
             $table->timestamps();

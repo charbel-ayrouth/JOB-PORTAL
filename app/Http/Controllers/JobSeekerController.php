@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Locations;
 use App\Models\Job;
-
+use App\Models\JobProvider;
 
 class JobSeekerController extends Controller
 {
@@ -19,41 +19,62 @@ class JobSeekerController extends Controller
     //------------------------------------Home page Search----------------------------------------
     public function searchjob(Request $request)
     {
-        $Jobs[] = Job::query()
-            ->where('JobTitle', 'like', "%{$request->job}%")
-            ->orWhere('Field', 'like', "%{$request->job}%")
-            ->orWhere('Description', 'like', "%{$request->job}%")
-            ->orWhere('Requirements', 'like', "%{$request->job}%")
+        if($request->job != null && $request->jobloc != null)
+        {
+        $Jobs = Job::query()
+            ->where(function ($query,$request) {
+                $query->where('JobTitle', 'like', "%".$request->job."%")
+                ->orWhere('Field', 'like',  "%".$request->job."%")
+                ->orWhere('Description', 'like',  "%".$request->job."%")
+                ->orWhere('Requirements', 'like',  "%".$request->job."%");
+            })
+            ->join('locations',function($join){
+                $join->on('location_id','=','locations.id');
+            })  
+            ->where(function ($query,$request) {    
+                $query->where('Country', 'like', "%".$request->jobloc."%")
+                ->orWhere('City', 'like',  $request->jobloc."%");
+            })
             ->get();
-
-        $l = Locations::query()
-            ->where('Country', 'like', "%{$request->jobloc}%")
-            ->orWhere('City', 'like', "%{$request->jobloc}%")
-            ->orWhere('ZipCode', 'like', "%{$request->jobloc}%")
+        }else if($request->job == null && $request->jobloc == null)
+        {
+            return redirect()->route('homepage_js');
+        }else if($request->job != null && $request->jobloc == null)
+        {
+            $Jobs = Job::query()
+            ->where('JobTitle', 'like', "%".$request->job."%")
+            ->orWhere('Field', 'like',  "%".$request->job."%")
+            ->orWhere('Description', 'like',  "%".$request->job."%")
+            ->orWhere('Requirements', 'like',  "%".$request->job."%")
+            ->join('locations',function($join){
+                $join->on('location_id','=','locations.id');
+            })
             ->get();
+        }else{
+            $Jobs = Job::query()
+            ->join('locations',function($join){
+                $join->on('location_id','=','locations.id');
+            })
+            ->where('Country', 'like',  "%".$request->jobloc."%")
+            ->orWhere('City', 'like',  "%".$request->jobloc."%")
+            ->get();
+        }
+        
+        $providers = JobProvider::join('users','user_id','=','users.id')->get()->all();
 
-        foreach ($l as $value) {
-            array_push($Jobs, Job::where('location_id', $value->id())->get());
-        } 
-        return view('Jobseeker.search', compact('Jobs'));
+        return view('Jobseeker.Homepage')->with('providers',$providers)->with('Jobs',$Jobs);
     }
 
     public function display()
     {
-
-        $j = Job::all();
-        $user = User::find(auth()->id());
-        $user_location = Locations::find($user->location_id);
         $job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
 
-        $Jobs = [];
-        foreach ($j as $key => $value) {
-            $JobLocation = Locations::where('id', $value->location_id)->get()->first();
-            if ($user_location->Country == $JobLocation->Country && $job_seeker->Field == $value->Field) {
-                array_push($Jobs, $j);
-            }
-        }
-        return view('Jobseeker.Homepage')->with('Jobs', $Jobs);
+        $Jobs = Job::join('locations',function($join){
+            $join->on('location_id','=','locations.id');
+        })->where('locations.country','=',Locations::find(User::find(auth()->id())->location_id)->Country)
+           ->where('Field','like',"%".$job_seeker->Field."%")->get();
+        $providers = JobProvider::join('users','user_id','=','users.id')->get()->all();
+        return view('Jobseeker.Homepage')->with('Jobs', $Jobs)->with('providers',$providers);
     }
 //-----------------------------------Create application----------------------------------------
     public function createApplication(Request $request)

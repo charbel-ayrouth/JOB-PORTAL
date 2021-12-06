@@ -88,7 +88,14 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        User::where('id', $request->id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phonenumber' => $request->phonenumber,
+                'role_id' => $request->role,
+            ]);
+        return redirect()->route('users.index');
     }
 
     /**
@@ -100,6 +107,6 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         User::where('id', $id)->delete();
-        return route('users.index');
+        return redirect()->route('users.index');
     }
 }

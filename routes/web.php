@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\JobSeekerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,9 @@ Route::post('/forgot-password',[ResetPasswordController::class,'requestReset'])-
 Route::post('/reset-password',[ResetPasswordController::class,'handleReset'])->middleware('guest')->name('password.update');
 
 Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
+//
 Route::post('/Sign-In', [AuthController::class, 'Login']);
-
+//
 Route::get('/Sign-In/Recruiter', [AuthController::class, 'indexRecruiter'])->name('LoginPageRecruiter');
 Route::get('/Sign-In/Seeker', [AuthController::class, 'indexSeeker'])->name('LoginPageSeeker');
 Route::post('/register', [AuthController::class, 'register']);
@@ -78,3 +80,10 @@ Route::get('/JobseekerAPP', function () {
 })->name('JobSeekerApp');
 
 
+
+/*Route::get('/JShomepage', function () {
+    return view('Jobseeker.Homepage');
+})->name('homepage_js');*/
+Route::get('/JShomepage', [JobSeekerController::class, 'display'])-> name('homepage_js');
+
+Route::get('/search', [JobSeekerController::class, 'searchjob']); 

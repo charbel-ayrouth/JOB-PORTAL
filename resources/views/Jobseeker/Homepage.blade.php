@@ -52,6 +52,7 @@
     <br><br>
 
     @foreach ($Jobs as $key=>$job)
+<div class="div-1">
     <div class="div-1">
         <div class="profilepicture">
             <img src="" alt="image">
@@ -62,7 +63,7 @@
     </div>
     <div class="midcontainer">
         
-        <h2>{{$job[$key]->JobTitle}}</h2>
+        {{--<h2>{{$job[$key]->JobTitle}}</h2>--}}
         <h2>frontend react native developper</h2>
         <p>full time job(on site)</p>
        
@@ -72,8 +73,8 @@
         <p>Beirut-<a> andremawad.sarl.com</a></p>
         <p>email:andre@mawad.com</p>
     </div>
-
 </div>
+
 @endforeach
 
 {{--<table class="table table-bordered table-striped"  style="background-color:rgb(240, 240, 240)">

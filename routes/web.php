@@ -31,10 +31,11 @@ Route::get('/', function () {
     return view('LandingPage.LandingScreen');
 })->name('home');
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');   
 
 Route::get('/JobseekerAPP', [JobSeekerController::class, 'index'])->name('JobSeekerApp');
 Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
 
 Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
 Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
+Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');

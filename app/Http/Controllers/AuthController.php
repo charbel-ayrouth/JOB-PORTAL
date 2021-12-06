@@ -33,20 +33,15 @@ class AuthController extends Controller
         ]);
         if (Auth::attempt(['email' => $request->email, 'password' => $request->passwordLogin])) {
             $user = User::find(auth()->id());
-            dd($user);
             if ($user->email_verified_at != null) {
-                dd($user);
                 if ($user->role_id == 1) {
                     // return redirect()->route('');
                     dd('hi');
                 } else if ($user->role_id == 2) {
-
                     // return redirect()->route('');
-                    dd('hi2');
                 } else if ($user->role_id == 3) {
-
-                    // return redirect()->route('');
-                    dd('hi3');
+                    dd('3');
+                    return redirect()->route('JobProviderHome');
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));
@@ -121,9 +116,7 @@ class AuthController extends Controller
                 }
             } else if ($user->role_id == 3) {
                 if (Auth::loginUsingId($user->id)) {
-                    // return redirect()->route('');
-                    //should return to jobsrecruiterapp
-                    return redirect()->route('JobRecruiterApp');
+                    return redirect()->route('JobProviderApp');
                 } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }

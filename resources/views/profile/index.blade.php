@@ -103,9 +103,9 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('users.index') }}"
+                        <a href="#"
                             class="block w-full text-center text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 mt-4">Go
-                            Back To Dashboard</a>
+                            Back To Home Page</a>
                     </div>
                     <!-- End of about section -->
 
@@ -127,22 +127,7 @@
                                     <span class="tracking-wide">Experience</span>
                                 </div>
                                 <ul class="list-inside space-y-2">
-                                    <li>
-                                        <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                    </li>
-                                    <li>
-                                        <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                    </li>
-                                    <li>
-                                        <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                    </li>
-                                    <li>
-                                        <div class="text-teal-600">Owner at Her Company Inc.</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                    </li>
+                                    <div class="text-teal-600">{{ $jobSeeker->experience }}</div>
                                 </ul>
                             </div>
                             <div>
@@ -157,16 +142,11 @@
                                                 d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
                                         </svg>
                                     </span>
-                                    <span class="tracking-wide">Education</span>
+                                    <span class="tracking-wide">Skills</span>
                                 </div>
                                 <ul class="list-inside space-y-2">
                                     <li>
-                                        <div class="text-teal-600">Masters Degree in Oxford</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
-                                    </li>
-                                    <li>
-                                        <div class="text-teal-600">Bachelors Degreen in LPU</div>
-                                        <div class="text-gray-500 text-xs">March 2020 - Now</div>
+                                        <div class="text-teal-600">{{ $jobSeeker->skills }}</div>
                                     </li>
                                 </ul>
                             </div>

@@ -15,6 +15,10 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        return view('Auth.LoginScreen');
+    }
     public function indexSeeker()
     {
         $countries = country::all();

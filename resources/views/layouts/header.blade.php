@@ -300,7 +300,8 @@
                     <li class="nav__item"><a href="/logout" class="nav__link">Logout</a></li>
                 @endauth
                 @guest
-                    <li class="nav__item"><a href="#" class="nav__link">Sign In</a></li>
+                    <li class="nav__item"><a href="{{ route('LoginPageRecruiter') }}" class="nav__link">Sign
+                            In</a></li>
                     <li class="nav__item"><a href="#" class="nav__link nav__link--button">Sign up</a></li>
                 @endguest
             </ul>

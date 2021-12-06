@@ -122,7 +122,8 @@
 
 <body>
 
-    <form action="{{ route('JobSeekerApp') }}" method="POST" style="border:1px solid #ccc">
+    <form action="{{ route('JobSeekerApp') }}" method="POST" enctype="multipart/form-data"
+        style="border:1px solid #ccc">
         @csrf
         <div class="container">
             <center>

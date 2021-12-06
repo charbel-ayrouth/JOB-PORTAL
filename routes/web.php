@@ -19,10 +19,10 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index'])
 Route::post('/forgot-password', [ResetPasswordController::class, 'requestReset'])->middleware('guest')->name('password.email');
 Route::post('/reset-password', [ResetPasswordController::class, 'handleReset'])->middleware('guest')->name('password.update');
 
-Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
 //
-Route::post('/Sign-In', [AuthController::class, 'Login']);
 //
+Route::post('/Sign-In', [AuthController::class, 'Login'])->name('LoginPage');
+
 Route::get('/Sign-In/Recruiter', [AuthController::class, 'indexRecruiter'])->name('LoginPageRecruiter');
 Route::get('/Sign-In/Seeker', [AuthController::class, 'indexSeeker'])->name('LoginPageSeeker');
 Route::post('/register', [AuthController::class, 'register']);
@@ -32,7 +32,7 @@ Route::get('/', function () {
     return view('LandingPage.LandingScreen');
 })->name('home');
 
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');   
 
 Route::get('/JobseekerAPP', [JobSeekerController::class, 'index'])->name('JobSeekerApp');
 Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
@@ -46,3 +46,4 @@ Route::get('/JShomepage', [JobSeekerController::class, 'display'])-> name('homep
 Route::get('/search', [JobSeekerController::class, 'searchjob']); 
 Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
 Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
+Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');

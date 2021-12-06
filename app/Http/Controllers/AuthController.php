@@ -15,6 +15,10 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        return view('Auth.LoginScreen');
+    }
     public function indexSeeker()
     {
         $countries = country::all();
@@ -38,14 +42,13 @@ class AuthController extends Controller
                     // return redirect()->route('');
                     dd('hi');
                 } else if ($user->role_id == 2) {
-
                     // return redirect()->route('');
                     return redirect()->route('homepage_js');
 
+                    //return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
-
-                    // return redirect()->route('');
-                    dd('hi3');
+                    dd('3');
+                    return redirect()->route('JobProviderHome');
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));
@@ -120,10 +123,7 @@ class AuthController extends Controller
                 }
             } else if ($user->role_id == 3) {
                 if (Auth::loginUsingId($user->id)) {
-                    // return redirect()->route('');
-                    //should return to jobsrecruiterapp
-                    //dd('mabrouk');
-                    return redirect()->route('Jo');
+                    return redirect()->route('JobProviderApp');
                 } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }

@@ -122,8 +122,8 @@
 
 <body>
 
-    <form action="/action_page.php" style="border:1px solid #ccc">
-
+    <form action="{{ route('JobProviderApp') }}" style="border:1px solid #ccc" enctype="multipart/form-data" method="POST">
+        @csrf
         <div class="container">
             <center>
                 <h1>Job Provider Application</h1>
@@ -143,8 +143,8 @@
             <label for="description"><b>Description:</b></label><br />
             <textarea name="description" rows="7" cols="40" style="width:100%;max-width: 535px"></textarea>
             <br><br><br>
-            <label for="Address"><b>Address:</b></label><br>
-            <textarea name="Address" rows="7" cols="40" style="width:100%;max-width: 535px"></textarea><br><br><br><br>
+            {{-- <label for="Address"><b>Address:</b></label><br>
+            <textarea name="Address" rows="7" cols="40" style="width:100%;max-width: 535px"></textarea><br><br><br><br> --}}
             <table border="0" cellpadding="5" cellspacing="0">
                 <tr>
                     <!--<td style="width: 500px">
@@ -159,7 +159,7 @@
                         <b>Upload Your Profile Picture:</b>
                         <br><br>
                         <label class="input-file">Choose Picture
-                            <input type="file" name="path" /></label>
+                            <input type="file" name="path"/></label>
 
                     </td>
                 </tr>

@@ -1,14 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Locations;
 use App\Models\Job;
-use phpDocumentor\Reflection\Location;
+
 
 class JobSeekerController extends Controller
 {
@@ -58,31 +56,34 @@ public function searchjob(Request $request)
 
     public function createApplication(Request $request)
     {
+        $request->validate([
+            'cv' => 'required',
+            'path' => 'required',
+        ]);
+        $user = User::find(auth()->id());
+        // \dd($user);
+        $cv = $request->cv;
+        $image = $request->path;
 
-        $js = new JobSeeker;
+        $CVname = $user->name . 'CV.' . $cv->extension();
+        $IMGname = $user->name . 'IMG.' . $image->extension();
 
-        //$js->CV=$request->input('cv');
+        $cv->move(public_path('storage/cv'), $CVname);
+        $image->move(public_path('storage/images'), $IMGname);
 
-        $js->degree = $request->input('degree');
-        $js->field = $request->input('field');
-        $js->experience = $request->input('experience');
-        $js->skills = $request->input('skills');
-        if ($request->hasfile('cv')) {
-            $file = $request->file('cv');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extention;
-            $file->move('uploads/cv/', $filename);
-            $js->cv = $filename;
-        }
-        if ($request->hasfile('path')) {
-            $file = $request->file('path');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time() . '.' . $extention;
-            $file->move('uploads/profilepic/', $filename);
-            $js->path = $filename;
-        }
-        $js->save();
-        \dd('you app has been filled');
+        JobSeeker::Create([
+            'degree' => $request->degree,
+            'Field' => $request->field,
+            'experience' => $request->experience,
+            'skills' => $request->skills,
+            'CV' => $CVname,
+            'CoverLetter' => 'need to add it to the form',
+            'user_id' => auth()->id(),
+        ]);
+        User::where('id', auth()->id())->update([
+            'path' => $IMGname
+        ]);
+        dd('you app has been filled');
     }
 }
 

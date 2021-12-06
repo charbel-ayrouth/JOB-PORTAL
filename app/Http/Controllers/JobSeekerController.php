@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\JobSeeker;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,45 +16,47 @@ class JobSeekerController extends Controller
         return view('jobSeeker.JobseekerApp');
     }
 
-//------------------------------------Home page Search----------------------------------------
-public function searchjob(Request $request)
+    //------------------------------------Home page Search----------------------------------------
+    public function searchjob(Request $request)
     {
-        
-        $s =$request->search;
-        
-        $j=Job::query()
-            ->where('JobTitle', 'like', "%{$s}%")
-            ->orWhere('Field', 'like', "%{$s}%")
-            ->orWhere('Description', 'like', "%{$s}%")
-            ->orWhere('Requirements', 'like', "%{$s}%")
+        $request->job;
+
+        $j[] = Job::query()
+            ->where('JobTitle', 'like', "%{$request->job}%")
+            ->orWhere('Field', 'like', "%{$request->job}%")
+            ->orWhere('Description', 'like', "%{$request->job}%")
+            ->orWhere('Requirements', 'like', "%{$request->job}%")
             ->get();
-        
-        $l=Locations::query()
-        ->where('Country', 'like', "%{$s}%")
-        ->orWhere('City', 'like', "%{$s}%")
-        ->orWhere('ZipCode', 'like', "%{$s}%")
-        ->get();
-        return view('Jobseeker.search', compact('j','l'));
+
+        $l = Locations::query()
+            ->where('Country', 'like', "%{$request->jobloc}%")
+            ->orWhere('City', 'like', "%{$request->jobloc}%")
+            ->orWhere('ZipCode', 'like', "%{$request->jobloc}%")
+            ->get();
+
+        foreach ($l as $value) {
+            array_push($j, Job::where('location_id', $value->id())->get());
+        } 
+        dd($j); 
+        return view('Jobseeker.search', compact('j'));
     }
 
-    public function display(){
+    public function display()
+    {
 
-        $j=Job::all();
+        $j = Job::all();
         $user = User::find(auth()->id());
         $user_location = Locations::find($user->location_id);
-        $job_seeker = JobSeeker::where('user_id',auth()->id())->get()->first();
+        $job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
 
-        $Jobs=[];
+        $Jobs = [];
         foreach ($j as $key => $value) {
-            $JobLocation = Locations::where('id',$value->location_id)->get()->first();
-            if($user_location->Country == $JobLocation->Country && $job_seeker->Field == $value->Field)
-            
-            {
-                array_push($Jobs,$j,$user);
-            }    
+            $JobLocation = Locations::where('id', $value->location_id)->get()->first();
+            if ($user_location->Country == $JobLocation->Country && $job_seeker->Field == $value->Field) {
+                array_push($Jobs, $j);
+            }
         }
-
-        return view('Jobseeker.Homepage')->with('Jobs',$Jobs);
+        return view('Jobseeker.Homepage')->with('Jobs', $Jobs);
     }
 //-----------------------------------Create application----------------------------------------
     public function createApplication(Request $request)
@@ -85,7 +88,6 @@ public function searchjob(Request $request)
         User::where('id', auth()->id())->update([
             'path' => $IMGname
         ]);
-        dd('you app has been filled');
+        return redirect()->route('JobSeekerApp');
     }
 }
-

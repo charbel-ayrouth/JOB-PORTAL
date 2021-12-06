@@ -40,7 +40,7 @@ class AuthController extends Controller
                 } else if ($user->role_id == 2) {
 
                     // return redirect()->route('');
-                    dd('hi2');
+                    return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
 
                     // return redirect()->route('');

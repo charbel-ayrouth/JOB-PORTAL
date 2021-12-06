@@ -17,6 +17,7 @@ class CreateJobsTable extends Migration
             $table->id();
             $table->string('JobTitle');
             $table->string('Field');
+            $table->string('type');
             $table->longText('Requirements');
             $table->longText('Description');
             $table->string('JobSkillLevel');

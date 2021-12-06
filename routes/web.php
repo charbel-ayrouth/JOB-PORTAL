@@ -19,8 +19,7 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index'])
 Route::post('/forgot-password', [ResetPasswordController::class, 'requestReset'])->middleware('guest')->name('password.email');
 Route::post('/reset-password', [ResetPasswordController::class, 'handleReset'])->middleware('guest')->name('password.update');
 
-Route::get('/Sign-In', [AuthController::class, 'index'])->name('LoginPage');
-Route::post('/Sign-In', [AuthController::class, 'Login']);
+Route::post('/Sign-In', [AuthController::class, 'Login'])->name('LoginPage');
 
 Route::get('/Sign-In/Recruiter', [AuthController::class, 'indexRecruiter'])->name('LoginPageRecruiter');
 Route::get('/Sign-In/Seeker', [AuthController::class, 'indexSeeker'])->name('LoginPageSeeker');

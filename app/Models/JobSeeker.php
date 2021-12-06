@@ -10,8 +10,11 @@ class JobSeeker extends Model
     use HasFactory;
     protected $fillable = [
         'id',
+        'degree',
         'user_id',
         'Field',
+        'experience',
+        'skills',
         'CoverLetter',
         'CV',
     ];

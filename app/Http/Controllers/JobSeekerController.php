@@ -22,19 +22,15 @@ class JobSeekerController extends Controller
         if($request->job != null && $request->jobloc != null)
         {
         $Jobs = Job::query()
-            ->where(function ($query,$request) {
-                $query->where('JobTitle', 'like', "%".$request->job."%")
-                ->orWhere('Field', 'like',  "%".$request->job."%")
-                ->orWhere('Description', 'like',  "%".$request->job."%")
-                ->orWhere('Requirements', 'like',  "%".$request->job."%");
-            })
+            ->where('JobTitle', 'like', "%".$request->job."%")
+            ->orWhere('Field', 'like',  "%".$request->job."%")
+            ->orWhere('Description', 'like',  "%".$request->job."%")
+            ->orWhere('Requirements', 'like',  "%".$request->job."%")
             ->join('locations',function($join){
                 $join->on('location_id','=','locations.id');
-            })  
-            ->where(function ($query,$request) {    
-                $query->where('Country', 'like', "%".$request->jobloc."%")
-                ->orWhere('City', 'like',  $request->jobloc."%");
-            })
+            })      
+            ->where('Country', 'like',  $request->jobloc."%")
+            ->orWhere('City', 'like',  $request->jobloc."%")
             ->get();
         }else if($request->job == null && $request->jobloc == null)
         {

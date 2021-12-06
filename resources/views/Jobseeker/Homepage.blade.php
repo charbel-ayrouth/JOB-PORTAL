@@ -10,7 +10,6 @@
         border-block-color: #000000;
         padding: 10px 10px;
     }
-
     .div-1 {
         width: 70%;
         background: #f7f5f5;
@@ -23,11 +22,34 @@
         justify-content: space-between;
         margin: auto;
         box-shadow: 1px 1px 1px 1px #888888;
-        transition: box-shadow .2s ease-in-out
+        transition: box-shadow .2s ease-in-out;
     }
-    .div-1:hover{
+    table tr td button{
+        border-width: 0;
+        background: rgba(59, 130, 246, .8);
+        padding:10px 40px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .div-1:hover {
         box-shadow: 0px 0px 0px 0px #888888;
-        cursor:pointer ;
+        cursor: pointer;
+        border-color: rgba(59, 130, 246, .8);
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    .left-side {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        width: fit-content;
+        max-width: 50%;
+    }
+
+    .left-side .profilepicture {
+        margin-right: 10%;
     }
 
 </style>
@@ -36,52 +58,51 @@
 <body>
     @csrf
     <table border="0" cellpadding="5" cellspacing="0" align="center">
-        <tr>
-            <td style="width: 50%" align="center">
-                <form action="{{ url('/search') }}">
+        <form action="/search" method="POST">
+            @csrf
+            <tr>
+                <td style="width: 50%" align="center">
                     <input class="oval" name="job" type="text" maxlength="50"
-                        style="width:100%;max-width: 260px" placeholder="What Job Title, Keywords, or company?"
-                        required>
-                </form>
-            </td>
-            <td>&nbsp;</td>
-            <td style="width: 60%" align="center">
-                <form action="{{ url('/search') }}">
+                        style="width:100%;max-width: 260px" placeholder="What Job Title, Keywords, or company?">
+                </td>
+                <td>
+                    <button type="submit">Search</button>
+                </td>
+                <td style="width: 60%" align="center">
                     <input class="oval" name="jobloc" type="text" maxlength="50"
-                        style="width:100%;max-width: 260px" placeholder="Where country, city, or zip code?"
-                        action="{{ url('/search') }}" required>
-                </form>
-            </td>
+                        style="width:100%;max-width: 260px" placeholder="Where country, city, or zip code?">
+                </td>
         </tr>
+    </form>
     </table>
     <br><br>
-    <div class="div-1">
-        <div class="profilepicture">
-            <img src="" alt="image">
+    @foreach ($Jobs as $key => $job)
+        <div class="div-1">
+            <div class="left-side">
+                <div class="profilepicture">
+                    @foreach ($providers as $prov)
+                        @if ($job->Jobprovider_id = $prov->id)
+                            <img width="100" height="100" src="{{ URL('/storage/images/' . $prov->path) }}" alt="image">
+                        @endif
+                    @endforeach
+                </div>
+                <div class="midcontainer">
+                    <h2>{{ $job->JobTitle }}</h2>
+                    <p>{{ $job->JobSkillLevel }}</p>
+                </div>
+            </div>
+            <div class="rightcontainer">
+                @foreach ($providers as $prov)
+                    @if ($job->Jobprovider_id = $prov->id)
+                        <h3>{{ $prov->CompanyTitle }}</h3>
+                        <p>Email: {{ $prov->email }}</p>
+                        <p>{{ $job->Country.'-'.$job->city }}</p>
+                    @endif
+                @endforeach
+            </div>
         </div>
-        <div class="midcontainer">
-            <h2>frontend react native developper</h2>
-            <p>full time job(on site)</p>
-        </div>
-        <div class="rightcontainer">
-            <h3>Andre Solution</h3>
-            <p>Beirut-<a> andremawad.sarl.com</a></p>
-            <p>email:andre@mawad.com</p>
-        </div>
-    </div>
-    <table class="table table-bordered table-striped" style="background-color:rgb(240, 240, 240)">
-        <thead>
-        </thead>
-        <tbody>
-            @foreach ($Jobs as $key => $job)
-                <tr>
-                    <td>
-                        {{ dump($job[$key]) }}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+
+    @endforeach
 </body>
 
 </html>

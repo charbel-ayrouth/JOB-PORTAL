@@ -43,7 +43,7 @@ Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
 })->name('homepage_js');*/
 Route::get('/JShomepage', [JobSeekerController::class, 'display'])-> name('homepage_js');
 
-Route::get('/search', [JobSeekerController::class, 'searchjob']); 
+Route::post('/search', [JobSeekerController::class, 'searchjob']);  
 Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
 Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
 Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');

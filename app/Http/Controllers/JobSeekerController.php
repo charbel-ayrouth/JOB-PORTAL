@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Locations;
+use App\Models\Job;
 use phpDocumentor\Reflection\Location;
 
 class JobSeekerController extends Controller
@@ -49,6 +51,37 @@ public function createApplication(Request $request){
 
 }
 
+//------------------------------------Home page Search----------------------------------------
+public function searchjob(Request $request)
+    {
+        
+        $s =$request->search;
+        
+        $j=Job::query()
+            ->where('JobTitle', 'like', "%{$s}%")
+            ->orWhere('Field', 'like', "%{$s}%")
+            ->orWhere('Description', 'like', "%{$s}%")
+            ->orWhere('Requirements', 'like', "%{$s}%")
+            ->get();
+        
+        $l=Locations::query()
+        ->where('Country', 'like', "%{$s}%")
+        ->orWhere('City', 'like', "%{$s}%")
+        ->orWhere('ZipCode', 'like', "%{$s}%")
+        ->get();
+        return view('Jobseeker.search', compact('j','l'));
+    }
 
+    public function display(){
+
+        $j=Job::all();
+        $l=Locations::all();
+        $u=User::all();
+
+        $job=DB::select('select name, JobTitle, Country, city, zipCode from jobs, locations, users, job_providers where 
+        users.id=job_providers.id and job_providers.id=jobs.Jobprovider_id and locations.id=jobs.location_id;');
+        return view('Jobseeker.Homepage', compact('job'));
+    }
 
 }
+

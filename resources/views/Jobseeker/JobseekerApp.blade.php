@@ -115,7 +115,7 @@ input[type="file"]
 
 </style>
 <body>
-
+@csrf
 <form action="/action_page.php" style="border:1px solid #ccc">
   <div class="container">
     <center><h1>Job Seeker Application</h1>

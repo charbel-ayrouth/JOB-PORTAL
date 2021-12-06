@@ -55,7 +55,7 @@ class JobSeekerController extends Controller
         }
         return view('Jobseeker.Homepage')->with('Jobs', $Jobs);
     }
-
+//-----------------------------------Create application----------------------------------------
     public function createApplication(Request $request)
     {
         $request->validate([

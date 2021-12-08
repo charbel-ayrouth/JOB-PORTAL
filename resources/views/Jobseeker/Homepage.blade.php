@@ -58,7 +58,8 @@
 <body>
     @csrf
     <table border="0" cellpadding="5" cellspacing="0" align="center">
-        <form action="/search" method="POST">
+        {{--<form action="/search" method="POST">--}}
+            <form action="/search" method="Get">
             @csrf
             <tr>
                 <td style="width: 50%" align="center">
@@ -77,14 +78,17 @@
     </table>
     <br><br>
     @foreach ($Jobs as $key => $job)
+    @foreach ( $providers as $prov)
+        
+    
         <div class="div-1">
             <div class="left-side">
                 <div class="profilepicture">
-                    @foreach ($providers as $prov)
+                   {{-- @foreach ($providers as $prov)--}}
                         @if ($job->Jobprovider_id = $prov->id)
                             <img width="100" height="100" src="{{ URL('/storage/images/' . $prov->path) }}" alt="image">
                         @endif
-                    @endforeach
+                  {{--  @endforeach--}}
                 </div>
                 <div class="midcontainer">
                     <h2>{{ $job->JobTitle }}</h2>
@@ -92,16 +96,17 @@
                 </div>
             </div>
             <div class="rightcontainer">
-                @foreach ($providers as $prov)
+               {{-- @foreach ($providers as $prov)--}}
                     @if ($job->Jobprovider_id = $prov->id)
                         <h3>{{ $prov->CompanyTitle }}</h3>
                         <p>Email: {{ $prov->email }}</p>
                         <p>{{ $job->Country.'-'.$job->city }}</p>
                     @endif
-                @endforeach
+              {{--  @endforeach--}}
             </div>
         </div>
-
+        <br><br>
+        @endforeach
     @endforeach
 </body>
 

@@ -47,7 +47,8 @@ class AuthController extends Controller
 
                     //return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
-                    return redirect()->route('JobProviderHome');
+                    //return redirect()->route('JobProviderHome');
+                    return redirect()->action([JobProviderController::class, 'displayjp']);
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));
@@ -69,12 +70,12 @@ class AuthController extends Controller
             'gender' => 'required'
         ]);
         $location = new Locations();
-        $location->create([
+        /*$location->create([
             'Country' => $request->countrySelected,
             'City' => $request->city,
             'ZipCode' => $request->zipcode,
             'Address' => $request->address,
-        ]);
+        ]);*/
         $location->Country = $request->countrySelected;
         $location->City = $request->city;
         $location->ZipCode = $request->zipcode;
@@ -123,6 +124,7 @@ class AuthController extends Controller
             } else if ($user->role_id == 3) {
                 if (Auth::loginUsingId($user->id)) {
                     return redirect()->route('JobProviderApp');
+                    //return redirect()->action([JobProviderController::class, 'displayjp']);
                 } else {
                     return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong!!'));
                 }

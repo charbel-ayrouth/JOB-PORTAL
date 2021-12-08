@@ -9,7 +9,7 @@ class JobProvider extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
+        'jid',
         'user_id',
         'CompanyField',
         'CompanyDescription',

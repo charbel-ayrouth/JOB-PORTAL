@@ -22,7 +22,7 @@ class CreateJobsTable extends Migration
             $table->longText('Description');
             $table->string('JobSkillLevel');
             $table->foreignId('location_id')->constrained('locations')->onDelete('Cascade');
-            $table->foreignId('Jobprovider_id')->constrained('job_providers')->onDelete('Cascade');
+            $table->foreignId('Jobprovider_id')->constrained('job_providers')->references('jid')->onDelete('Cascade');
             $table->time('ValidationTime')->nullable();
             $table->timestamps();
         });

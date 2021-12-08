@@ -14,7 +14,7 @@ class CreateJobProvidersTable extends Migration
     public function up()
     {
         Schema::create('job_providers', function (Blueprint $table) {
-            $table->id();
+            $table->id('jid');
             $table->string('CompanyField');
             $table->longText('CompanyDescription');
             $table->string('CompanyTitle');

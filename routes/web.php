@@ -96,3 +96,4 @@ Route::group(['middleware' => 'guest'], function () {
 
 //test
 Route::get('/jphome',[JobProviderController::class, 'displayjp']);
+Route::get('/JobDetail/{id}',[AuthController::class, 'jobdetail']);

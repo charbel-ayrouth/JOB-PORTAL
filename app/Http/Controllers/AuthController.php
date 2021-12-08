@@ -1,17 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
+use App\Models\Job;
+use App\Models\User;
+
+
 
 use App\Mail\AuthMail;
 use App\Models\country;
+use App\Models\JobSeeker;
 use App\Models\Locations;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\JobProvider;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -139,4 +145,38 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+
+
+    //------------------Job Details--------------
+    public function jobdetail($id){
+        $Jobs=Job::find($id);
+        
+        /*$Jobs=Job::join('locations','locations.id','=','jobs.id')
+            ->select('locations.*')
+            ->get();
+        
+            dd($Jobs);*/
+        //$providers = JobProvider::join('users','user_id','=','users.id')->get();
+        
+        //$job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
+
+        /*$Jobs = Job::join('locations',function($join){
+            $join->on('location_id','=','locations.id');
+        })->where('locations.country','=',Locations::find(Job::find($id)->location_id)->Country)
+           ->where('jobs.id','=',(Job::find($id))->id)->get();
+        //$providers = JobProvider::join('users','user_id','=','users.id')->get()->all();
+        $providers=JobProvider::join('users',function($join){
+            $join->on('user_id','=','users.id');})->get();
+            //->where('job_providers.id','=',JobProvider::find(Job::find($id)->Jobprovider_id))->get();
+            dd($providers);*/
+
+         //$Jobs= DB::select('select * from jobs, locations where jobs.id = '.$id.' and jobs.location_id=locations.id');
+         //dd($Jobs);
+         //$providers=DB::select('select * from users, job_providers, jobs where jobs.Jobprovider_id=job_providers.id and job_providers.id=users.id ');   
+        //dd($providers);
+         //return view('Auth.JobDetails')->with('Jobs', $Jobs)->with('providers',$providers);
+         //return view('Auth.JobDetails')->with('Jobs', $Jobs);
+  
+         return view('Auth.JobDetails');
+        }
 }

@@ -93,3 +93,6 @@ Route::group(['middleware' => 'guest'], function () {
 // Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
 // Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
 // Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');
+
+//test
+Route::get('/jphome',[JobProviderController::class, 'displayjp']);

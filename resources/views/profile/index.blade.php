@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 
@@ -32,7 +32,7 @@
         </style>
         <link href="
         https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-        <div class="container mx-auto my-6 p-5">
+        <div class="w-10/12 container mx-auto my-6 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
                 <div class="w-full md:w-3/12 md:mx-2">
@@ -58,7 +58,7 @@
                                 class="bg-gray-100 text-gray-600 hover:text-gray-700 hover:shadow py-2 px-3 mt-3 divide-y rounded shadow-sm">
                                 <li class="flex justify-around items-center py-3">
                                     @if (auth()->id() == $user->id)
-                                        <a href="{{ route('profile.edit', ['id' => $user->id]) }}"
+                                        <a href="/profile/{{ auth()->id() }}/edit"
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
                                     @endif
                                     <div class="flex">

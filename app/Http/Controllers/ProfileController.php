@@ -44,10 +44,12 @@ class ProfileController extends Controller
         $countries = country::all();
         if ($user->role_id == 2) {
             $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            // return $jobSeeker;
+            // return \view('profile.view');
             return view('profile.edit', [
+                'id' => $id,
                 'user' => $user,
                 'location' => $location,
-                'jobSeeker' => $jobSeeker,
                 'countries' => $countries,
             ]);
         } else {
@@ -55,7 +57,6 @@ class ProfileController extends Controller
             return view('profile.edit', [
                 'user' => $user,
                 'location' => $location,
-                'jobProvider' => $jobProvider,
                 'countries' => $countries,
             ]);
         }

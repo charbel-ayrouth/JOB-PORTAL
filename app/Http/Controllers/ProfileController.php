@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\country;
+use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use App\Models\Locations;
 use Illuminate\Http\Request;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $user = User::find(auth()->id());
+        $user = User::find($id);
         if ($user->role_id == 2) {
             $location_id = User::select('location_id')->where('id', $user->id)->first();
             $location = Locations::find($location_id)->first();
@@ -27,27 +28,37 @@ class ProfileController extends Controller
             // return 'view for job provider';
             $location_id = User::select('location_id')->where('id', $user->id)->first();
             $location = Locations::find($location_id)->first();
-            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            $jobProvider = JobProvider::where('user_id', $user->id)->first();
             return view('profile.index', [
                 'user' => $user,
                 'location' => $location,
-                'jobSeeker' => $jobSeeker,
+                'jobProvider' => $jobProvider,
             ]);
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        $user = User::find(auth()->id());
+        $user = User::find($id);
         $location_id = User::select('location_id')->where('id', $user->id)->first();
         $location = Locations::find($location_id)->first();
-        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
         $countries = country::all();
-        return view('profile.edit', [
-            'user' => $user,
-            'location' => $location,
-            'jobSeeker' => $jobSeeker,
-            'countries' => $countries,
-        ]);
+        if ($user->role_id == 2) {
+            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            return view('profile.edit', [
+                'user' => $user,
+                'location' => $location,
+                'jobSeeker' => $jobSeeker,
+                'countries' => $countries,
+            ]);
+        } else {
+            $jobProvider = JobProvider::where('user_id', $user->id)->first();
+            return view('profile.edit', [
+                'user' => $user,
+                'location' => $location,
+                'jobProvider' => $jobProvider,
+                'countries' => $countries,
+            ]);
+        }
     }
     public function update(Request $request)
     {

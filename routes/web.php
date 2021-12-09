@@ -94,3 +94,5 @@ Route::group(['middleware' => 'auth'], function () {
 // Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');
 
 //test
+Route::get('/jphome',[JobProviderController::class, 'displayjp']);
+Route::get('/JobDetail/{id}',[AuthController::class, 'jobdetail']);

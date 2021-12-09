@@ -10,6 +10,7 @@
         border-block-color: #000000;
         padding: 10px 10px;
     }
+
     .div-1 {
         width: 70%;
         background: #f7f5f5;
@@ -24,10 +25,11 @@
         box-shadow: 1px 1px 1px 1px #888888;
         transition: box-shadow .2s ease-in-out;
     }
-    table tr td button{
+
+    table tr td button {
         border-width: 0;
         background: rgba(59, 130, 246, .8);
-        padding:10px 40px;
+        padding: 10px 40px;
         border-radius: 10px;
         color: white;
     }
@@ -58,8 +60,8 @@
 <body>
     @csrf
     <table border="0" cellpadding="5" cellspacing="0" align="center">
-        {{--<form action="/search" method="POST">--}}
-            <form action="/search" method="Get">
+        {{-- <form action="/search" method="POST"> --}}
+        <form action="/search" method="Get">
             @csrf
             <tr>
                 <td style="width: 50%" align="center">
@@ -73,41 +75,48 @@
                     <input class="oval" name="jobloc" type="text" maxlength="50"
                         style="width:100%;max-width: 260px" placeholder="Where country, city, or zip code?">
                 </td>
-        </tr>
-    </form>
+            </tr>
+        </form>
     </table>
     <br><br>
-    @foreach ($Jobs as $key => $job)
-    @foreach ( $providers as $prov)
-        
     
-        <div class="div-1">
-            <div class="left-side">
-                <div class="profilepicture">
-                   {{-- @foreach ($providers as $prov)--}}
-                        @if ($job->Jobprovider_id = $prov->id)
-                            <img width="100" height="100" src="{{ URL('/storage/images/' . $prov->path) }}" alt="image">
-                        @endif
-                  {{--  @endforeach--}}
-                </div>
-                <div class="midcontainer">
-                    <h2>{{ $job->JobTitle }}</h2>
-                    <p>{{ $job->JobSkillLevel }}</p>
-                </div>
-            </div>
-            <div class="rightcontainer">
-               {{-- @foreach ($providers as $prov)--}}
-                    @if ($job->Jobprovider_id = $prov->id)
-                        <h3>{{ $prov->CompanyTitle }}</h3>
-                        <p>Email: {{ $prov->email }}</p>
-                        <p>{{ $job->Country.'-'.$job->city }}</p>
-                    @endif
-              {{--  @endforeach--}}
-            </div>
-        </div>
-        <br><br>
+    @foreach ($Jobs as $key => $job)
+        @foreach ($providers as $prov)
+            @if ($prov->jid == $job->Jobprovider_id)
+            
+                <a href="{{ url('JobDetail/' . $job->id) }}">
+                    <div class="div-1">
+                        <div class="left-side">
+                            <div class="profilepicture">
+                                {{-- @foreach ($providers as $prov) --}}
+                                {{-- @if ($job->Jobprovider_id = $prov->id) --}}
+                                <img width="100" height="100" src="{{ URL('/storage/images/' . $prov->path) }}"
+                                    alt="image">
+                                {{-- @endif --}}
+                                {{-- @endforeach --}}
+                            </div>
+                            <div class="midcontainer">
+                                <h2>{{ $job->JobTitle }}</h2>
+                                <p>{{ $job->JobSkillLevel }}</p>
+                            </div>
+                        </div>
+                        <div class="rightcontainer">
+                            {{-- @foreach ($providers as $prov) --}}
+                            {{-- @if ($job->Jobprovider_id = $prov->id) --}}
+                            <h3>{{ $prov->CompanyTitle }}</h3>
+                            <p>Email: {{ $prov->email }}</p>
+                            <p>{{ $job->Country . '-' . $job->city }}</p>
+                            {{-- @endif --}}
+                            {{-- @endforeach --}}
+                        </div>
+                    </div>
+                    <br><br>
+            @endif
         @endforeach
     @endforeach
+    </a>
+
+
 </body>
 
 </html>

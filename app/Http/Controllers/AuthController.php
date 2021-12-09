@@ -48,7 +48,7 @@ class AuthController extends Controller
                     //return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
                     //return redirect()->route('JobProviderHome');
-                    return redirect()->action([JobProviderController::class, 'displayjp']);
+                    return redirect()->route('jpHome');
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));

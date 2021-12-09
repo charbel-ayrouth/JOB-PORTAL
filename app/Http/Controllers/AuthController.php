@@ -149,34 +149,35 @@ class AuthController extends Controller
 
     //------------------Job Details--------------
     public function jobdetail($id){
-        $Jobs=Job::find($id);
+        $job=Job::all();
         
-        /*$Jobs=Job::join('locations','locations.id','=','jobs.id')
-            ->select('locations.*')
-            ->get();
-        
-            dd($Jobs);*/
-        //$providers = JobProvider::join('users','user_id','=','users.id')->get();
-        
-        //$job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
-
-        /*$Jobs = Job::join('locations',function($join){
-            $join->on('location_id','=','locations.id');
-        })->where('locations.country','=',Locations::find(Job::find($id)->location_id)->Country)
-           ->where('jobs.id','=',(Job::find($id))->id)->get();
-        //$providers = JobProvider::join('users','user_id','=','users.id')->get()->all();
-        $providers=JobProvider::join('users',function($join){
-            $join->on('user_id','=','users.id');})->get();
-            //->where('job_providers.id','=',JobProvider::find(Job::find($id)->Jobprovider_id))->get();
-            dd($providers);*/
-
-         //$Jobs= DB::select('select * from jobs, locations where jobs.id = '.$id.' and jobs.location_id=locations.id');
-         //dd($Jobs);
-         //$providers=DB::select('select * from users, job_providers, jobs where jobs.Jobprovider_id=job_providers.id and job_providers.id=users.id ');   
-        //dd($providers);
-         //return view('Auth.JobDetails')->with('Jobs', $Jobs)->with('providers',$providers);
-         //return view('Auth.JobDetails')->with('Jobs', $Jobs);
   
-         return view('Auth.JobDetails');
+        $job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
+
+       $Jobs = Job::join('locations',function($join){
+            $join->on('location_id','=','locations.id');
+        })->where('locations.country','=',Locations::find(User::find(auth()->id())->location_id)->Country)
+           ->where('Field','like',"%".$job_seeker->Field."%")->get()->first();
+        // $providers = JobProvider::join('users','user_id','=','users.id')->get();
+        $providers = DB::select('select * from job_providers as j,users as u where j.user_id=u.id');
+        return view('Auth.JobDetails')->with('Jobs', $Jobs)->with('providers',$providers);
+
+   //$Jobs=DB::select('select * from jobs where jobs.id= '.$id.';');
+        //dd($Jobs);
+        
+      /*$providers = DB::select('select * from job_providers as j,users as u , jobs where j.user_id=u.id and jobs.id='.$id.' 
+        and j.jid=jobs.Jobprovider_id');*/
+        //dd($providers);
+        
+       // foreach ($job as $key => $value) {
+        //$loc=Locations::find(($value->id)->location_id)->Country;
+//dd($value->id);
+         /*   $Jobs1 = Job::join('locations', function ($join) {
+                $join->on('location_id', '=', 'locations.id');
+            })->where('locations.country', '=', Locations::find(($value->id)->location_id)->Country)
+           ->where($job->id, '=', $id)->get();
+            dd($Jobs1);*/
+       // }
+         //return view('Auth.JobDetails');
         }
 }

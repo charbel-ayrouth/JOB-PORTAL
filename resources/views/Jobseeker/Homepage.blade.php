@@ -79,9 +79,11 @@
         </form>
     </table>
     <br><br>
+    
     @foreach ($Jobs as $key => $job)
         @foreach ($providers as $prov)
             @if ($prov->jid == $job->Jobprovider_id)
+            
                 <a href="{{ url('JobDetail/' . $job->id) }}">
                     <div class="div-1">
                         <div class="left-side">

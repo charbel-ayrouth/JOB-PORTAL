@@ -39,6 +39,7 @@
                     <!-- Profile Card -->
                     <form action="/profile/{{ $user->id }}/picture" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="bg-white p-3 border-t-4 border-green-400">
                             <div class="image overflow-hidden">
                                 <img class="h-auto w-full mx-auto" src="{{ asset('/storage/images/' . $user->path) }}"

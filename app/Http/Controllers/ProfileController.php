@@ -80,13 +80,34 @@ class ProfileController extends Controller
             ]);
         $user = User::find($request->id);
         if ($user->role_id == 2) {
-            JobSeeker::where('user_id', $request->id)
-                ->update([
-                    'degree' => $request->degree,
-                    'field' => $request->field,
-                    'experience' => $request->experience,
-                    'skills' => $request->skills,
-                ]);
+            if ($request->file()) {
+                $CV = $request->CV;
+                $CoverLetter = $request->CoverLetter;
+                $CVname = time() . '_' . $CV->extension();
+                $CoverLettername = time() . '-' . $CoverLetter->extension();
+                $CV->move(public_path('storage/cv'), $CVname);
+                $CoverLetter->move(public_path('storage/cl'), $CoverLettername);
+
+                JobSeeker::where('user_id', $request->id)
+                    ->update([
+                        'degree' => $request->degree,
+                        'field' => $request->field,
+                        'experience' => $request->experience,
+                        'skills' => $request->skills,
+                        'CV' => $CVname,
+                        'CoverLetter' => $CoverLettername,
+                    ]);
+            } else {
+                JobSeeker::where('user_id', $request->id)
+                    ->update([
+                        'degree' => $request->degree,
+                        'field' => $request->field,
+                        'experience' => $request->experience,
+                        'skills' => $request->skills,
+                        'CV' => $request->CV,
+                        'CoverLetter' => $request->CoverLetter,
+                    ]);
+            }
         } else {
             JobProvider::where('user_id', $request->id)
                 ->update([
@@ -100,9 +121,11 @@ class ProfileController extends Controller
 
     public function profile(Request $request)
     {
-        $user = User::find(auth()->id());
-        $filename = $user->name . 'IMG.' . $request->pp->extension();
-        $request->pp->move(public_path('storage/images'), $filename);
-        User::find(auth()->id())->update(['path' => $filename]);
+        $img = $request->pp;
+        $filename = time() . 'IMG.' . $img->extension();
+        $img->move(public_path('storage/images'), $filename);
+        User::where('id', auth()->id())
+            ->update(['path' => $filename]);
+        return redirect()->route('profile', ['id' => $request->id]);
     }
 }

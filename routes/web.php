@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profile/{id}', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::put('/profile/{id}/edit', [ProfileController::class, 'update']);
+    Route::put('/profile/{id}/edit', [ProfileController::class, 'update'])->name('profile.update');
     // Route::post('/profile/{id}/picture', [ProfileController::class, 'profile']);
 });
 

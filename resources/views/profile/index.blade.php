@@ -32,7 +32,7 @@
         </style>
         <link href="
         https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-        <div class="w-10/12 container mx-auto my-6 p-5">
+        <div class="container mx-auto my-6 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
                 <div class="w-full md:w-3/12 md:mx-2">
@@ -83,7 +83,7 @@
                     <li class="flex items-center py-3">
                         <span>Type</span>
                         <span class="ml-auto"><span class="bg-green-500 py-1 px-2 rounded text-white text-sm">
-                                @if ($user->role_id)
+                                @if (isset($jobSeeker))
                                     Job Seeker
                                 @else
                                     Job Provider
@@ -136,6 +136,16 @@
                                 <div class="px-4 py-2">{{ $location->city }}, {{ $location->Country }}
                                 </div>
                             </div>
+                            @if (isset($jobSeeker))
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Degree</div>
+                                    <div class="px-4 py-2">{{ $jobSeeker->degree }}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Field</div>
+                                    <div class="px-4 py-2">{{ $jobSeeker->field }}</div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <a href="#"

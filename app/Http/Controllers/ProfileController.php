@@ -44,13 +44,12 @@ class ProfileController extends Controller
         $countries = country::all();
         if ($user->role_id == 2) {
             $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
-            // return $jobSeeker;
-            // return \view('profile.view');
             return view('profile.edit', [
                 'id' => $id,
                 'user' => $user,
                 'location' => $location,
                 'countries' => $countries,
+                'jobSeeker' => $jobSeeker,
             ]);
         } else {
             $jobProvider = JobProvider::where('user_id', $user->id)->first();
@@ -58,9 +57,11 @@ class ProfileController extends Controller
                 'user' => $user,
                 'location' => $location,
                 'countries' => $countries,
+                'jobProvider' => $jobProvider,
             ]);
         }
     }
+
     public function update(Request $request)
     {
         User::where('id', $request->id)
@@ -77,8 +78,26 @@ class ProfileController extends Controller
                 'zipCode' => $request->zipCode,
                 'Address' => $request->Address,
             ]);
-        return redirect()->route('profile');
+        $user = User::find($request->id);
+        if ($user->role_id == 2) {
+            JobSeeker::where('user_id', $request->id)
+                ->update([
+                    'degree' => $request->degree,
+                    'field' => $request->field,
+                    'experience' => $request->experience,
+                    'skills' => $request->skills,
+                ]);
+        } else {
+            JobProvider::where('user_id', $request->id)
+                ->update([
+                    'CompanyField' => $request->CompanyField,
+                    'CompanyTitle' => $request->CompanyTitle,
+                    'CompanyDescription' => $request->CompanyDescription,
+                ]);
+        }
+        return redirect()->route('profile', ['id' => $request->id]);
     }
+
     public function profile(Request $request)
     {
         $user = User::find(auth()->id());

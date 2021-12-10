@@ -82,7 +82,6 @@
                         value="{{ $location->Address }}">
                 </div>
                 @isset($jobSeeker)
-                    <div></div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="Degree">
                             Degree
@@ -98,6 +97,14 @@
                         <input
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="Field" type="text" placeholder="Field" name="field" value="{{ $jobSeeker->field }}">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="Bio">
+                            Bio
+                        </label>
+                        <textarea
+                            class="form-textarea mt-1 block w-full shadow appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            name="bio" id="Bio" rows="4">{{ $jobSeeker->bio }}</textarea>
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2" for="Experience">

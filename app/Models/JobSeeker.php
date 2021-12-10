@@ -17,6 +17,7 @@ class JobSeeker extends Model
         'skills',
         'CoverLetter',
         'CV',
+        'bio'
     ];
 
     public function user()

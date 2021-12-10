@@ -1,17 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
+use App\Models\Job;
+use App\Models\User;
+
+
 
 use App\Mail\AuthMail;
 use App\Models\country;
+use App\Models\JobSeeker;
 use App\Models\Locations;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\JobProvider;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -139,4 +145,16 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+
+
+    //------------------Job Details--------------
+    public function jobdetail($id){
+        $JobDetails = Job::where('jid',$id)
+                           ->join('job_providers','Jobprovider_id','=','job_providers.jid')
+                           ->join('users','job_providers.user_id','=','users.id')
+                           ->join('locations','users.location_id','=','locations.id')
+                           ->select('jobs.id as job_id ','jobs.*','job_providers.*','users.*','locations.id as loc_id','locations.*')
+                           ->get();
+        return view('Auth.JobDetails')->with('JobDetails',$JobDetails);
+        }
 }

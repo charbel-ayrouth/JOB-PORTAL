@@ -27,7 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'location_id',
         'phoneNumber',
         'VerificationToken',
-        'gender'
+        'gender',
     ];
 
     /**
@@ -49,13 +49,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function JobProvider(){
+    public function JobProvider()
+    {
         return $this->hasOne(JobProvider::class);
     }
-    public function JobSeeker(){
+    public function JobSeeker()
+    {
         return $this->hasOne(JobSeeker::class);
     }
-    public function Location(){
+    public function Location()
+    {
         return $this->hasOne(Locations::class);
     }
 }

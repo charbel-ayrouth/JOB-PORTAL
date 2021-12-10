@@ -72,13 +72,13 @@ class JobProviderController extends Controller
     public function displayjp()
     {   
         $jobprovider = JobProvider::where('user_id',auth()->id())->get()->first();
-        $field=strtolower($jobprovider->CompanyField);
         $job_seekers = JobSeeker::whereLike('Field',"%".$jobprovider->CompanyField."%")->join('users','user_id','=','users.id')->get();
-        dd($job_seekers);
         $seekers = $job_seekers;
-        dd($seekers);
-
-        
-        return view('JobProvider.HomeJobProvider')->with('job_seekers',$job_seekers);
+        $Jobs = Job::join('locations', function ($join) {
+            $join->on('location_id', '=', 'locations.id');
+        })->where('locations.country', '=', Locations::find(User::find(auth()->id())->location_id)->Country)
+            ->where('Field', 'like', "%" . $job_seeker->Field . "%")->get();
+        $providers = JobProvider::join('users', 'user_id', '=', 'users.id')->get()->all();
+        return view('jobProvider.HomeJobProvider')->with('Jobs', $Jobs)->with('providers', $providers);
     }
 }

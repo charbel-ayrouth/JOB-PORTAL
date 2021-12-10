@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\country;
+use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use App\Models\Locations;
 use Illuminate\Http\Request;
@@ -11,9 +12,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $user = User::find(auth()->id());
+        $user = User::find($id);
         if ($user->role_id == 2) {
             $location_id = User::select('location_id')->where('id', $user->id)->first();
             $location = Locations::find($location_id)->first();
@@ -27,28 +28,40 @@ class ProfileController extends Controller
             // return 'view for job provider';
             $location_id = User::select('location_id')->where('id', $user->id)->first();
             $location = Locations::find($location_id)->first();
-            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            $jobProvider = JobProvider::where('user_id', $user->id)->first();
             return view('profile.index', [
                 'user' => $user,
                 'location' => $location,
-                'jobSeeker' => $jobSeeker,
+                'jobProvider' => $jobProvider,
             ]);
         }
     }
-    public function edit()
+    public function edit($id)
     {
-        $user = User::find(auth()->id());
+        $user = User::find($id);
         $location_id = User::select('location_id')->where('id', $user->id)->first();
         $location = Locations::find($location_id)->first();
-        $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
         $countries = country::all();
-        return view('profile.edit', [
-            'user' => $user,
-            'location' => $location,
-            'jobSeeker' => $jobSeeker,
-            'countries' => $countries,
-        ]);
+        if ($user->role_id == 2) {
+            $jobSeeker = JobSeeker::where('user_id', $user->id)->first();
+            return view('profile.edit', [
+                'id' => $id,
+                'user' => $user,
+                'location' => $location,
+                'countries' => $countries,
+                'jobSeeker' => $jobSeeker,
+            ]);
+        } else {
+            $jobProvider = JobProvider::where('user_id', $user->id)->first();
+            return view('profile.edit', [
+                'user' => $user,
+                'location' => $location,
+                'countries' => $countries,
+                'jobProvider' => $jobProvider,
+            ]);
+        }
     }
+
     public function update(Request $request)
     {
         User::where('id', $request->id)
@@ -65,13 +78,54 @@ class ProfileController extends Controller
                 'zipCode' => $request->zipCode,
                 'Address' => $request->Address,
             ]);
-        return redirect()->route('profile');
+        $user = User::find($request->id);
+        if ($user->role_id == 2) {
+            if ($request->file()) {
+                $CV = $request->CV;
+                $CoverLetter = $request->CoverLetter;
+                $CVname = time() . '_' . $CV->extension();
+                $CoverLettername = time() . '-' . $CoverLetter->extension();
+                $CV->move(public_path('storage/cv'), $CVname);
+                $CoverLetter->move(public_path('storage/cl'), $CoverLettername);
+
+                JobSeeker::where('user_id', $request->id)
+                    ->update([
+                        'degree' => $request->degree,
+                        'field' => $request->field,
+                        'experience' => $request->experience,
+                        'skills' => $request->skills,
+                        'CV' => $CVname,
+                        'CoverLetter' => $CoverLettername,
+                    ]);
+            } else {
+                JobSeeker::where('user_id', $request->id)
+                    ->update([
+                        'degree' => $request->degree,
+                        'field' => $request->field,
+                        'experience' => $request->experience,
+                        'skills' => $request->skills,
+                        'CV' => $request->CV,
+                        'CoverLetter' => $request->CoverLetter,
+                    ]);
+            }
+        } else {
+            JobProvider::where('user_id', $request->id)
+                ->update([
+                    'CompanyField' => $request->CompanyField,
+                    'CompanyTitle' => $request->CompanyTitle,
+                    'CompanyDescription' => $request->CompanyDescription,
+                ]);
+        }
+        return redirect()->route('profile', ['id' => $request->id]);
     }
+
     public function profile(Request $request)
     {
-        $user = User::find(auth()->id());
-        $filename = $user->name . 'IMG.' . $request->pp->extension();
-        $request->pp->move(public_path('storage/images'), $filename);
-        User::find(auth()->id())->update(['path' => $filename]);
+        $img = $request->pp;
+        $filename = time() . 'IMG.' . $img->extension();
+        $img->move(public_path('storage/images'), $filename);
+        User::where('id', auth()->id())
+            ->update(['path' => $filename]);
+        return redirect()->route('profile', ['id' => $request->id]);
     }
 }

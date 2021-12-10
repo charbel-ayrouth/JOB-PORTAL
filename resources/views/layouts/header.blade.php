@@ -294,9 +294,11 @@
             </ul>
             <ul class="nav__list nav__list--secondary">
                 @auth
+                    <li class="nav__item"><a href="{{ route('profile', ['id' => auth()->id()]) }}"
+                            class="nav__link">Profile</a></li>
                     @if (auth()->user()->role_id == 2)
-                        <li class="nav__item"><a href="{{ route('homepage_js') }}" class="nav__link">Home</a></li>
-                        <li class="nav__item"><a href="{{ route('profile') }}" class="nav__link">Profile</a></li>
+                        <li class="nav__item"><a href="{{ route('homepage_js') }}" class="nav__link">Home</a>
+                        </li>
                     @elseif (auth()->user()->role_id == 3)
                         {{--<li class="nav__item"><a href="{{ route('JobProviderHome') }}"
                                 class="nav__link">Home</a>

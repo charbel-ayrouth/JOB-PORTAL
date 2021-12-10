@@ -77,7 +77,7 @@ class JobSeekerController extends Controller
     {
         $request->validate([
             'cv' => 'required',
-            'path' => 'required',
+            'CoverLetter' => 'required',
         ]);
         $user = User::find(auth()->id());
         // \dd($user);
@@ -96,12 +96,10 @@ class JobSeekerController extends Controller
             'experience' => $request->experience,
             'skills' => $request->skills,
             'CV' => $CVname,
-            'CoverLetter' => 'need to add it to the form',
+            'CoverLetter' => $CoverLettername,
             'user_id' => auth()->id(),
+            'bio' => 'need to add bio in form'
         ]);
-        User::where('id', auth()->id())->update([
-            'path' => $IMGname
-        ]);
-        return redirect()->route('JobSeekerApp');
+        return redirect()->route('homepage_js');
     }
 }

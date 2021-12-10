@@ -163,10 +163,10 @@
                     </td>
 
                     <td>
-                        <b>Upload Your Profile Picture:</b>
+                        <b>Upload Your Cover Letter:</b>
                         <br><br>
-                        <label class="input-file">Choose Picture
-                            <input type="file" name="path" /></label>
+                        <label class="input-file">Choose File
+                            <input type="file" name="CoverLetter" /></label>
 
                     </td>
                 </tr>

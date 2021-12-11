@@ -23,10 +23,10 @@ class JobProviderController extends Controller
         $jp->CompanyTitle = $request->input('companytitle');
         $jp->CompanyDescription = $request->input('description');
         $jp->user_id = auth()->id();
-        $user = User::find(auth()->id());
-        $filename = $user->name . 'IMG.' . $request->path->extension();
-        $request->path->move(public_path('storage/images'), $filename);
-        User::find(auth()->id())->update(['path' => $filename]);
+        // $user = User::find(auth()->id());
+        // $filename = $user->name . 'IMG.' . $request->path->extension();
+        // $request->path->move(public_path('storage/images'), $filename);
+        // User::find(auth()->id())->update(['path' => $filename]);
         $jp->save();
         return redirect()->route('JobProviderHome');
     }

@@ -94,6 +94,7 @@ class ProfileController extends Controller
                         'field' => $request->field,
                         'experience' => $request->experience,
                         'skills' => $request->skills,
+                        'bio' => $request->bio,
                         'CV' => $CVname,
                         'CoverLetter' => $CoverLettername,
                     ]);
@@ -104,8 +105,7 @@ class ProfileController extends Controller
                         'field' => $request->field,
                         'experience' => $request->experience,
                         'skills' => $request->skills,
-                        'CV' => $request->CV,
-                        'CoverLetter' => $request->CoverLetter,
+                        'bio' => $request->bio,
                     ]);
             }
         } else {

@@ -147,14 +147,4 @@ class AuthController extends Controller
     }
 
 
-    //------------------Job Details--------------
-    public function jobdetail($id){
-        $JobDetails = Job::where('jid',$id)
-                           ->join('job_providers','Jobprovider_id','=','job_providers.jid')
-                           ->join('users','job_providers.user_id','=','users.id')
-                           ->join('locations','users.location_id','=','locations.id')
-                           ->select('jobs.id as job_id ','jobs.*','job_providers.*','users.*','locations.id as loc_id','locations.*')
-                           ->get();
-        return view('Auth.JobDetails')->with('JobDetails',$JobDetails);
-        }
 }

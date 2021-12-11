@@ -5,10 +5,10 @@
     .div-1 {
         position: absolute;
         min-width: 70%;
-        top:50%;
-        left:50%;
-        transform: translate(-50%,-50%);
-        padding:20px 25px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px 25px;
         background: #f7f5f5;
         box-align: "center";
         padding: 15px 30px;
@@ -89,10 +89,11 @@
 
     }
 
-    .button{
+    .button {
         text-align: center;
         padding: 10px 0px;
     }
+
     .btn1 {
         background-color: white;
         color: black;
@@ -121,40 +122,50 @@
 
 </style>
 @include('layouts.header')
+
 <body>
     @csrf
-    @foreach ($JobDetails as $key => $job)
-                <div class="div-1">
-                    <div class="div-2">
-                        <br>
-                        <img width="100" height="100" src="{{ URL('/storage/images/' . $job->path) }}" alt="image">
-                        <h2>{{ $job->name }}</h2>
-                        <a href="mailto:{{ $job->email }}"><i class="fas fa-envelope"></i>Email: {{ $job->email }} </a>
-                        <p>Phone Number: {{ $job->phoneNumber }}</p>
-                        <p>Location: {{ $job->Country }},{{ $job->city }}, {{ $job->zipCode }},{{ $job->Address }}
-                        </p>
-                    </div>
-                    <div class="div-3">
-                        <h1 align="center">{{ $job->JobTitle }}</h1>
-                        <div class="div-4">
-                            <h2>Description:</h2>
-                            <ul>
-                                <li>{{ $job->Description }}</li>
-                            </ul>
-                        </div>
-                        <br><br>
-                        <div class="div-5">
-                            <h2>Requirements:</h2>
-                            <ul>
-                                <li>{{ $job->Requirements }}</li>
-                            </ul>
-                        </div>
-                        <br><br>
-                        <div class="button">
-                            <button type="submit" class="btn btn1">Apply For Job</button>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+    <div class="div-1">
+        <div class="div-2">
+            <br>
+            <img width="100" height="100" src="{{ URL('/storage/images/' . $JobDetails->path) }}" alt="image">
+            <h2>{{ $JobDetails->name }}</h2>
+            <p><i class="fas fa-envelope"></i>Email: {{ $JobDetails->email }} </p>
+            <p>Phone Number: {{ $JobDetails->phoneNumber }}</p>
+            <p>Location: {{ $JobDetails->Country }},{{ $JobDetails->city }},
+                {{ $JobDetails->zipCode }},{{ $JobDetails->Address }}
+            </p>
+        </div>
+        <div class="div-3">
+            <h1 align="center">{{ $JobDetails->JobTitle }}</h1>
+            <div class="div-4">
+                <h2>Description:</h2>
+                <ul>
+                    <li>{{ $JobDetails->Description }}</li>
+                </ul>
+            </div>
+            <br><br>
+            <div class="div-5">
+                <h2>Requirements:</h2>
+                <ul>
+                    <li>{{ $JobDetails->Requirements }}</li>
+                </ul>
+            </div>
+            <br><br>
+            <form action="{{ route('JobSeekerEmail') }}" method="POST">
+                @csrf
+                <input type="text" name="jid" hidden value={{ $JobDetails->jid }}>
+                <button type="submit" class="btn btn1">Apply For Job</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        var msg = '{{ Session::get('message') }}';
+        var exist = '{{ Session::has('message') }}';
+        if (exist) {
+            alert(msg);
+        }
+    </script>
 </body>
+
 </html>

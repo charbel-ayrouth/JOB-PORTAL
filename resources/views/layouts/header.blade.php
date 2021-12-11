@@ -294,8 +294,6 @@
             </ul>
             <ul class="nav__list nav__list--secondary">
                 @auth
-                    <li class="nav__item"><a href="{{ route('profile', ['id' => auth()->id()]) }}"
-                            class="nav__link">Profile</a></li>
                     @if (auth()->user()->role_id == 2)
                         <li class="nav__item"><a href="{{ route('homepage_js') }}" class="nav__link">Home</a>
                         </li>
@@ -303,8 +301,10 @@
                         {{--<li class="nav__item"><a href="{{ route('JobProviderHome') }}"
                                 class="nav__link">Home</a>
                         </li>--}}
-                        <li class="nav__item"><a href="{{ url('/jphome') }}" class="nav__link">Home</a></li>
+                        <li class="nav__item"><a href="{{ route('jpHome') }}" class="nav__link">Home</a></li>
                     @endif
+                    <li class="nav__item"><a href="{{ route('profile', ['id' => auth()->id()]) }}"
+                            class="nav__link">Profile</a></li>
                     <li class="nav__item"><a href="/logout" class="nav__link">Logout</a></li>
                 @endauth
                 @guest

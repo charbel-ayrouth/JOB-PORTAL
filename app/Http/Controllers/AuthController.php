@@ -54,7 +54,7 @@ class AuthController extends Controller
                     //return \redirect()->route('profile');
                 } else if ($user->role_id == 3) {
                     //return redirect()->route('JobProviderHome');
-                    return redirect()->action([JobProviderController::class, 'displayjp']);
+                    return redirect()->route('jpHome');
                 }
             } else if ($user->email_verified_at != null) {
                 return redirect()->back()->with(session()->flash('alert-danger', 'Please Verify your Email'));
@@ -147,37 +147,4 @@ class AuthController extends Controller
     }
 
 
-    //------------------Job Details--------------
-    public function jobdetail($id){
-        $job=Job::all();
-        
-  
-        $job_seeker = JobSeeker::where('user_id', auth()->id())->get()->first();
-
-       $Jobs = Job::join('locations',function($join){
-            $join->on('location_id','=','locations.id');
-        })->where('locations.country','=',Locations::find(User::find(auth()->id())->location_id)->Country)
-           ->where('Field','like',"%".$job_seeker->Field."%")->get()->first();
-        // $providers = JobProvider::join('users','user_id','=','users.id')->get();
-        $providers = DB::select('select * from job_providers as j,users as u where j.user_id=u.id');
-        return view('Auth.JobDetails')->with('Jobs', $Jobs)->with('providers',$providers);
-
-   //$Jobs=DB::select('select * from jobs where jobs.id= '.$id.';');
-        //dd($Jobs);
-        
-      /*$providers = DB::select('select * from job_providers as j,users as u , jobs where j.user_id=u.id and jobs.id='.$id.' 
-        and j.jid=jobs.Jobprovider_id');*/
-        //dd($providers);
-        
-       // foreach ($job as $key => $value) {
-        //$loc=Locations::find(($value->id)->location_id)->Country;
-//dd($value->id);
-         /*   $Jobs1 = Job::join('locations', function ($join) {
-                $join->on('location_id', '=', 'locations.id');
-            })->where('locations.country', '=', Locations::find(($value->id)->location_id)->Country)
-           ->where($job->id, '=', $id)->get();
-            dd($Jobs1);*/
-       // }
-         //return view('Auth.JobDetails');
-        }
 }

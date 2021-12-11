@@ -94,10 +94,10 @@
                         <span>Member since</span>
                         <span class="ml-auto">{{ $user->created_at->isoFormat('dddd D') }}</span>
                     </li>
-                    @if ($user->role_id == 3)
+                    @if ($user->role_id == 3 && auth()->id() == $user->id)
                         <li class="flex items-center py-3">
-                            <a href="/profile/{{ auth()->id() }}/edit"
-                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-black hover:bg-green-dark no-underline">Create
+                            <a href="/profile/{{ auth()->id() }}/create/job"
+                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-black hover:bg-green-dark no-underline">Post
                                 a new job!</a>
                         </li>
                     @endif
@@ -278,13 +278,32 @@
                                         <div class="px-4 py-2 font-semibold">Description</div>
                                         <div class="px-4 py-2 ">{{ $job->Description }}</div>
                                     </div>
-                                    <div class="mt-5 mb-5 ml-15 flex justify-around">
-                                        <a href="/profile/{{ $user->id }}/edit/job/{{ $job->id }}"
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-12 bg-green-500 hover:bg-green-dark no-underline">Edit</a>
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-blue-500 hover:bg-green-dark no-underline">More
-                                            Details</a>
-                                    </div>
+                                    @if (auth()->id() == $user->id)
+                                        <div class="mt-5 mb-5 ml-15 flex justify-around">
+                                            <a href="/profile/{{ $user->id }}/edit/job/{{ $job->id }}"
+                                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-12 bg-green-500 hover:bg-green-dark no-underline">Edit</a>
+                                            <a href=""
+                                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-blue-500 hover:bg-green-dark no-underline">More
+                                                Details</a>
+                                            <form class="inline"
+                                                action="/profile/{{ $user->id }}/delete/job/{{ $job->id }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <button
+                                                    class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-red-500 hover:bg-green-dark "
+                                                    type="Submit">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <div class="my-5 px-5">
+                                            <a href=""
+                                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-blue-500 hover:bg-green-dark no-underline">
+                                                Apply for this job!</a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

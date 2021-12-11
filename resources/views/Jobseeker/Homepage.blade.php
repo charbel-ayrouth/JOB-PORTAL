@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html>
 <style>
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
     .oval {
         margin-top: 2%;
         width: 160px;
@@ -60,8 +65,7 @@
 <body>
     @csrf
     <table border="0" cellpadding="5" cellspacing="0" align="center">
-        {{-- <form action="/search" method="POST"> --}}
-        <form action="/search" method="Get">
+        <form action="/search" method="POST">
             @csrf
             <tr>
                 <td style="width: 50%" align="center">
@@ -79,44 +83,28 @@
         </form>
     </table>
     <br><br>
-    
+
     @foreach ($Jobs as $key => $job)
-        @foreach ($providers as $prov)
-            @if ($prov->jid == $job->Jobprovider_id)
-            
-                <a href="{{ url('JobDetail/' . $job->id) }}">
-                    <div class="div-1">
-                        <div class="left-side">
-                            <div class="profilepicture">
-                                {{-- @foreach ($providers as $prov) --}}
-                                {{-- @if ($job->Jobprovider_id = $prov->id) --}}
-                                <img width="100" height="100" src="{{ URL('/storage/images/' . $prov->path) }}"
-                                    alt="image">
-                                {{-- @endif --}}
-                                {{-- @endforeach --}}
-                            </div>
-                            <div class="midcontainer">
-                                <h2>{{ $job->JobTitle }}</h2>
-                                <p>{{ $job->JobSkillLevel }}</p>
-                            </div>
-                        </div>
-                        <div class="rightcontainer">
-                            {{-- @foreach ($providers as $prov) --}}
-                            {{-- @if ($job->Jobprovider_id = $prov->id) --}}
-                            <h3>{{ $prov->CompanyTitle }}</h3>
-                            <p>Email: {{ $prov->email }}</p>
-                            <p>{{ $job->Country . '-' . $job->city }}</p>
-                            {{-- @endif --}}
-                            {{-- @endforeach --}}
-                        </div>
+        <a href="{{ route('JobDetail', ['id' => $job->jobid]) }}">
+            <div class="div-1">
+                <div class="left-side">
+                    <div class="profilepicture">
+                        <img width="100" height="100" src="{{ URL('/storage/images/' . $job->path) }}" alt="image">
                     </div>
-                    <br><br>
-            @endif
-        @endforeach
+                    <div class="midcontainer">
+                        <h2>{{ $job->JobTitle }}</h2>
+                        <p>{{ $job->JobSkillLevel }}</p>
+                    </div>
+                </div>
+                <div class="rightcontainer">
+                    <h3>{{ $job->CompanyTitle }}</h3>
+                    <p>Email: {{ $job->email }}</p>
+                    <p>Location: {{ $job->Country . '-' . $job->city }}</p>
+                </div>
+            </div>
+            <br><br>
+        </a>
     @endforeach
-    </a>
-
-
 </body>
 
 </html>

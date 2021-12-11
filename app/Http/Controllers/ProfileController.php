@@ -132,4 +132,27 @@ class ProfileController extends Controller
             ->update(['path' => $filename]);
         return redirect()->route('profile', ['id' => $request->id]);
     }
+
+    public function job($id, $jid)
+    {
+        $user = User::find($id);
+        $job = Job::where('id', $jid)->first();
+        return view('profile.job_edit', [
+            'job' => $job,
+            'user' => $user,
+        ]);
+    }
+
+    public function jobUpdate($id, $jid, Request $request)
+    {
+        Job::where('id', $jid)
+            ->update([
+                'JobTitle' => $request->JobTitle,
+                'Field' => $request->Field,
+                'type' => $request->type,
+                'Requirements' => $request->Requirements,
+                'Description' => $request->Description,
+            ]);
+        return redirect()->route('profile', ['id' => $request->id]);
+    }
 }

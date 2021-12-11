@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/{id}/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/{id}/picture', [ProfileController::class, 'profile']);
+    Route::get('/profile/{id}/edit/job/{jid}', [ProfileController::class, 'job']);
+    Route::put('/profile/{id}/edit/job/{jid}', [ProfileController::class, 'jobUpdate']);
 });
 
 

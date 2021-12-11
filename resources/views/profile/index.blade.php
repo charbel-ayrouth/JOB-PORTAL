@@ -8,11 +8,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
+@include('layouts.header')
 
 <body style="background: #edf2f7;">
-    @include('layouts.header')
     <div class="flex items-center justify-center">
-        <style>
+        {{-- <style>
             :root {
                 --main-color: #4a76a8;
             }
@@ -29,9 +29,10 @@
                 border-color: var(--main-color);
             }
 
-        </style>
+        </style> --}}
         {{-- <link href="
         https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
+
         <div class="container mx-auto my-6 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
@@ -77,6 +78,7 @@
                                                 type="submit">Change Profile Picture</button>
                                         @endif
                                     </div>
+                                </li>
                     </form>
                     <li class="flex items-center py-3">
                         <span>Type</span>
@@ -92,6 +94,13 @@
                         <span>Member since</span>
                         <span class="ml-auto">{{ $user->created_at->isoFormat('dddd D') }}</span>
                     </li>
+                    @if ($user->role_id == 3)
+                        <li class="flex items-center py-3">
+                            <a href="/profile/{{ auth()->id() }}/edit"
+                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-black hover:bg-green-dark no-underline">Create
+                                a new job!</a>
+                        </li>
+                    @endif
                     </ul>
                 </div>
                 <!-- End of profile card -->
@@ -243,30 +252,39 @@
                     <div class="bg-white p-3 shadow-sm rounded-sm">
                         <h1 class="mb-8 font-bold text-2xl">Jobs Availaible</h1>
                         @foreach ($jobs as $job)
-                            <div class="grid grid-cols-2 my-8 border-2 border-slate-200">
+                            <div class="my-8 border-2 border-slate-200">
                                 <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Job Title</div>
-                                    <div class="px-4 py-2 ">{{ $job->JobTitle }}</div>
-                                </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Field of work</div>
-                                    <div class="px-4 py-2 ">{{ $job->Field }}</div>
-                                </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Job type</div>
-                                    <div class="px-4 py-2 ">{{ $job->type }}</div>
-                                </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Level</div>
-                                    <div class="px-4 py-2 ">{{ $job->JobSkillLevel }}</div>
-                                </div>
-                                <div class="">
-                                    <div class="px-4 py-2 font-semibold">Requirements</div>
-                                    <div class="px-4 py-2 ">{{ $job->Requirements }}</div>
-                                </div>
-                                <div class="">
-                                    <div class="px-4 py-2 font-semibold">Description</div>
-                                    <div class="px-4 py-2 ">{{ $job->Description }}</div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="px-4 py-2 font-semibold">Job Title</div>
+                                        <div class="px-4 py-2 ">{{ $job->JobTitle }}</div>
+                                    </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="px-4 py-2 font-semibold">Field of work</div>
+                                        <div class="px-4 py-2 ">{{ $job->Field }}</div>
+                                    </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="px-4 py-2 font-semibold">Job type</div>
+                                        <div class="px-4 py-2 ">{{ $job->type }}</div>
+                                    </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="px-4 py-2 font-semibold">Level</div>
+                                        <div class="px-4 py-2 ">{{ $job->JobSkillLevel }}</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="px-4 py-2 font-semibold">Requirements</div>
+                                        <div class="px-4 py-2 ">{{ $job->Requirements }}</div>
+                                    </div>
+                                    <div class="">
+                                        <div class="px-4 py-2 font-semibold">Description</div>
+                                        <div class="px-4 py-2 ">{{ $job->Description }}</div>
+                                    </div>
+                                    <div class="mt-5 mb-5 ml-15 flex justify-around">
+                                        <a href="/profile/{{ $user->id }}/edit/job/{{ $job->id }}"
+                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-12 bg-green-500 hover:bg-green-dark no-underline">Edit</a>
+                                        <a href=""
+                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-blue-500 hover:bg-green-dark no-underline">More
+                                            Details</a>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

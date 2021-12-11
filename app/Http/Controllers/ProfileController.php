@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\country;
+use App\Models\Job;
 use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use App\Models\Locations;
@@ -29,10 +30,13 @@ class ProfileController extends Controller
             $location_id = User::select('location_id')->where('id', $user->id)->first();
             $location = Locations::find($location_id)->first();
             $jobProvider = JobProvider::where('user_id', $user->id)->first();
+            $Jobprovider_id = $jobProvider->jid;
+            $jobs = Job::where('Jobprovider_id', $Jobprovider_id)->get();
             return view('profile.index', [
                 'user' => $user,
                 'location' => $location,
                 'jobProvider' => $jobProvider,
+                'jobs' => $jobs,
             ]);
         }
     }

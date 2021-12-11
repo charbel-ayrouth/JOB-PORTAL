@@ -30,8 +30,8 @@
             }
 
         </style>
-        <link href="
-        https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        {{-- <link href="
+        https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
         <div class="container mx-auto my-6 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->
@@ -239,6 +239,37 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    <div class="bg-white p-3 shadow-sm rounded-sm">
+                        <h1 class="mb-8 font-bold text-2xl">Jobs Availaible</h1>
+                        @foreach ($jobs as $job)
+                            <div class="grid grid-cols-2 my-8 border-2 border-slate-200">
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Job Title</div>
+                                    <div class="px-4 py-2 ">{{ $job->JobTitle }}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Field of work</div>
+                                    <div class="px-4 py-2 ">{{ $job->Field }}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Job type</div>
+                                    <div class="px-4 py-2 ">{{ $job->type }}</div>
+                                </div>
+                                <div class="grid grid-cols-2">
+                                    <div class="px-4 py-2 font-semibold">Level</div>
+                                    <div class="px-4 py-2 ">{{ $job->JobSkillLevel }}</div>
+                                </div>
+                                <div class="">
+                                    <div class="px-4 py-2 font-semibold">Requirements</div>
+                                    <div class="px-4 py-2 ">{{ $job->Requirements }}</div>
+                                </div>
+                                <div class="">
+                                    <div class="px-4 py-2 font-semibold">Description</div>
+                                    <div class="px-4 py-2 ">{{ $job->Description }}</div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 @endif
             </div>

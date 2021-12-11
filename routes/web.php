@@ -8,6 +8,8 @@ use App\Http\Controllers\JobProviderController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
     return view('LandingPage.LandingScreen');
@@ -21,16 +23,16 @@ Route::get('/verify', [AuthController::class, 'VerifyUser'])->name('verify.user'
 Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
 Route::post('/forgot-password', [ResetPasswordController::class, 'requestReset'])->name('password.email');
 Route::post('/reset-password', [ResetPasswordController::class, 'handleReset'])->name('password.update');
-Route::get('/downloadCV/{path}',[DownloadFilesController::class,'downloadCV']);
-Route::get('/downloadCoverLetter/{path}',[DownloadFilesController::class,'downloadCoverLetter']);
+Route::get('/downloadCV/{path}', [DownloadFilesController::class, 'downloadCV']);
+Route::get('/downloadCoverLetter/{path}', [DownloadFilesController::class, 'downloadCoverLetter']);
 
 Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     Route::get('/JobProviderApp', [JobProviderController::class, 'index'])->name('JobProviderApp');
     Route::post('/JobProviderApp', [JobProviderController::class, 'createApplication']);
     Route::get('/HomeJobProvider', [JobProviderController::class, 'home'])->name('JobProviderHome');
     Route::get('/jphome', [JobProviderController::class, 'displayjp'])->name('jpHome');
-    route::get('/JobseekerDetails/{jid}',[JobProviderController::class,'seekerDetails'])->name('jobSeekerDetails');
-    Route::post('/JobProviderEmail',[JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
+    route::get('/JobseekerDetails/{jid}', [JobProviderController::class, 'seekerDetails'])->name('jobSeekerDetails');
+    Route::post('/JobProviderEmail', [JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
 });
 
@@ -41,7 +43,12 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::post('/search', [JobSeekerController::class, 'searchjob']);
     Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
     Route::get('/JobDetail/{id}', [JobSeekerController::class, 'jobdetail'])->name('JobDetail');
-    Route::post('/JobSeekerEmail',[JobSeekerController::class, 'sendEmail'])->name('JobSeekerEmail');
+    Route::post('/JobSeekerEmail', [JobSeekerController::class, 'sendEmail'])->name('JobSeekerEmail');
+
+    Route::get('/test', [TestController::class, 'index'])->name('test');
+    Route::post('/test', [TestController::class, 'store'])->name('test.store');
+    Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
+    Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
 });
 
 Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:admin'], function () {

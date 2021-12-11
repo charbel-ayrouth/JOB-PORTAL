@@ -96,8 +96,8 @@
                     </li>
                     @if ($user->role_id == 3)
                         <li class="flex items-center py-3">
-                            <a href="/profile/{{ auth()->id() }}/edit"
-                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-black hover:bg-green-dark no-underline">Create
+                            <a href="/profile/{{ auth()->id() }}/create/job"
+                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-black hover:bg-green-dark no-underline">Post
                                 a new job!</a>
                         </li>
                     @endif
@@ -284,6 +284,17 @@
                                         <a href=""
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-blue-500 hover:bg-green-dark no-underline">More
                                             Details</a>
+                                        <form class="inline"
+                                            action="/profile/{{ $user->id }}/delete/job/{{ $job->id }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <button
+                                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-red-500 hover:bg-green-dark "
+                                                type="Submit">
+                                                Delete
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

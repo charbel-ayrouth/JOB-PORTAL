@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\JobProvider;
 use App\Models\JobSeeker;
 use App\Models\Locations;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -133,7 +134,7 @@ class ProfileController extends Controller
         return redirect()->route('profile', ['id' => $request->id]);
     }
 
-    public function job($id, $jid)
+    public function jobEdit($id, $jid)
     {
         $user = User::find($id);
         $job = Job::where('id', $jid)->first();
@@ -152,7 +153,40 @@ class ProfileController extends Controller
                 'type' => $request->type,
                 'Requirements' => $request->Requirements,
                 'Description' => $request->Description,
+                'JobSkillLevel' => $request->JobSkillLevel,
             ]);
         return redirect()->route('profile', ['id' => $request->id]);
+    }
+
+    public function jobCreate($id)
+    {
+        $user = User::find($id);
+        $jobProvider = JobProvider::where('user_id', $id)->first();
+        return view('profile.create_job', [
+            'user' => $user,
+            'jobProvider' => $jobProvider,
+        ]);
+    }
+
+    public function jobStore(Request $request)
+    {
+        Job::Create([
+            'JobTitle' => $request->JobTitle,
+            'Field' => $request->Field,
+            'type' => $request->type,
+            'Requirements' => $request->Requirements,
+            'Description' => $request->Description,
+            'JobSkillLevel' => $request->JobSkillLevel,
+            'Jobprovider_id' => $request->jid,
+            'Location_id' => $request->locationid,
+            'ValidationTime' => Carbon::now()
+        ]);
+        return redirect()->route('profile', ['id' => $request->id]);
+    }
+
+    public function deleteJob($id, $jid)
+    {
+        Job::destroy($jid);
+        return redirect()->route('profile', ['id' => $id]);
     }
 }

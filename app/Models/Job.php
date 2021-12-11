@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPSTORM_META\type;
+
 class Job extends Model
 {
     use HasFactory;
@@ -17,12 +19,15 @@ class Job extends Model
         'Location_id',
         'Requirements',
         'JobSkillLevel',
-        'ValidationTime'
+        'ValidationTime',
+        'type',
     ];
-    public function Location(){
+    public function Location()
+    {
         return $this->hasMany(Locations::class);
     }
-    public function JobProvider(){
+    public function JobProvider()
+    {
         return $this->hasOne(JobProvider::class);
     }
 }

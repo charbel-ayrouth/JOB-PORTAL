@@ -98,7 +98,7 @@ class JobSeekerController extends Controller
             'CV' => $CVname,
             'CoverLetter' => $CoverLettername,
             'user_id' => auth()->id(),
-            'bio' => 'need to add bio in form'
+            'bio' => $request->bio,
         ]);
         return redirect()->route('homepage_js');
     }

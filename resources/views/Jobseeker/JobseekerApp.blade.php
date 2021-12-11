@@ -131,6 +131,9 @@
                 <p>Please fill in this form to create your application.</p>
             </center>
             <hr>
+            <label for="bio"><b>Bio</b></label><br>
+            <input type="text" maxlength="150" style="width:100%;" placeholder="Enter your Bio" name="bio"
+                required>
 
             <label for="degree"><b>Degree</b></label><br>
             <input type="text" maxlength="150" style="width:100%;" placeholder="Enter your Degree" name="degree"

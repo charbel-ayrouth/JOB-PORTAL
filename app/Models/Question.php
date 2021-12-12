@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Question extends Model
 {
     use HasFactory;
-
+//+nboptions
     protected $fillable = [
         'question_text',
         'category_id',
+        'nboptions',
     ];
 
     public function questionOptions()

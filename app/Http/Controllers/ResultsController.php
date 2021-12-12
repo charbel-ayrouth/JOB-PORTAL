@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use PDF;
 class ResultsController extends Controller
 {
-    public function show($result_id)
+   /* public function show($result_id)
     {
         $result = Result::whereHas('user', function ($query) {
                 $query->whereId(auth()->id());
@@ -31,5 +31,5 @@ class ResultsController extends Controller
         File::delete(storage_path($filename));
 
         return redirect()->route('client.results.show', $result->id)->withStatus('Your test result has been sent successfully!');
-    }
+    }*/
 }

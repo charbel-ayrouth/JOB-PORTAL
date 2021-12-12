@@ -8,6 +8,7 @@ use App\Http\Controllers\JobProviderController;
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
     return view('LandingPage.LandingScreen');
@@ -32,6 +33,16 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     route::get('/JobseekerDetails/{jid}',[JobProviderController::class,'seekerDetails'])->name('jobSeekerDetails');
     Route::post('/JobProviderEmail',[JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
+
+    //new
+Route::get('/Quiz/{uid}/{job_id}',[TestController::class, 'index'])->name('Quiz');
+Route::post('/addQuiz/{uid}/{job_id}',[TestController::class, 'createQuiz']);
+Route::get('/question/{uid}/{job_id}/{quiz_id}',[TestController::class, 'index'])->name('Quiz');
+
+Route::get('/question/{}', function () {
+    return view('JobProvider.question');
+});
+//
 });
 
 
@@ -110,3 +121,12 @@ Route::group(['middleware' => 'auth'], function () {
 // Route::get('/HomeJobProvider',[JobProviderController::class, 'home'])->name('JobProviderHome');
 
 //test
+/*Route::get('/addQuiz/{uid}/{job_id}',[TestController::class, 'index'])->name('Quiz');
+Route::get('/addQuiz/{uid}/{job_id}',[TestController::class, 'createQuiz']);*/
+
+
+//test
+Route::get('/options', function () {
+    return view('JobProvider.option');
+});
+

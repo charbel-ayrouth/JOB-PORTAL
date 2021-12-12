@@ -155,9 +155,15 @@
                             @endif
                         </div>
                     </div>
-                    <a href="#"
+                    @if (isset($jobSeeker))
+                    <a href="{{route('homepage_js')}}"
                         class="block w-full text-center text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 mt-4">Go
-                        Back To Home Page</a>
+                        Back To Home Page</a>@endif
+
+                        @if (isset($jobProvider))
+                        <a href="{{route('jpHome')}}"
+                            class="block w-full text-center text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 mt-4">Go
+                            Back To Home Page</a>@endif
                 </div>
                 <!-- End of about section -->
 
@@ -296,6 +302,9 @@
                                                     Delete
                                                 </button>
                                             </form>
+                                            
+                                            <a href="/Quiz/{{ $user->id }}/{{ $job->id }}"
+                                                class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-green-500 hover:bg-green-dark no-underline">Add Quiz</a>
                                         </div>
                                     @else
                                         <div class="my-5 px-5">

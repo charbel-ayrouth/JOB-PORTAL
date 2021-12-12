@@ -12,7 +12,7 @@ class Result extends Model
     use HasFactory;
 
     protected $fillable = [
-        'total_ponts',
+        'total_points',
         'user_id',
     ];
 

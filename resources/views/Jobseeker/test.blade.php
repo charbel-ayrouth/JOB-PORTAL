@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -5,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Quiz</title>
+    <title>Test</title>
 </head>
 
-<body>
+<body class="h-screen flex items-center justify-center" style="background: #edf2f7;">
     <div class="w-6/12 mx-auto  mt-20 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form method="POST" action="{{ route('test.store') }}">
+        <form action="{{ route('test') }}" method="post">
             @csrf
             @foreach ($categories as $category)
                 <div class="mb-4">
@@ -21,7 +22,7 @@
                             <input type="hidden" name="questions[{{ $question->id }}]">
                             @foreach ($question->questionOptions as $option)
                                 <div class="mb-4 mt-1">
-                                    <input type="radio" name="question[{{ $question->id }}]"
+                                    <input type="radio" name="questions[{{ $question->id }}]"
                                         id="option-{{ $option->id }}" value="{{ $option->id }}"
                                         value="{{ $option->id }}" @if (old("questions.$question->id") == $option->id) checked @endif>
                                     <label for="option-{{ $option->id }}">

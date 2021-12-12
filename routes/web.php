@@ -46,7 +46,8 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::post('/JobSeekerEmail', [JobSeekerController::class, 'sendEmail'])->name('JobSeekerEmail');
 
     Route::get('/test', [TestController::class, 'index'])->name('test');
-    Route::post('/test', [TestController::class, 'store'])->name('test.store');
+    Route::post('/test', [TestController::class, 'store']);
+
     Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
     Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
 });

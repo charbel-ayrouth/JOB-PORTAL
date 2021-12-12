@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreTestRequest;
 use App\Models\Option;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -24,26 +23,28 @@ class TestController extends Controller
         return view('jobSeeker.test', compact('categories'));
     }
 
-    public function store(StoreTestRequest $request)
+    public function store(Request $request)
     {
-        // \dd($request);
-        $options = Option::find(array_values($request->input('questions')));
-
-        $result = auth()->user()->userResults()->create([
+        // dd($request);
+        //        $request->validate([
+        //            'questions'     => [
+        //                'required', 'array'
+        //            ],
+        //            'questions.*' => [
+        //                'required', 'integer', 'exists:options,id'
+        //            ],
+        //        ]);
+        $options = Option::find(\array_values($request->input('questions')));
+        $result = \auth()->user()->userResults()->create([
             'total_points' => $options->sum('points')
         ]);
-
         $questions = $options->mapWithKeys(function ($option) {
-            return [
-                $option->question_id => [
-                    'option_id' => $option->id,
-                    'points' => $option->points
-                ]
-            ];
+            return [$option->question_id => [
+                'option_id' => $option->id,
+                'points' => $option->points
+            ]];
         })->toArray();
-
         $result->questions()->sync($questions);
-
-        return redirect()->route('result.show', $result->id);
+        return \redirect()->route('result.show', $result->id);
     }
 }

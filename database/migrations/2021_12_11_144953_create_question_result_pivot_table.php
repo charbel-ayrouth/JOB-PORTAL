@@ -13,7 +13,7 @@ class CreateQuestionResultPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_result_pivot', function (Blueprint $table) {
+        Schema::create('question_result', function (Blueprint $table) {
             $table->foreignId('result_id')->constrained()->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
             $table->foreignId('option_id')->constrained()->onDelete('cascade');

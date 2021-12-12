@@ -7,22 +7,23 @@ use App\Notifications\SendResultsPdfNotification;
 use App\Models\Result;
 use Illuminate\Support\Facades\File;
 use PDF;
+
 class ResultsController extends Controller
 {
-   /* public function show($result_id)
+    public function show($result_id)
     {
         $result = Result::whereHas('user', function ($query) {
-                $query->whereId(auth()->id());
-            })->findOrFail($result_id);
-        
-        return view('client.results', compact('result'));
+            $query->whereId(auth()->id());
+        })->findOrFail($result_id);
+
+        return view('jobSeeker.results', compact('result'));
     }
 
     public function send($result_id)
     {
         $result = Result::whereHas('user', function ($query) {
-                $query->whereId(auth()->id());
-            })->findOrFail($result_id);
+            $query->whereId(auth()->id());
+        })->findOrFail($result_id);
         $filename = $result->id . '.pdf';
         $pdf = PDF::loadView('client.pdf', compact('result'));
         $pdf->save(storage_path($filename));
@@ -31,5 +32,5 @@ class ResultsController extends Controller
         File::delete(storage_path($filename));
 
         return redirect()->route('client.results.show', $result->id)->withStatus('Your test result has been sent successfully!');
-    }*/
+    }
 }

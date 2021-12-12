@@ -1,54 +1,60 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Quiz;
+use App\Models\User;
+use App\Models\Job;
 
 use App\Models\Category;
 use App\Http\Requests\StoreTestRequest;
 use App\Models\Option;
-use App\Models\User;
-use App\Models\Quiz;
-use App\Models\Job;
-
 use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
-    /*public function index()
+    public function index()
     {
         $categories = Category::with(['categoryQuestions' => function ($query) {
-                $query->inRandomOrder()
-                    ->with(['questionOptions' => function ($query) {
-                        $query->inRandomOrder();
-                    }]);
-            }])
+            $query->inRandomOrder()
+                ->with(['questionOptions' => function ($query) {
+                    $query->inRandomOrder();
+                }]);
+        }])
             ->whereHas('categoryQuestions')
             ->get();
-
-        return view('client.test', compact('categories'));
+        // \dd($categories);
+        return view('jobSeeker.test', compact('categories'));
     }
 
-    public function store(StoreTestRequest $request)
+    public function store(Request $request)
     {
-        $options = Option::find(array_values($request->input('questions')));
-
-        $result = auth()->user()->userResults()->create([
+        // dd($request);
+        //        $request->validate([
+        //            'questions'     => [
+        //                'required', 'array'
+        //            ],
+        //            'questions.*' => [
+        //                'required', 'integer', 'exists:options,id'
+        //            ],
+        //        ]);
+        $options = Option::find(\array_values($request->input('questions')));
+        $result = \auth()->user()->userResults()->create([
             'total_points' => $options->sum('points')
         ]);
-
         $questions = $options->mapWithKeys(function ($option) {
             return [$option->question_id => [
-                        'option_id' => $option->id,
-                        'points' => $option->points
-                    ]
-                ];
-            })->toArray();
-
+                'option_id' => $option->id,
+                'points' => $option->points
+            ]];
+        })->toArray();
         $result->questions()->sync($questions);
+        return \redirect()->route('result.show', $result->id);
+    }
 
-        return redirect()->route('client.results.show', $result->id);
-    }*/
 
-    public function index($uid,$jobid)
+    //new
+//----------------the name of this function must be changed here and in the route
+   /* public function index($uid,$jobid)
 
     {
         $user = User::find($uid);
@@ -58,9 +64,7 @@ class TestController extends Controller
             'user' => $user,
         ]);
         
-    }
-
-
+    }*/
     public function createQuiz(Request $request, $jobid,$uid)
     {
         //$user = User::find(auth()->id());

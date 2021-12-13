@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\User;
@@ -45,8 +46,7 @@ class AuthController extends Controller
             $user = User::find(auth()->id());
             if ($user->email_verified_at != null) {
                 if ($user->role_id == 1) {
-                    // return redirect()->route('');
-                    dd('hi');
+                    return \redirect()->route('users.index');
                 } else if ($user->role_id == 2) {
                     // return redirect()->route('');
                     return redirect()->route('homepage_js');
@@ -68,9 +68,9 @@ class AuthController extends Controller
         $user = new User();
         $request->validate([
             'name' => 'required|unique:users,name|max:255',
-            'email'=> 'required|unique:users,email|Email',
+            'email' => 'required|unique:users,email|Email',
             'password' => 'required|confirmed|between:8,255',
-            'phoneNumber'=> 'required',
+            'phoneNumber' => 'required',
             'countrySelected' => 'required|String',
             'city' => 'required|String',
             'gender' => 'required'
@@ -98,18 +98,16 @@ class AuthController extends Controller
         $user->save();
         if ($user != null) {
             Mail::to($request->email)->send(new AuthMail(['name' => $user->name, 'verificationToken' => $user->VerificationToken]));
-            if($user->role_id == 2)
-            {
-               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
-            }else if($user->role_id == 3){
+            if ($user->role_id == 2) {
+                return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
+            } else if ($user->role_id == 3) {
                 return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-success', 'Your Account Has Been Created Please Check Email For Verification Link!'));
             }
         } else {
             return redirect()->back()->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
-            if($user->role_id == 2)
-            {
-               return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
-            }else if($user->role_id == 3){
+            if ($user->role_id == 2) {
+                return redirect()->route('LoginPageSeeker')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
+            } else if ($user->role_id == 3) {
                 return redirect()->route('LoginPageRecruiter')->with(session()->flash('alert-danger', 'Something Went Wrong! Please Try Again!'));
             }
         }
@@ -145,6 +143,4 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
-
-
 }

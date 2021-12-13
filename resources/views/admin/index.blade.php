@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <title>Dashboard</title>
-</head>
+@extends('layouts.tailwind')
+@include('layouts.header')
 
 <body>
     <div class=" overflow-scroll my-30 flex items-center justify-center" style="background: #edf2f7;">

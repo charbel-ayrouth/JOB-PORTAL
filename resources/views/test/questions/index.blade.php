@@ -6,7 +6,7 @@
             <div class="flex flex-col mt-20">
                 <div class="flex justify-between">
                     <h2 class="font-bold text-2xl">Test Categories</h2>
-                    <a href="/jobtest/{{ $category_id }}/category/create"
+                    <a href="/jobtest/{{ $category_id }}/question/create"
                         class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Create
                         a Question</a>
                 </div>

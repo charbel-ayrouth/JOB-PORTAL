@@ -12,20 +12,20 @@ class OptionsController extends Controller
 {
     public function index($id)
     {
-        $options = Option::where('question_id',$id)->get();
-        return view('test.options.index', ['options'=>$options,'question_id'=>$id]);
+        $options = Option::where('question_id', $id)->get();
+        return view('test.options.index', ['options' => $options, 'question_id' => $id]);
     }
 
     public function create($id)
     {
-        $options = Option::where('question_id',$id)->get();
-        return view('test.options.create',  ['options'=>$options,'question_id'=>$id]);
+        $options = Option::where('question_id', $id)->get();
+        return view('test.options.create',  ['options' => $options, 'question_id' => $id]);
     }
 
     public function store(Request $request)
     {
         $option = Option::create($request->all());
-        return redirect()->route('test.options.index')->with('id',$request->question_id);
+        return redirect()->route('option.index', ['id' => $request->question_id]);
     }
 
     public function edit(Option $option)

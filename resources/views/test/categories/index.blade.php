@@ -36,6 +36,9 @@
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $category->JobTitle }}</td>
                                     </td>
                                     <td class="py-4 px-6 border-b border-grey-light">
+                                        <a href="{{ route('question.index', ['id' => $category->cid]) }}"
+                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View
+                                            question</a>
                                         <a href="{{ route('question.create', ['id' => $category->cid]) }}"
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">Add
                                             question</a>

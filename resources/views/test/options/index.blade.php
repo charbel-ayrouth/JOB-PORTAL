@@ -6,7 +6,7 @@
             <div class="flex flex-col mt-20">
                 <div class="flex justify-between">
                     <h2 class="font-bold text-2xl">question option</h2>
-                    <a href="{{ route('option.create', ['id' => $option->question_id]) }}"
+                    <a href="{{ route('option.create', ['id' => $question_id]) }}"
                         class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Create
                         an Option</a>
                 </div>
@@ -35,10 +35,6 @@
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $option->option_text }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $option->points }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View</a>
                                         <form action="" method="post" class="inline">
                                             @csrf
                                             @method('delete')

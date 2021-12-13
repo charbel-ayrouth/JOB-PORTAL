@@ -31,10 +31,9 @@
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $question->id }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $question->question_text }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View</a>
+                                        <a href="{{ route('option.index', ['id' => $question->id]) }}"
+                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View
+                                            options</a>
                                         <form
                                             action="{{ route('question.destroy', [
                                                 'id' => $category_id,

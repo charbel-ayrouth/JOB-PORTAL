@@ -3,7 +3,7 @@
 @section('content')
     <div class="w-1/3 mx-auto my-30" style=" background: #edf2f7;">
         <div class="flex justify-center">
-            <form action="{{ route('question.store', ['id' => $question_id]) }}" method="post">
+            <form action="{{ route('option.store', ['id' => $question_id]) }}" method="post">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="option_text">

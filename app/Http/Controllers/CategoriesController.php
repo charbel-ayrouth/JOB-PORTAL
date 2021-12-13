@@ -15,7 +15,8 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::join('jobs', 'job_id', '=', 'jobs.id')->get();
+
         return view('test.categories.index', compact('categories'));
     }
 
@@ -32,7 +33,7 @@ class CategoriesController extends Controller
 
     public function edit(Category $category)
     {
-        return view('admin.categories.edit', compact('category'));
+        return view('test.categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)

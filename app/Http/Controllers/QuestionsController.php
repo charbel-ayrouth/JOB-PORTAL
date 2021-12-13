@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Question;
-use Facade\FlareClient\Http\Response;
+//use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
-
+use Symfony\Component\HttpFoundation\Response;
 class QuestionsController extends Controller
 {
     public function index($id)

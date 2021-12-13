@@ -129,6 +129,9 @@ class ProfileController extends Controller
 
     public function profile(Request $request)
     {
+        $request->validate([
+            'pp' => 'required'
+        ]);
         $img = $request->pp;
         $filename = time() . 'IMG.' . $img->extension();
         $img->move(public_path('storage/images'), $filename);

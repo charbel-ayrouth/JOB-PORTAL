@@ -155,13 +155,13 @@
             </label>
           </td>-->
 
-                    <td>
+                    {{--<td>
                         <b>Upload Your Profile Picture:</b>
                         <br><br>
                         <label class="input-file">Choose Picture
                             <input type="file" name="path"/></label>
 
-                    </td>
+                    </td>--}}
                 </tr>
             </table>
             <br><br><br>

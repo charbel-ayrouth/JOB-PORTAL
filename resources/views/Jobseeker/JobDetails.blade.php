@@ -128,7 +128,9 @@
     <div class="div-1">
         <div class="div-2">
             <br>
-            <img width="100" height="100" src="{{ URL('/storage/images/' . $JobDetails->path) }}" alt="image">
+            <a href="/profile/{{ $jobprovider->user_id }}">
+                <img width="100" height="100" src="{{ URL('/storage/images/' . $JobDetails->path) }}" alt="image">
+            </a>
             <h2>{{ $JobDetails->name }}</h2>
             <p><i class="fas fa-envelope"></i>Email: {{ $JobDetails->email }} </p>
             <p>Phone Number: {{ $JobDetails->phoneNumber }}</p>

@@ -18,11 +18,13 @@ class JobInterest extends Mailable
      */
     private $job_provider;
     private $job_seeker;
+    private $result;
     
-    public function __construct($job_provider,$Job_seeker)
+    public function __construct($job_provider,$Job_seeker,$result)
     {
         $this->job_provider = $job_provider;
         $this->job_seeker = $Job_seeker;
+        $this->result = $result;
     }
 
     /**
@@ -32,7 +34,7 @@ class JobInterest extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'),'JACPortal')->markdown('mail.JobInterest-mail')->with('job_seeker',$this->job_seeker)->with('job_provider',$this->job_provider);
+        return $this->from(env('MAIL_USERNAME'),'JACPortal')->markdown('mail.JobInterest-mail')->with('job_seeker',$this->job_seeker)->with('job_provider',$this->job_provider)->with('result',$this->result);
 
     }
 }

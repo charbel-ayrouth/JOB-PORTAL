@@ -12,7 +12,6 @@
 <body class="h-screen flex items-center justify-center" style="background: #edf2f7;">
     <div class="w-6/12 mx-auto  mt-20 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <form action="{{ route('test', ['id' => $id]) }}" method="post">
-            <input type="text" hidden value="id">
             @csrf
             @foreach ($categories as $category)
                 <div class="mb-4">
@@ -34,6 +33,7 @@
                     </div>
                 </div>
             @endforeach
+            <input type="text" hidden name="job_id" value={{ $id }}>
             <button
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">

@@ -136,17 +136,6 @@ class JobSeekerController extends Controller
 
     public function sendEmail(Request $request)
     {
-        set_time_limit(0);
-        $Job_provider = Jobprovider::where('job_providers.jid', '=', $request->jid)
-            ->join('users', 'user_id', '=', 'users.id')
-            ->select('job_providers.jid as jid', 'job_providers.*', 'users.id as uid', 'users.*')
-            ->get()->first();
-        $Job_seeker = JobSeeker::where('user_id', '=', auth()->id())
-            ->join('users', 'user_id', '=', 'users.id')
-            ->select('users.id as uid', 'users.*', 'job_seekers.*')
-            ->get()->first();
-        Mail::to($Job_provider->email)->send(new JobInterest($Job_provider, $Job_seeker));
-        // return redirect()->back()->with('message', 'Email Sent!');
-        return \redirect()->route('test', ['id' => $request->id]);
+        return redirect()->route('test', ['id' => $request->job_id]);
     }
 }

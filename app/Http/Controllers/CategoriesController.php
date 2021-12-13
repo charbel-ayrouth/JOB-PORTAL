@@ -16,6 +16,7 @@ class CategoriesController extends Controller
     {
         $categories = Category::join('jobs', 'job_id', '=', 'jobs.id')
             ->where('job_id', $id)
+            ->select('categories.id as cid', 'categories.*', 'jobs.id as jid', 'jobs.*')
             ->get();
 
         return view('test.categories.index', [

@@ -15,10 +15,9 @@ class QuestionsController extends Controller
         return view('test.questions.index', compact('questions'));
     }
 
-    public function create()
+    public function create($id)
     {
-        $categories = Category::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-        return view('test.questions.create', compact('categories'));
+        return view('test.questions.create', ['category_id' => $id]);
     }
 
     public function store(Request $request)

@@ -11,7 +11,7 @@ use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
@@ -50,7 +50,7 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     Route::resource('/jobtest/{id}/category', CategoriesController::class);
     Route::resource('/jobtest/{id}/question', QuestionsController::class);
     Route::resource('/jobtest/{id}/option', OptionsController::class);
-    Route::resource('/jobtest/{id}/result', ResultsController::class);
+    Route::resource('/jobtest/{id}/result', ResultController::class);
 
 
     Route::get('/question/{}', function () {
@@ -70,8 +70,8 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::get('/test', [TestController::class, 'index'])->name('test');
     Route::post('/test', [TestController::class, 'store']);
 
-    Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
-    Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
+    // Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
+    // Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
 });
 
 Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:admin'], function () {

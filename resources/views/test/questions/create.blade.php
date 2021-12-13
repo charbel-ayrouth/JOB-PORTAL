@@ -1,47 +1,20 @@
-@extends('layouts.admin')
+@extends('layouts.tailwind')
+@include('layouts.header')
 @section('content')
-
-<div class="card">
-    <div class="card-header">
-        {{ trans('global.create') }} {{ trans('cruds.question.title_singular') }}
+    <div class="w-1/3 mx-auto my-30" style=" background: #edf2f7;">
+        <div class="flex justify-center">
+            <form action="/jobtest/{{ $category_id }}/question" method="post">
+                @csrf
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="question_text">
+                    Question
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    type="text" name="question_text" id="question_text">
+                <input type="text" name="category_id" hidden value="{{ $category_id }}">
+                <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+            </form>
+        </div>
     </div>
-
-    <div class="card-body">
-        <form method="POST" action="{{ route("admin.questions.store") }}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label class="required" for="category_id">{{ trans('cruds.question.fields.category') }}</label>
-                <select class="form-control select2 {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category_id" id="category_id" required>
-                    @foreach($categories as $id => $category)
-                        <option value="{{ $id }}" {{ old('category_id') == $id ? 'selected' : '' }}>{{ $category }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('category_id'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category_id') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.question.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label class="required" for="question_text">{{ trans('cruds.question.fields.question_text') }}</label>
-                <textarea class="form-control {{ $errors->has('question_text') ? 'is-invalid' : '' }}" name="question_text" id="question_text" required>{{ old('question_text') }}</textarea>
-                @if($errors->has('question_text'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('question_text') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.question.fields.question_text_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <button class="btn btn-danger" type="submit">
-                    {{ trans('global.save') }}
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-
 @endsection

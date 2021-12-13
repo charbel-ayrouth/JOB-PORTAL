@@ -31,15 +31,14 @@
                         <tbody>
                             @foreach ($categories as $key => $category)
                                 <tr class="hover:bg-grey-lighter">
-                                    <td class="py-4 px-6 border-b border-grey-light">{{ $category->id }}</td>
+                                    <td class="py-4 px-6 border-b border-grey-light">{{ $category->cid }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $category->name }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $category->JobTitle }}</td>
                                     </td>
                                     <td class="py-4 px-6 border-b border-grey-light">
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
-                                        <a href=""
-                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View</a>
+                                        <a href="{{ route('question.create', ['id' => $category->cid]) }}"
+                                            class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">Add
+                                            question</a>
                                         <form action="" method="post" class="inline">
                                             @csrf
                                             @method('delete')

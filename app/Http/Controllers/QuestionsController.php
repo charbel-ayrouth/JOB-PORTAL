@@ -23,7 +23,7 @@ class QuestionsController extends Controller
     public function store(Request $request)
     {
         $question = Question::create($request->all());
-        return redirect()->route('test.questions.index');
+        return redirect()->route('question.index', ['id' => $request->category_id]);
     }
 
     public function edit(Question $question)

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Auth\Passwords\CanResetPassword;
+use App\Models\Result;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -60,5 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function Location()
     {
         return $this->hasOne(Locations::class);
+    }
+
+
+    //new for test
+    public function userResults()
+    {
+        return $this->hasMany(Result::class, 'user_id', 'id');
+        // return $this->hasOne(Result::class, 'user_id', 'id');
     }
 }

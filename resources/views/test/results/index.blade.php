@@ -1,18 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.test')
 @section('content')
-@can('result_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route("admin.results.create") }}">
-                {{ trans('global.add') }} {{ trans('cruds.result.title_singular') }}
-            </a>
-        </div>
-    </div>
-@endcan
 <div class="card">
-    <div class="card-header">
-        {{ trans('cruds.result.title_singular') }} {{ trans('global.list') }}
-    </div>
 
     <div class="card-body">
         <div class="table-responsive">

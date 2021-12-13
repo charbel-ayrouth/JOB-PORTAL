@@ -38,15 +38,6 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     Route::post('/JobProviderEmail', [JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
 
-    Route::get('/jobtest/{id}/categories', [CategoriesController::class, 'index']);
-
-
-    //new
-    // Route::get('/Quiz/{uid}/{job_id}', [TestController::class, 'index'])->name('Quiz');
-    // Route::post('/addQuiz/{uid}/{job_id}', [TestController::class, 'createQuiz']);
-    // Route::get('/question/{uid}/{job_id}/{quiz_id}', [TestController::class, 'index'])->name('Quiz');
-    // Route::resource('/category',[CategoriesController::class]);
-
     Route::resource('/jobtest/{id}/category', CategoriesController::class);
     Route::resource('/jobtest/{id}/question', QuestionsController::class);
     Route::resource('/jobtest/{id}/option', OptionsController::class);

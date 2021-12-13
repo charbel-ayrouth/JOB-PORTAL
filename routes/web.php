@@ -45,6 +45,7 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     // Route::get('/Quiz/{uid}/{job_id}', [TestController::class, 'index'])->name('Quiz');
     // Route::post('/addQuiz/{uid}/{job_id}', [TestController::class, 'createQuiz']);
     // Route::get('/question/{uid}/{job_id}/{quiz_id}', [TestController::class, 'index'])->name('Quiz');
+    // Route::resource('/category',[CategoriesController::class]);
 
     Route::resource('/jobtest/{id}/category', CategoriesController::class);
     Route::resource('/jobtest/{id}/question', QuestionsController::class);

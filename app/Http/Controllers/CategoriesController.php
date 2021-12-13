@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Category;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyCategoryRequest;
 use App\Http\Requests\StoreCategoryRequest;
@@ -13,9 +13,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CategoriesController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $categories = Category::all();
+        $categories = Category::where('job_id','=',$id)
+        ->join('jobs','job_id','=','jobs.id')->get();
 
         return view('test.categories.index', compact('categories'));
     }

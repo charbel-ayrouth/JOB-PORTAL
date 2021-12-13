@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.test')
 @section('content')
 
 <div class="card">
@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <form method="POST" action="{{ route("admin.categories.store") }}" enctype="multipart/form-data">
+        <form method="POST" action="/jobtest/2/category" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.category.fields.name') }}</label>

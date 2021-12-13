@@ -7,9 +7,12 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DownloadFilesController;
 use App\Http\Controllers\JobProviderController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ResultsController;
+use App\Http\Controllers\ResultController;
 use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
@@ -36,15 +39,11 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     Route::post('/JobProviderEmail', [JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
 
-    Route::get('/jobtest/{id}/categories', [CategoriesController::class, 'index']);
+    Route::resource('/jobtest/{id}/category', CategoriesController::class);
+    Route::resource('/jobtest/{id}/question', QuestionsController::class);
+    Route::resource('/jobtest/{id}/option', OptionsController::class);
+    Route::resource('/jobtest/{id}/result', ResultController::class);
 
-
-    //new
-    // Route::get('/Quiz/{uid}/{job_id}', [TestController::class, 'index'])->name('Quiz');
-    // Route::post('/addQuiz/{uid}/{job_id}', [TestController::class, 'createQuiz']);
-    // Route::get('/question/{uid}/{job_id}/{quiz_id}', [TestController::class, 'index'])->name('Quiz');
-    Route::resource('/category',[CategoriesController::class]);
-    
 
     Route::get('/question/{}', function () {
         return view('JobProvider.question');
@@ -63,8 +62,8 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::get('/test', [TestController::class, 'index'])->name('test');
     Route::post('/test', [TestController::class, 'store']);
 
-    Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
-    Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
+    Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('results.show');
+    Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('results.send');
 });
 
 Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:admin'], function () {
@@ -82,7 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profile/{id}/edit/job/{jid}', [ProfileController::class, 'jobEdit']);
     Route::put('/profile/{id}/edit/job/{jid}', [ProfileController::class, 'jobUpdate']);
-
+    
     Route::get('/profile/{id}/create/job', [ProfileController::class, 'jobCreate']);
     Route::post('/profile/{id}/create/job', [ProfileController::class, 'jobStore']);
 

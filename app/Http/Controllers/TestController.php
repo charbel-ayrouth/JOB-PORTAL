@@ -1,20 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Job;
 use App\Models\Quiz;
 use App\Models\User;
-use App\Models\Job;
 
-use App\Models\Category;
-use App\Http\Requests\StoreTestRequest;
 use App\Models\Option;
+use App\Models\Result;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTestRequest;
 
 class TestController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $categories = Category::with(['categoryQuestions' => function ($query) {
+        $categories = Category::Where('job_id', $id)->with(['categoryQuestions' => function ($query) {
             $query->inRandomOrder()
                 ->with(['questionOptions' => function ($query) {
                     $query->inRandomOrder();
@@ -22,8 +24,7 @@ class TestController extends Controller
         }])
             ->whereHas('categoryQuestions')
             ->get();
-        // \dd($categories);
-        return view('jobSeeker.test', compact('categories'));
+        return view('jobSeeker.test', ['categories' => $categories, 'id' => $id]);
     }
 
     public function store(Request $request)
@@ -48,13 +49,22 @@ class TestController extends Controller
             ]];
         })->toArray();
         $result->questions()->sync($questions);
-        return \redirect()->route('result.show', $result->id);
+        return \redirect()->route('result.appear', $result->id);
+    }
+
+    public function show($result_id)
+    {
+        $result = Result::whereHas('user', function ($query) {
+            $query->whereId(auth()->id());
+        })->findOrFail($result_id);
+
+        return view('jobSeeker.results', compact('result'));
     }
 
 
     //new
-//----------------the name of this function must be changed here and in the route
-   /* public function index($uid,$jobid)
+    //----------------the name of this function must be changed here and in the route
+    /* public function index($uid,$jobid)
 
     {
         $user = User::find($uid);
@@ -63,9 +73,9 @@ class TestController extends Controller
             'job' => $job,
             'user' => $user,
         ]);
-        
+
     }*/
-    public function createQuiz(Request $request, $jobid,$uid)
+    public function createQuiz(Request $request, $jobid, $uid)
     {
         //$user = User::find(auth()->id());
         //$job=$jobid;
@@ -77,25 +87,25 @@ class TestController extends Controller
             'Job_id' => $jobid,
             'quiztitle' => $quiztitle,
             'nbquest' => $nbquestion,
-            
+
         ]);*/
-        $c=new Category;
-        $q=new Quiz;
-       
-        $q->quiztitle=$request->input('quiztitle');
-        $q->Jobprovider_id=$uid;
-        $q->Job_id=$jobid;
-        $q->nbquest=$request->input('nbquest');
+        $c = new Category;
+        $q = new Quiz;
+
+        $q->quiztitle = $request->input('quiztitle');
+        $q->Jobprovider_id = $uid;
+        $q->Job_id = $jobid;
+        $q->nbquest = $request->input('nbquest');
         $q->save();
 
 
 
 
-//$quiz=Quiz::where('quiztitle','=',$quiztitle);
-$quiz=Quiz::where('Job_id','=',$jobid);
+        //$quiz=Quiz::where('quiztitle','=',$quiztitle);
+        $quiz = Quiz::where('Job_id', '=', $jobid);
 
-        $c->name=$request->input('category');
-        $c->quiz_id=$quiz->id;
+        $c->name = $request->input('category');
+        $c->quiz_id = $quiz->id;
         $c->save();
         /*Category::Create([
             'name'=>$category,

@@ -11,7 +11,8 @@
 
 <body class="h-screen flex items-center justify-center" style="background: #edf2f7;">
     <div class="w-6/12 mx-auto  mt-20 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <form action="{{ route('test') }}" method="post">
+        <form action="{{ route('test', ['id' => $id]) }}" method="post">
+            <input type="text" hidden value="id">
             @csrf
             @foreach ($categories as $category)
                 <div class="mb-4">

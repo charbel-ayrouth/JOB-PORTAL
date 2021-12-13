@@ -146,6 +146,7 @@ class JobSeekerController extends Controller
             ->select('users.id as uid', 'users.*', 'job_seekers.*')
             ->get()->first();
         Mail::to($Job_provider->email)->send(new JobInterest($Job_provider, $Job_seeker));
-        return redirect()->back()->with('message', 'Email Sent!');
+        // return redirect()->back()->with('message', 'Email Sent!');
+        return \redirect()->route('test', ['id' => $request->id]);
     }
 }

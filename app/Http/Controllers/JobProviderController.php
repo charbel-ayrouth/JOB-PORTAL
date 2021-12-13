@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Locations;
 use Illuminate\Support\Facades\Mail;
+use Mockery\Undefined;
 
 class JobProviderController extends Controller
 {
@@ -30,7 +31,7 @@ class JobProviderController extends Controller
         // $request->path->move(public_path('storage/images'), $filename);
         // User::find(auth()->id())->update(['path' => $filename]);
         $jp->save();
-        return redirect()->route('JobProviderHome');
+        return redirect()->route('jpHome');
     }
     public function home()
     {

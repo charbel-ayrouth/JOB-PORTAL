@@ -38,7 +38,7 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
         $category = Category::create($request->all());
         return redirect('jobtest/' . $request->job_id . '/category');
@@ -50,7 +50,7 @@ class CategoriesController extends Controller
         return view('test.categories.edit', compact('category'));
     }
 
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
         $category->update($request->all());
 
@@ -62,17 +62,9 @@ class CategoriesController extends Controller
         return view('test.categories.show', compact('category'));
     }
 
-    public function destroy($id)
+    public function destroy($id,Category $category)
     {
-
-        Category::destroy($id);
+        $category->delete();
         return back();
-    }
-
-    public function massDestroy(MassDestroyCategoryRequest $request)
-    {
-        Category::whereIn('id', request('ids'))->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

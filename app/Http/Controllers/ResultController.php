@@ -26,14 +26,14 @@ class ResultController extends Controller
     public function create()
     {
 
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $users = User::all();
 
-        $questions = Question::all()->pluck('question_text', 'id');
+        $questions = Question::all();
 
         return view('test.results.create', compact('users', 'questions'));
     }
 
-    public function store(StoreResultRequest $request)
+    public function store(Request $request)
     {
         $result = Result::create($request->all());
         $result->questions()->sync($request->input('questions', []));
@@ -44,9 +44,9 @@ class ResultController extends Controller
     public function edit(Result $result)
     {
 
-        $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $users = User::all();
 
-        $questions = Question::all()->pluck('question_text', 'id');
+        $questions = Question::all();
 
         $result->load('user', 'questions');
 

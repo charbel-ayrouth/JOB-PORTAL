@@ -41,6 +41,8 @@ span{
     margin-top: 10px;
 }
 .alert{
+    min-width: fit-content;
+    max-width: 100vw;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);

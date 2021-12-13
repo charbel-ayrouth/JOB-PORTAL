@@ -20,12 +20,10 @@ class TestController extends Controller
 {
     public function index($id)
     {
-        $result = Result::where('user_id',auth()->id());
-        // if($result){
-        //     dd('hello');
-        // }else{
-        //     dd('bye');
-        // }
+        $result = Result::where('user_id',auth()->id())->where('job_id',$id)->get()->first();
+        if($result != null){
+            return back()->with('message','You can only do test once!');
+        }
         $categories = Category::Where('job_id', $id)->with(['categoryQuestions' => function ($query) {
             $query->inRandomOrder()
                 ->with(['questionOptions' => function ($query) {
@@ -39,18 +37,10 @@ class TestController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
-        //        $request->validate([
-        //            'questions'     => [
-        //                'required', 'array'
-        //            ],
-        //            'questions.*' => [
-        //                'required', 'integer', 'exists:options,id'
-        //            ],
-        //        ]);
         $options = Option::find(\array_values($request->input('questions')));
         $result = \auth()->user()->userResults()->create([
-            'total_points' => $options->sum('points')
+            'total_points' => $options->sum('points'),
+            'job_id'=>$request->job_id
         ]);
         $questions = $options->mapWithKeys(function ($option) {
             return [$option->question_id => [
@@ -87,33 +77,8 @@ class TestController extends Controller
     }
 
 
-    //new
-    //----------------the name of this function must be changed here and in the route
-    /* public function index($uid,$jobid)
-
-    {
-        $user = User::find($uid);
-        $job = Job::where('id', $jobid)->first();
-        return view('jobProvider.Quiz', [
-            'job' => $job,
-            'user' => $user,
-        ]);
-
-    }*/
     public function createQuiz(Request $request, $jobid, $uid)
     {
-        //$user = User::find(auth()->id());
-        //$job=$jobid;
-        /*$quiztitle = $request->quiztitle;
-        $category = $request->category;
-        $nbquestion=$request->nbquest;*/
-        /*Quiz::Create([
-            'Jobprovider_id' => $uid,
-            'Job_id' => $jobid,
-            'quiztitle' => $quiztitle,
-            'nbquest' => $nbquestion,
-
-        ]);*/
         $c = new Category;
         $q = new Quiz;
 
@@ -122,20 +87,11 @@ class TestController extends Controller
         $q->Job_id = $jobid;
         $q->nbquest = $request->input('nbquest');
         $q->save();
-
-
-
-
-        //$quiz=Quiz::where('quiztitle','=',$quiztitle);
         $quiz = Quiz::where('Job_id', '=', $jobid);
 
         $c->name = $request->input('category');
         $c->quiz_id = $quiz->id;
         $c->save();
-        /*Category::Create([
-            'name'=>$category,
-            'quiz_id'=>$quiz->id,
-        ]);*/
 
         return redirect()->route('Quiz');
     }

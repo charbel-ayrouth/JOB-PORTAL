@@ -14,6 +14,7 @@ class Result extends Model
     protected $fillable = [
         'total_points',
         'user_id',
+        'job_id'
     ];
 
     public function user()
@@ -24,5 +25,9 @@ class Result extends Model
     public function questions()
     {
         return $this->belongsToMany(Question::class)->withPivot(['option_id', 'points']);
+    }
+    public function jobs()
+    {
+        return $this->hasMany(Job::class);
     }
 }

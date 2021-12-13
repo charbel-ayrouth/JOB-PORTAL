@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +49,7 @@ class ResetPasswordController extends Controller
                 event(new PasswordReset($user));
             }
         );
+        $user = User::where('email',$request->email)->get()->first();
 
         return $status === Password::PASSWORD_RESET
             ? ($user->role_id == 2? redirect()->route('LoginPageSeeker')->with('status', __($status)) : redirect()->route('LoginPageRecruiter')->with('status', __($status)) )

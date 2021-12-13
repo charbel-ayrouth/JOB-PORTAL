@@ -38,7 +38,6 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     route::get('/JobseekerDetails/{jid}', [JobProviderController::class, 'seekerDetails'])->name('jobSeekerDetails');
     Route::post('/JobProviderEmail', [JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
-
     Route::resource('/jobtest/{id}/category', CategoriesController::class);
     Route::resource('/jobtest/{id}/question', QuestionsController::class);
     Route::resource('/jobtest/{id}/option', OptionsController::class);

@@ -19,6 +19,7 @@
                     <div>
                         @foreach ($category->categoryQuestions as $question)
                             <div class="mt-3 font-medium">{{ $question->question_text }}</div>
+                            <input type="text" hidden value={{ $id }} name="job_id">
                             <input type="hidden" name="questions[{{ $question->id }}]">
                             @foreach ($question->questionOptions as $option)
                                 <div class="mb-4 mt-1">

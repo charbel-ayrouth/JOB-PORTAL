@@ -10,22 +10,22 @@ use Symfony\Component\HttpFoundation\Response;
 
 class OptionsController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        $options = Option::all();
-        return view('test.options.index', compact('options'));
+        $options = Option::where('question_id',$id)->get();
+        return view('test.options.index', ['options'=>$options,'question_id'=>$id]);
     }
 
-    public function create()
+    public function create($id)
     {
-        $questions = Question::all()->pluck('question_text', 'id')->prepend(trans('global.pleaseSelect'), '');
-        return view('test.options.create', compact('questions'));
+        $options = Option::where('question_id',$id)->get();
+        return view('test.options.create',  ['options'=>$options,'question_id'=>$id]);
     }
 
     public function store(Request $request)
     {
         $option = Option::create($request->all());
-        return redirect()->route('test.options.index');
+        return redirect()->route('test.options.index')->with('id',$request->question_id);
     }
 
     public function edit(Option $option)

@@ -12,7 +12,7 @@ class QuestionsController extends Controller
     public function index($id)
     {
         $questions = Question::all();
-        return view('test.questions.index', ['questions'=>$questions,'category_id'=>$id]);
+        return view('test.questions.index', ['questions' => $questions, 'category_id' => $id]);
     }
 
     public function create($id)

@@ -3,53 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $categories = Category::all();
         return view('test.categories.index', compact('categories'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('test.categories.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $category = Category::create($request->all());
         return redirect()->route('test.categories.index');
     }
 
-    public function edit(Category $category)
-    {
-        return view('test.categories.edit', compact('category'));
-    }
-
-    public function update(Request $request, Category $category)
-    {
-        $category->update($request->all());
-        return redirect()->route('test.categories.index');
-    }
-
-    public function show(Category $category)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
         return view('test.categories.show', compact('category'));
     }
 
-    public function destroy(Category $category)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
-        $category->delete();
-        return back();
+        $category = Category::find($id);
+        return view('test.categories.edit', compact('category'));
     }
 
-    public function massDestroy(Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        Category::whereIn('id', request('ids'))->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        $category = Category::find($id);
+        $category->update($request->all());
+        return redirect()->route('test.categories.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Category::destroy($id);   
+        return back();
     }
 }

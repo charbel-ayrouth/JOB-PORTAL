@@ -7,8 +7,8 @@
     use App\Http\Requests\StoreResultRequest;
     use App\Http\Requests\UpdateResultRequest;
     use App\Question;
-    use App\Result;
-    use App\User;
+    use App\Models\Result;
+    use App\Models\User;
     use Gate;
     use Illuminate\Http\Request;
     use Symfony\Component\HttpFoundation\Response;

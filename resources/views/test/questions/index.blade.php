@@ -35,7 +35,12 @@
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
                                         <a href=""
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View</a>
-                                        <form action="{{ route('question.destroy',['question'=>$question]) }}" method="post" class="inline">
+                                        <form
+                                            action="{{ route('question.destroy', [
+                                                'id' => $category_id,
+                                                'question' => $question,
+                                            ]) }}"
+                                            method="post" class="inline">
                                             @csrf
                                             @method('delete')
                                             <button type="submit"

@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ResultController;
+// use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
@@ -58,10 +59,10 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
     Route::post('/JobSeekerEmail', [JobSeekerController::class, 'sendEmail'])->name('JobSeekerEmail');
 
-    Route::get('/test', [TestController::class, 'index'])->name('test');
-    Route::post('/test', [TestController::class, 'store']);
+    Route::get('/test/{id}', [TestController::class, 'index'])->name('test');
+    Route::post('/test/{id}', [TestController::class, 'store']);
 
-    // Route::get('/result/{result_id}', [ResultsController::class, 'show'])->name('result.show');
+    Route::get('/result/{result_id}', [TestController::class, 'show'])->name('result.appear');
     // Route::get('/send/{result_id}', [ResultsController::class, 'send'])->name('result.send');
 });
 

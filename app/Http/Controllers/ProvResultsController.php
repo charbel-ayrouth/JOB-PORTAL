@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\Result;
 use App\Models\User;
-use Facade\FlareClient\Http\Response;
+//use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProvResultsController extends Controller
 {

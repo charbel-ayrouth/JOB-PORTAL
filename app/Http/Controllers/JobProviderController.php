@@ -30,7 +30,9 @@ class JobProviderController extends Controller
         // $request->path->move(public_path('storage/images'), $filename);
         // User::find(auth()->id())->update(['path' => $filename]);
         $jp->save();
-        return redirect()->route('JobProviderHome');
+        //return redirect()->route('JobProviderHome');
+        return redirect()->route('jpHome');
+
     }
     public function home()
     {

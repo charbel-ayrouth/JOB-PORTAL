@@ -8,7 +8,7 @@ If you are interested please free to contact him/her: {{ $job_seeker->email }}.<
     <a href="http://127.0.0.1:8000/downloadCV/{{ $job_seeker->CV }}">Downlad CV</a>
 @endif
 <br>
-@if(Storage::disk('cv')->exists($job_seeker->CoverLetter))
+@if(Storage::disk('cl')->exists($job_seeker->CoverLetter))
     Please Find attached his covr letter.<br>
     <a href="http://127.0.0.1:8000/downloadCV/{{ $job_seeker->CoverLetter }}">Downlad Cover Letter</a>
 @endif

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\country;
 use App\Models\Job;
 use App\Models\JobProvider;
@@ -33,11 +34,13 @@ class ProfileController extends Controller
             $jobProvider = JobProvider::where('user_id', $user->id)->first();
             $Jobprovider_id = $jobProvider->jid;
             $jobs = Job::where('Jobprovider_id', $Jobprovider_id)->get();
+            $categories = Category::all();
             return view('profile.index', [
                 'user' => $user,
                 'location' => $location,
                 'jobProvider' => $jobProvider,
                 'jobs' => $jobs,
+                'categories' => $categories,
             ]);
         }
     }

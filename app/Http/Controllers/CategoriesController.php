@@ -18,19 +18,28 @@ class CategoriesController extends Controller
         $categories = Category::where('job_id','=',$id)
         ->join('jobs','job_id','=','jobs.id')->get();
 
-        return view('test.categories.index', compact('categories'));
+        return view('test.categories.index', [
+            'categories' => $categories,
+            'job_id' => $id
+        ]);
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create($id)
     {
-        return view('test.categories.create');
+        return view('test.categories.create', [
+            'job_id' => $id
+        ]);
     }
 
     public function store(StoreCategoryRequest $request)
     {
         $category = Category::create($request->all());
-
-        return redirect()->route('test.categories.index');
+        return redirect('jobtest/' . $request->job_id . '/category');
     }
 
     public function edit(Category $category)
@@ -51,11 +60,10 @@ class CategoriesController extends Controller
         return view('test.categories.show', compact('category'));
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
 
-        $category->delete();
-
+        Category::destroy($id);
         return back();
     }
 

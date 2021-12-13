@@ -3,9 +3,12 @@
 @section('content')
     <div class="h-screen overflow-scroll my-30 flex justify-center" style="background: #edf2f7;">
         <div class="w-2/3 mx-auto">
-            <div class="flex flex-col">
-                <div>
-                    <h2 class="mt-20 font-bold text-2xl">Test Categories</h2>
+            <div class="flex flex-col mt-20">
+                <div class="flex justify-between">
+                    <h2 class="font-bold text-2xl">Test Categories</h2>
+                    <a href="/jobtest/{{ $job_id }}/category/create"
+                        class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Create
+                        a category</a>
                 </div>
                 <div class="bg-white shadow-md rounded my-6">
                     <table class="text-left w-full border-collapse">
@@ -37,7 +40,7 @@
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-green-500 hover:bg-green-dark no-underline">Edit</a>
                                         <a href=""
                                             class="text-gray-100 font-bold py-1 px-3 rounded text-xs bg-blue-500 hover:bg-blue-dark no-underline">View</a>
-                                        <form action="" method="post" class="inline">
+                                        <form action="/jobtest/{{ $category->job_id }}/category/{{ $category->id }}" method="post" class="inline">
                                             @csrf
                                             @method('delete')
                                             <button type="submit"

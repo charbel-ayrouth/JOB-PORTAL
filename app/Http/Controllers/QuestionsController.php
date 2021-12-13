@@ -45,7 +45,7 @@ class QuestionsController extends Controller
         return view('test.questions.show', compact('question'));
     }
 
-    public function destroy(Question $question)
+    public function destroy($id,Question $question)
     {
         $question->delete();
         return back();

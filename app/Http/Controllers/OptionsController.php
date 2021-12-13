@@ -47,8 +47,9 @@ class OptionsController extends Controller
         return view('test.options.show', compact('option'));
     }
 
-    public function destroy(Option $option)
+    public function destroy($id,Option $option)
     {
+
         $option->delete();
         return back();
     }

@@ -304,7 +304,7 @@
                                                     Delete
                                                 </button>
                                             </form>
-                                            <a href="/jobtest/{{ $job->id }}/categories"
+                                            <a href="{{ route('category.index',['id'=>$job->id])}}"
                                                 class="text-gray-100 font-bold py-1 px-3 rounded text-xs w-27 bg-green-500 hover:bg-green-dark no-underline">View
                                                 Quiz</a>
                                         </div>

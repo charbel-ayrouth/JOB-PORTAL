@@ -35,7 +35,7 @@
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $option->option_text }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">{{ $option->points }}</td>
                                     <td class="py-4 px-6 border-b border-grey-light">
-                                        <form action="" method="post" class="inline">
+                                        <form action="{{ route('option.destroy',['id'=>$question_id,'option'=>$option]) }}" method="post" class="inline">
                                             @csrf
                                             @method('delete')
                                             <button type="submit"

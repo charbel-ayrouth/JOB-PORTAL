@@ -62,10 +62,10 @@ class CategoriesController extends Controller
         return view('test.categories.show', compact('category'));
     }
 
-    public function destroy(Category $category)
+    public function destroy($id)
     {
 
-        $category->delete();
+        Category::destroy($id);
         return back();
     }
 

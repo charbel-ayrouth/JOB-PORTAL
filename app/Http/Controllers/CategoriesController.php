@@ -18,7 +18,10 @@ class CategoriesController extends Controller
             ->where('job_id', $id)
             ->get();
 
-        return view('test.categories.index', compact('categories'));
+        return view('test.categories.index', [
+            'categories' => $categories,
+            'job_id' => $id
+        ]);
     }
 
     /**
@@ -26,9 +29,11 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('test.categories.create');
+        return view('test.categories.create', [
+            'job_id' => $id
+        ]);
     }
 
     /**
@@ -40,7 +45,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         $category = Category::create($request->all());
-        return redirect()->route('test.categories.index');
+        return redirect('jobtest/' . $request->job_id . '/category');
     }
 
     /**

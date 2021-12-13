@@ -30,4 +30,8 @@ class Job extends Model
     {
         return $this->hasOne(JobProvider::class);
     }
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
 }

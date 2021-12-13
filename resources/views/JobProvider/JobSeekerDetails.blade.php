@@ -132,7 +132,8 @@
             <h2>{{ $Job_seeker->name }}</h2>
             <p><i class="fas fa-envelope"></i>Email: {{ $Job_seeker->email }}</p>
             <p>Phone Number: {{ $Job_seeker->phoneNumber }}</p>
-            <p>Location: {{ $Job_seeker->Country }},{{ $Job_seeker->city }}, {{ $Job_seeker->zipCode }},{{ $Job_seeker->Address }}
+            <p>Location: {{ $Job_seeker->Country }},{{ $Job_seeker->city }},
+                {{ $Job_seeker->zipCode }},{{ $Job_seeker->Address }}
             </p>
         </div>
         <div class="div-3">
@@ -140,14 +141,14 @@
             <div class="div-4">
                 <h2>Experience:</h2>
                 <ul>
-                    <li>{{ $Job_seeker->Experience }}</li>
+                    <li>{{ $Job_seeker->experience }}</li>
                 </ul>
             </div>
             <br><br>
             <div class="div-5">
                 <h2>Skills:</h2>
                 <ul>
-                    <li>{{ $Job_seeker->Skills }}</li>
+                    <li>{{ $Job_seeker->skills }}</li>
                 </ul>
             </div>
             <br><br>
@@ -161,11 +162,12 @@
         </div>
     </div>
     <script>
-        var msg = '{{Session::get('message')}}';
-        var exist = '{{Session::has('message')}}';
-        if(exist){
-          alert(msg);
+        var msg = '{{ Session::get('message') }}';
+        var exist = '{{ Session::has('message') }}';
+        if (exist) {
+            alert(msg);
         }
-      </script>
+    </script>
 </body>
+
 </html>

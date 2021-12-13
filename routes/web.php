@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -35,15 +36,18 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     Route::post('/JobProviderEmail', [JobProviderController::class, 'sendEmail'])->name('JobProviderEmail');
     Route::post('/searchSeekers', [JobProviderController::class, 'search']);
 
-    //new
-Route::get('/Quiz/{uid}/{job_id}',[TestController::class, 'index'])->name('Quiz');
-Route::post('/addQuiz/{uid}/{job_id}',[TestController::class, 'createQuiz']);
-Route::get('/question/{uid}/{job_id}/{quiz_id}',[TestController::class, 'index'])->name('Quiz');
+    Route::get('/jobtest/{id}/categories', [CategoriesController::class, 'index']);
 
-Route::get('/question/{}', function () {
-    return view('JobProvider.question');
-});
-//
+
+    //new
+    // Route::get('/Quiz/{uid}/{job_id}', [TestController::class, 'index'])->name('Quiz');
+    // Route::post('/addQuiz/{uid}/{job_id}', [TestController::class, 'createQuiz']);
+    // Route::get('/question/{uid}/{job_id}/{quiz_id}', [TestController::class, 'index'])->name('Quiz');
+
+    Route::get('/question/{}', function () {
+        return view('JobProvider.question');
+    });
+    //
 });
 
 
@@ -52,7 +56,6 @@ Route::group(['middleware' => 'auth', 'middleware' => 'CheckRole:JobSeeker'], fu
     Route::get('/JobseekerAPP', [JobSeekerController::class, 'index'])->name('JobSeekerApp');
     Route::post('/search', [JobSeekerController::class, 'searchjob']);
     Route::post('/JobseekerAPP', [JobSeekerController::class, 'createApplication']);
-    Route::get('/JobDetail/{id}', [JobSeekerController::class, 'jobdetail'])->name('JobDetail');
     Route::post('/JobSeekerEmail', [JobSeekerController::class, 'sendEmail'])->name('JobSeekerEmail');
 
     Route::get('/test', [TestController::class, 'index'])->name('test');
@@ -82,6 +85,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profile/{id}/create/job', [ProfileController::class, 'jobStore']);
 
     Route::delete('/profile/{id}/delete/job/{jid}', [ProfileController::class, 'deleteJob']);
+
+    Route::get('/JobDetail/{id}', [JobSeekerController::class, 'jobdetail'])->name('JobDetail');
 });
 
 
@@ -136,4 +141,3 @@ Route::get('/addQuiz/{uid}/{job_id}',[TestController::class, 'createQuiz']);*/
 Route::get('/options', function () {
     return view('JobProvider.option');
 });
-

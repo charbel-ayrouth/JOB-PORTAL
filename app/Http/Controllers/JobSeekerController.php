@@ -124,13 +124,17 @@ class JobSeekerController extends Controller
     //------------------Job Details--------------
     public function jobdetail($id)
     {
-        $JobDetails = Job::where('jobs.id',$id)
+        $JobDetails = Job::where('jobs.id', $id)
             ->join('job_providers', 'Jobprovider_id', '=', 'job_providers.jid')
             ->join('users', 'job_providers.user_id', '=', 'users.id')
             ->join('locations', 'users.location_id', '=', 'locations.id')
             ->select('jobs.id as job_id', 'jobs.*', 'job_providers.*', 'users.*', 'locations.id as loc_id', 'locations.*')
             ->get()->first();
-        return view('Jobseeker.JobDetails')->with('JobDetails', $JobDetails);
+        $jobprovider = JobProvider::where('jid', $JobDetails->Jobprovider_id)->first();
+        return view('Jobseeker.JobDetails', [
+            'JobDetails' => $JobDetails,
+            'jobprovider' => $jobprovider,
+        ]);
     }
 
     public function sendEmail(Request $request)

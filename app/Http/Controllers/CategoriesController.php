@@ -14,7 +14,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::join('jobs', 'job_id', '=', 'jobs.id')->get();
+
         return view('test.categories.index', compact('categories'));
     }
 

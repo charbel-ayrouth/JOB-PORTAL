@@ -140,14 +140,14 @@
             <div class="div-4">
                 <h2>Experience:</h2>
                 <ul>
-                    <li>{{ $Job_seeker->Experience }}</li>
+                    <li>{{ $Job_seeker->experience }}</li>
                 </ul>
             </div>
             <br><br>
             <div class="div-5">
                 <h2>Skills:</h2>
                 <ul>
-                    <li>{{ $Job_seeker->Skills }}</li>
+                    <li>{{ $Job_seeker->skills }}</li>
                 </ul>
             </div>
             <br><br>

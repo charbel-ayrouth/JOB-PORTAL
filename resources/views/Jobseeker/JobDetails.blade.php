@@ -124,6 +124,7 @@
 @include('layouts.header')
 
 <body>
+    {{ dd($JobDetails) }}
     @csrf
     <div class="div-1">
         <div class="div-2">

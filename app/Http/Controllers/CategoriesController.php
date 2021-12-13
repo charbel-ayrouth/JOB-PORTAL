@@ -12,9 +12,11 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $categories = Category::join('jobs', 'job_id', '=', 'jobs.id')->get();
+        $categories = Category::join('jobs', 'job_id', '=', 'jobs.id')
+            ->where('job_id', $id)
+            ->get();
 
         return view('test.categories.index', compact('categories'));
     }
@@ -86,7 +88,7 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);   
+        Category::destroy($id);
         return back();
     }
 }

@@ -7,7 +7,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DownloadFilesController;
 use App\Http\Controllers\JobProviderController;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\OptionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ResultsController;
 use App\Http\Controllers\TestController;
@@ -43,6 +45,12 @@ Route::group(['middleware' => 'CheckRole:JobProvider'], function () {
     // Route::get('/Quiz/{uid}/{job_id}', [TestController::class, 'index'])->name('Quiz');
     // Route::post('/addQuiz/{uid}/{job_id}', [TestController::class, 'createQuiz']);
     // Route::get('/question/{uid}/{job_id}/{quiz_id}', [TestController::class, 'index'])->name('Quiz');
+
+    Route::resource('/jobtest/{id}/category', CategoriesController::class);
+    Route::resource('/jobtest/{id}/question', QuestionsController::class);
+    Route::resource('/jobtest/{id}/option', OptionsController::class);
+    Route::resource('/jobtest/{id}/result', ResultsController::class);
+
 
     Route::get('/question/{}', function () {
         return view('JobProvider.question');

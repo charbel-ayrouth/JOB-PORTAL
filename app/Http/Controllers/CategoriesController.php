@@ -3,13 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyCategoryRequest;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
-use Gate;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CategoriesController extends Controller
 {
@@ -22,13 +17,13 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        return view('admin.categories.create');
+        return view('test.categories.create');
     }
 
     public function store(Request $request)
     {
         $category = Category::create($request->all());
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('test.categories.index');
     }
 
     public function edit(Category $category)
@@ -39,12 +34,12 @@ class CategoriesController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('test.categories.index');
     }
 
     public function show(Category $category)
     {
-        return view('admin.categories.show', compact('category'));
+        return view('test.categories.show', compact('category'));
     }
 
     public function destroy(Category $category)

@@ -1,91 +1,65 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\MassDestroyResultRequest;
-use App\Http\Requests\StoreResultRequest;
-use App\Http\Requests\UpdateResultRequest;
 use App\Models\Question;
 use App\Models\Result;
 use App\Models\User;
-use Gate;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProvResultsController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('result_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $results = Result::all();
-
-        return view('admin.results.index', compact('results'));
+        return view('test.results.index', compact('results'));
     }
 
     public function create()
     {
-        abort_if(Gate::denies('result_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $questions = Question::all()->pluck('question_text', 'id');
-
-        return view('admin.results.create', compact('users', 'questions'));
+        return view('test.results.create', compact('users', 'questions'));
     }
 
-    public function store(StoreResultRequest $request)
+    public function store(Request $request)
     {
         $result = Result::create($request->all());
         $result->questions()->sync($request->input('questions', []));
-
-        return redirect()->route('admin.results.index');
+        return redirect()->route('test.results.index');
     }
 
     public function edit(Result $result)
     {
-        abort_if(Gate::denies('result_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $users = User::all()->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $questions = Question::all()->pluck('question_text', 'id');
-
         $result->load('user', 'questions');
-
-        return view('admin.results.edit', compact('users', 'questions', 'result'));
+        return view('test.results.edit', compact('users', 'questions', 'result'));
     }
 
-    public function update(UpdateResultRequest $request, Result $result)
+    public function update(Request $request, Result $result)
     {
         $result->update($request->all());
         $result->questions()->sync($request->input('questions', []));
-
-        return redirect()->route('admin.results.index');
+        return redirect()->route('test.results.index');
     }
 
     public function show(Result $result)
     {
-        abort_if(Gate::denies('result_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $result->load('user', 'questions');
-
         return view('admin.results.show', compact('result'));
     }
 
     public function destroy(Result $result)
     {
-        abort_if(Gate::denies('result_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $result->delete();
-
         return back();
     }
 
-    public function massDestroy(MassDestroyResultRequest $request)
+    public function massDestroy(Request $request)
     {
         Result::whereIn('id', request('ids'))->delete();
-
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

@@ -152,13 +152,15 @@
                 </ul>
             </div>
             <br><br>
-            <form action="{{ route('JobSeekerEmail') }}" method="POST">
-                {{-- <form action="{{ route('test', ['id' => $JobDetails->job_id]) }}" method="GET"> --}}
-                @csrf
-                <input type="text" hidden value={{ $JobDetails->job_id }} name="job_id">
-                <input type="text" name="jid" hidden value={{ $JobDetails->jid }}>
-                <button type="submit" class="btn btn1">Apply For Job</button>
-            </form>
+            @if (auth()->user()->role_id == 2)
+                <form action="{{ route('JobSeekerEmail') }}" method="POST">
+                    {{-- <form action="{{ route('test', ['id' => $JobDetails->job_id]) }}" method="GET"> --}}
+                    @csrf
+                    <input type="text" hidden value={{ $JobDetails->job_id }} name="job_id">
+                    <input type="text" name="jid" hidden value={{ $JobDetails->jid }}>
+                    <button type="submit" class="btn btn1">Apply For Job</button>
+                </form>
+            @endif
         </div>
         <script>
             var msg = '{{ Session::get('message') }}';
